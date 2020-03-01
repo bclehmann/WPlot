@@ -13,6 +13,9 @@
     <Compile Update="PlotSettingsDialog.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WindowSettingsDialog.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="FrameSettingsDialog.xaml">
@@ -28,6 +31,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="SignalDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WindowSettingsDialog.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

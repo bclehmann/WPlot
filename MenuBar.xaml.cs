@@ -106,5 +106,20 @@ namespace Where1.WPlot
 			mainWindow.logAxis = dlg.logAxis.IsChecked==true; //It is nullable
 			mainWindow.RefreshTitleAndAxis();
 		}
+
+		private void WindowSettings_Click(object sender, RoutedEventArgs e) {
+			WindowSettingsDialog dlg = new WindowSettingsDialog();
+			dlg.ShowDialog();
+
+			MainWindow mainWindow = (MainWindow)App.Current.MainWindow;
+			double xMin, xMax, yMin, yMax;
+			double.TryParse(dlg.xMin.Text, out xMin);
+			double.TryParse(dlg.xMax.Text, out xMax);
+			double.TryParse(dlg.yMin.Text, out yMin);
+			double.TryParse(dlg.yMax.Text, out yMax);
+
+			mainWindow.plotFrame.plt.Axis(xMin,xMax,yMin,yMax);
+			mainWindow.plotFrame.Render();
+		}
 	}
 }

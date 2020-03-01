@@ -22,6 +22,7 @@
 				</MenuItem>
 				<TextBlock Name="statusMessage">No file loaded</TextBlock>
 				<MenuItem Header="Plot Settings" Click="FrameSettings_Click"></MenuItem>
+				<MenuItem Header="Window" Click="WindowSettings_Click"/>
 				<MenuItem Header="Clear" Click="ClearPlot_Click"></MenuItem>
 			</Menu>
 		</DockPanel>
