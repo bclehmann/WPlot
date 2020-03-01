@@ -35,6 +35,9 @@
 			<Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" Grid.ColumnSpan="2" HorizontalAlignment="Left" Width="87">Draw line:</Label>
 			<CheckBox x:Name="shouldDrawLine" IsChecked="True" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,5,0,0"></CheckBox>
 
+			<Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Top">Plot Name:</Label>
+			<TextBox TextChanged="colourTextBox_TextChanged" Grid.Row="2" Grid.Column="1" Name="plotNameTextBox" VerticalAlignment="Top" Margin="0,5,0,0">
+			</TextBox>
 		</Grid>
 
 		<Button Click="OKButton_Click" VerticalAlignment="Bottom">OK</Button>

@@ -69,7 +69,7 @@ namespace Where1.WPlot
 					case PlotType.scatter:
 						double[] xs = ((double[][])curr.data)[0];
 						double[] ys = ((double[][])curr.data)[1];
-						plotFrame.plt.PlotScatter(xs, ys, curr.drawSettings.colour, curr.drawSettings.drawLine ? 1 : 0);
+						plotFrame.plt.PlotScatter(xs, ys, curr.drawSettings.colour, curr.drawSettings.drawLine ? 1 : 0, label: curr.drawSettings.label);
 						break;
 					case PlotType.signal:
 						object sampleRate = 100;
@@ -77,10 +77,11 @@ namespace Where1.WPlot
 						object xOffset = 0;
 						curr.metaData.TryGetValue("xOffset", out xOffset);
 						//SignalConst is faster, and they can't change the data anyways
-						plotFrame.plt.PlotSignalConst((double[])curr.data, (double)sampleRate, (double)xOffset, color: curr.drawSettings.colour, lineWidth: curr.drawSettings.drawLine ? 1 : 0);
+						plotFrame.plt.PlotSignalConst((double[])curr.data, (double)sampleRate, (double)xOffset, color: curr.drawSettings.colour, lineWidth: curr.drawSettings.drawLine ? 1 : 0, label: curr.drawSettings.label);
 						break;
 				}
 			}
+			plotFrame.plt.Legend();
 			plotFrame.Render();
 		}
 

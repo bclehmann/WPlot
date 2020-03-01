@@ -33,6 +33,7 @@ namespace Where1.WPlot
 			drawSettings.colour = settingsDialog.plotColour;
 			drawSettings.drawLine = settingsDialog.drawLine;
 			drawSettings.type = type;
+			drawSettings.label = settingsDialog.plotNameTextBox.Text;
 
 
 			Dictionary<string, object> metadata = new Dictionary<string, object>();
@@ -78,7 +79,7 @@ namespace Where1.WPlot
 			}
 		}
 
-		private void PlotSettings_Click(object sender, RoutedEventArgs e)
+		private void FrameSettings_Click(object sender, RoutedEventArgs e)
 		{
 			FrameSettingsDialog dlg = new FrameSettingsDialog();
 			MainWindow mainWindow = (MainWindow)App.Current.MainWindow;
