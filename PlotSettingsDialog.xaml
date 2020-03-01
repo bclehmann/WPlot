@@ -4,12 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Where1.WPlot"
-        mc:Ignorable="d"
+		xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+		mc:Ignorable="d"
 		Topmost="True"
         Title="Plot Settings" Height="350" Width="400">
 
 	<Window.Resources>
 		<Color x:Key="colour"/>
+		<Visibility x:Key="scatterSettingsVisibility" />
 	</Window.Resources>
 
 	<StackPanel>
@@ -35,8 +37,14 @@
 			<Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" Grid.ColumnSpan="2" HorizontalAlignment="Left" Width="87">Draw line:</Label>
 			<CheckBox x:Name="shouldDrawLine" IsChecked="True" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,5,0,0"></CheckBox>
 
-			<Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Top">Plot Name:</Label>
-			<TextBox TextChanged="colourTextBox_TextChanged" Grid.Row="2" Grid.Column="1" Name="plotNameTextBox" VerticalAlignment="Top" Margin="0,5,0,0">
+			<Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Top" Name="markerTypeLabel" Visibility="{DynamicResource scatterSettingsVisibility}" >Marker Type:</Label>
+			<ComboBox Grid.Row="2" Grid.Column="1" x:Name="markerTypeComboBox" Visibility="{DynamicResource scatterSettingsVisibility}">
+				<ComboBoxItem IsSelected="True">Filled Circle</ComboBoxItem>
+				<ComboBoxItem>None</ComboBoxItem>
+			</ComboBox>
+
+			<Label Grid.Row="3" Grid.Column="0" VerticalAlignment="Top">Plot Name:</Label>
+			<TextBox TextChanged="colourTextBox_TextChanged" Grid.Row="3" Grid.Column="1" Name="plotNameTextBox" VerticalAlignment="Top" Margin="0,5,0,0">
 			</TextBox>
 		</Grid>
 

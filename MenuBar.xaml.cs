@@ -11,29 +11,41 @@ namespace Where1.WPlot
 	{
 		private void LoadCSVSeries_Click(object sender, RoutedEventArgs e)
 		{
-			SettingsDialog settingsDialog = new SettingsDialog();
+			string plotType = ((MenuItem) e.OriginalSource).Header.ToString().ToUpperInvariant();
+
+			PlotType type = new PlotType();
+			switch (plotType)
+			{
+				case "SCATTER PLOT":
+					type = PlotType.scatter;
+				break;
+				case "SIGNAL":
+					type = PlotType.signal;
+				break;
+			}
+
+			SettingsDialog settingsDialog = new SettingsDialog(type==PlotType.signal);
 
 			DrawSettings drawSettings = new DrawSettings();
 
 			settingsDialog.ShowDialog();
 
-			string plotType = ((MenuItem) e.OriginalSource).Header.ToString();
 
-			PlotType type = new PlotType();
-			switch (plotType.ToUpperInvariant())
-			{
-				case "SCATTER PLOT":
-					type = PlotType.scatter;
-					break;
-				case "SIGNAL":
-					type = PlotType.signal;
-					break;
-			}
+			
 
 			drawSettings.colour = settingsDialog.plotColour;
 			drawSettings.drawLine = settingsDialog.drawLine;
 			drawSettings.type = type;
 			drawSettings.label = settingsDialog.plotNameTextBox.Text;
+			string markerTypeName = settingsDialog.markerTypeComboBox.Text.ToUpperInvariant();
+			switch (markerTypeName) {
+				case "FILLED CIRCLE":
+					drawSettings.markerShape = ScottPlot.MarkerShape.filledCircle;
+					break;
+				case "NONE":
+					drawSettings.markerShape = ScottPlot.MarkerShape.none;
+					break;
+			}
 
 
 			Dictionary<string, object> metadata = new Dictionary<string, object>();

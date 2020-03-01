@@ -19,12 +19,13 @@ namespace Where1.WPlot
 	{
 		public System.Drawing.Color plotColour = ((MainWindow)App.Current.MainWindow).NextColour();
 		public bool drawLine { get { return shouldDrawLine.IsChecked == true; } }
-		public SettingsDialog()
+		public SettingsDialog(bool isSignal=false)
 		{
 			InitializeComponent();
 
 			Resources["colour"] = ConvertFromSystemDrawingColor(plotColour);
 			colourTextBox.Text = plotColour.ToArgb().ToString("X");
+			Resources["scatterSettingsVisibility"] = isSignal ? Visibility.Collapsed: Visibility.Visible;
 		}
 
 		private void colourTextBox_TextChanged(object sender, TextChangedEventArgs e)

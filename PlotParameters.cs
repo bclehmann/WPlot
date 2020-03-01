@@ -16,6 +16,7 @@ namespace Where1.WPlot
 		public PlotType type;
 		public System.Drawing.Color colour;
 		public bool drawLine;
+		public ScottPlot.MarkerShape markerShape;
 		public string label;
 	}
 
