@@ -1,0 +1,44 @@
+﻿<Window x:Class="Where1.WPlot.SettingsDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Where1.WPlot"
+        mc:Ignorable="d"
+		Topmost="True"
+        Title="Plot Settings" Height="350" Width="400">
+
+	<Window.Resources>
+		<Color x:Key="colour"/>
+	</Window.Resources>
+
+	<StackPanel>
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*" />
+				<RowDefinition Height="*" />
+				<RowDefinition Height="*" />
+				<RowDefinition Height="*" />
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="auto"></ColumnDefinition>
+				<ColumnDefinition Width="*"></ColumnDefinition>
+			</Grid.ColumnDefinitions>
+
+			<Label Grid.Row="0" Grid.Column="0" VerticalAlignment="Top">Colour (aRGB):</Label>
+			<TextBox TextChanged="colourTextBox_TextChanged" Grid.Row="0" Grid.Column="1" Name="colourTextBox" VerticalAlignment="Top" Margin="0,5,0,0">
+				<TextBox.Foreground>
+					<SolidColorBrush Color="{DynamicResource colour}"/>
+				</TextBox.Foreground>
+			</TextBox>
+
+			<Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" Grid.ColumnSpan="2" HorizontalAlignment="Left" Width="87">Draw line:</Label>
+			<CheckBox x:Name="shouldDrawLine" IsChecked="True" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,5,0,0"></CheckBox>
+
+		</Grid>
+
+		<Button Click="OKButton_Click" VerticalAlignment="Bottom">OK</Button>
+	</StackPanel>
+</Window>
+	
+	

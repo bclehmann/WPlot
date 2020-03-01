@@ -11,8 +11,30 @@ namespace Where1.WPlot
 	{
 		private void LoadCSVSeries_Click(object sender, RoutedEventArgs e)
 		{
-			OpenFileDialog openFileDialog = new OpenFileDialog();
+			SettingsDialog settingsDialog = new SettingsDialog();
+
+			DrawSettings drawSettings = new DrawSettings();
+
+			settingsDialog.ShowDialog();
+
 			string plotType = ((MenuItem) e.OriginalSource).Header.ToString();
+
+			PlotType type = new PlotType();
+			switch (plotType.ToUpperInvariant())
+			{
+				case "SCATTER PLOT":
+					type = PlotType.scatter;
+					break;
+				case "SIGNAL":
+					type = PlotType.signal;
+					break;
+			}
+
+			drawSettings.colour = settingsDialog.plotColour;
+			drawSettings.drawLine = settingsDialog.drawLine;
+			drawSettings.type = type;
+
+
 			Dictionary<string, object> metadata = new Dictionary<string, object>();
 
 			if (plotType.ToUpperInvariant() == "SIGNAL") {
@@ -22,11 +44,18 @@ namespace Where1.WPlot
 
 				double sampleRate = 100;
 				double.TryParse(dlg.frequency, out sampleRate);
+
+				double xOffset = 0;
+				double.TryParse(dlg.xOffsetTextBox.Text, out xOffset);
+
 				metadata.Add("sampleRate", sampleRate);
+				metadata.Add("xOffset", xOffset);
 			}
+			
+			OpenFileDialog openFileDialog = new OpenFileDialog();
 			if (openFileDialog.ShowDialog() == true)
 			{
-				(App.Current as App).AddSeriesFromFile(openFileDialog.FileName, plotType, metadata);
+				(App.Current as App).AddSeriesFromFile(openFileDialog.FileName, drawSettings, metadata);
 				statusMessage.Text = $"{openFileDialog.FileName} loaded";
 			}
 		}

@@ -3,8 +3,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     x:Class="Where1.WPlot.SignalFrequencyDialog"
     xmlns:local="clr-namespace:Where1.WPlot"
-    Title="Sample Rate"
-    Height="100"
+    Title="Signal Settings"
+    Height="150"
     Width="300"
     ResizeMode="CanResizeWithGrip"
     ShowInTaskbar="False"
@@ -18,6 +18,7 @@
 			<Grid>
 				<Grid.RowDefinitions>
 					<RowDefinition Height="*"></RowDefinition>
+					<RowDefinition Height="*"></RowDefinition>
 				</Grid.RowDefinitions>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="auto"></ColumnDefinition>
@@ -26,8 +27,11 @@
 				
 				<Label Grid.Row="0" Grid.Column="0">Sample Rate(Hz)</Label>
 				<TextBox x:Name="frequencyTextBox" Grid.Row="0" Grid.Column="1" Text="5000" HorizontalAlignment="Stretch" VerticalAlignment="Center"></TextBox>
+
+				<Label Grid.Row="1" Grid.Column="0">X-Offset</Label>
+				<TextBox x:Name="xOffsetTextBox" Grid.Row="1" Grid.Column="1" Text="0" HorizontalAlignment="Stretch" VerticalAlignment="Center"></TextBox>
 			</Grid>
-			<Button Name="okButton" Click="okButton_Click">OK</Button>
+			<Button Name="okButton" Click="okButton_Click" VerticalAlignment="Bottom">OK</Button>
 		</StackPanel>
 	</Grid >
 </Window>

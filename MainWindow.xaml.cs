@@ -34,21 +34,29 @@ namespace Where1.WPlot
 			(App.Current as App).ClearSeries();
 		}
 
+		public System.Drawing.Color NextColour() {
+			return plotFrame.plt.GetSettings().GetNextColor();
+		}
+
 		public void RenderPlot()
 		{
 			plotFrame.plt.Clear();
 			foreach (PlotParameters curr in ((App)App.Current).GetSeries())
 			{
 				
-				switch (curr.type)
+				switch (curr.drawSettings.type)
 				{
 					case PlotType.scatter:
-						plotFrame.plt.PlotScatter((curr.data as double[][])[0], (curr.data as double[][])[1]);
+						double[] xs = ((double[][])curr.data)[0];
+						double[] ys = ((double[][])curr.data)[1];
+						plotFrame.plt.PlotScatter(xs, ys, curr.drawSettings.colour, curr.drawSettings.drawLine ? 1 : 0);
 						break;
 					case PlotType.signal:
 						object sampleRate= 100;
 						curr.metaData.TryGetValue("sampleRate", out sampleRate);
-						plotFrame.plt.PlotSignal((double[])curr.data, (double)sampleRate);
+						object xOffset = 0;
+						curr.metaData.TryGetValue("xOffset", out xOffset);
+						plotFrame.plt.PlotSignal((double[])curr.data, (double)sampleRate, (double)xOffset, color:curr.drawSettings.colour, lineWidth: curr.drawSettings.drawLine ? 1: 0);
 						break;
 				}
 			}
