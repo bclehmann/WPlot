@@ -32,6 +32,7 @@ namespace Where1.WPlot
 
 			drawSettings.colour = settingsDialog.plotColour;
 			drawSettings.drawLine = settingsDialog.shouldDrawLine.IsChecked == true; //Because it is nullable
+			drawSettings.drawLinearRegression = settingsDialog.linreg.IsChecked == true; //Because it is nullable
 			drawSettings.type = type;
 			drawSettings.label = settingsDialog.plotNameTextBox.Text;
 

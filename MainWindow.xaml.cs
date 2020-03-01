@@ -74,6 +74,15 @@ namespace Where1.WPlot
 							ys = ScottPlot.Tools.Log10(ys);
 						}
 						plotFrame.plt.PlotScatter(xs, ys, curr.drawSettings.colour, curr.drawSettings.drawLine ? 1 : 0, label: curr.drawSettings.label, markerShape: curr.drawSettings.markerShape);
+
+						if (curr.drawSettings.drawLinearRegression) {
+							var model = new ScottPlot.Statistics.LinearRegressionLine(xs, ys);
+							double x1 = xs[0];
+							double x2 = xs[xs.Length - 1];
+							double y1 = model.GetValueAt(x1);
+							double y2 = model.GetValueAt(x2);
+							plotFrame.plt.PlotLine(x1, y1, x2, y2, lineWidth: 3, label: $"ŷ = {model.offset:f9} + {model.slope:f9}x");
+						}
 						break;
 					case PlotType.signal:
 						object sampleRate = 100;

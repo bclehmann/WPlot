@@ -18,6 +18,7 @@ namespace Where1.WPlot
 		public bool drawLine;
 		public ScottPlot.MarkerShape markerShape;
 		public string label;
+		public bool drawLinearRegression;
 	}
 
 	public enum PlotType
