@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Where1.WPlot 
+namespace Where1.WPlot
 {
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
@@ -24,19 +24,34 @@ namespace Where1.WPlot
 		{
 			InitializeComponent();
 
-			plotFrame.plt.PlotSignal(ScottPlot.DataGen.Sin(50));
+			//plotFrame.plt.PlotSignal(ScottPlot.DataGen.Sin(50));
 		}
 
-		public void ClearPlot() {
+		public void ClearPlot()
+		{
 			plotFrame.plt.Clear();
 			plotFrame.Render();
+			(App.Current as App).ClearSeries();
 		}
 
-		public void RenderPlot() {
-			double[] xs = (App.Current as App).xs;
-			double[] ys = (App.Current as App).ys;
-
-			plotFrame.plt.PlotScatter(xs, ys);
+		public void RenderPlot()
+		{
+			plotFrame.plt.Clear();
+			foreach (PlotParameters curr in ((App)App.Current).GetSeries())
+			{
+				
+				switch (curr.type)
+				{
+					case PlotType.scatter:
+						plotFrame.plt.PlotScatter((curr.data as double[][])[0], (curr.data as double[][])[1]);
+						break;
+					case PlotType.signal:
+						object sampleRate= 100;
+						curr.metaData.TryGetValue("sampleRate", out sampleRate);
+						plotFrame.plt.PlotSignal((double[])curr.data, (double)sampleRate);
+						break;
+				}
+			}
 			plotFrame.Render();
 		}
 	}

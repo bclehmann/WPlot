@@ -13,5 +13,8 @@
     <Page Update="MenuBar.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="SignalFrequencyDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 </Project>
