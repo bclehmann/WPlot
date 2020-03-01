@@ -18,7 +18,6 @@ namespace Where1.WPlot
 	public partial class SettingsDialog : Window
 	{
 		public System.Drawing.Color plotColour = ((MainWindow)App.Current.MainWindow).NextColour();
-		public bool drawLine { get { return shouldDrawLine.IsChecked == true; } }
 		public SettingsDialog(bool isSignal=false)
 		{
 			InitializeComponent();

@@ -15,6 +15,7 @@
 						<RowDefinition Height="*"></RowDefinition>
 						<RowDefinition Height="*"></RowDefinition>
 						<RowDefinition Height="*"></RowDefinition>
+						<RowDefinition Height="*"></RowDefinition>
 					</Grid.RowDefinitions>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="auto"></ColumnDefinition>
@@ -29,6 +30,9 @@
 
 					<Label Grid.Row="2" Grid.Column="0">YLabel:</Label>
 					<TextBox x:Name="yLabelTextBox" Grid.Row="2" Grid.Column="1" Text="" HorizontalAlignment="Stretch" VerticalAlignment="Center"></TextBox>
+
+					<Label Grid.Row="3" Grid.Column="0" VerticalAlignment="Top" Grid.ColumnSpan="2" HorizontalAlignment="Left" Width="87">Log Axis:</Label>
+					<CheckBox x:Name="logAxis" IsChecked="False" Grid.Row="3" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,5,0,0"></CheckBox>
 				</Grid>
 				<Button Name="okButton" Click="OKButton_Click" VerticalAlignment="Bottom">OK</Button>
 			</StackPanel>

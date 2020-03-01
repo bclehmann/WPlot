@@ -43,16 +43,17 @@ namespace Where1.WPlot
 		public string plotTitle { get; set; }
 		public string xLabel { get; set; }
 		public string yLabel { get; set; }
+		public bool logAxis { get; set; }
 		private bool gridLines = true;
 
-		public void RefreshTitleAndAxisLabels(bool shouldRender = true)
+		public void RefreshTitleAndAxis(bool shouldRender = true)
 		{
 			plotFrame.plt.Title(plotTitle);
 			plotFrame.plt.XLabel(xLabel);
 			plotFrame.plt.YLabel(yLabel);
 			if (shouldRender)
 			{
-				plotFrame.Render();
+				RenderPlot();
 			}
 
 		}
@@ -60,7 +61,7 @@ namespace Where1.WPlot
 		public void RenderPlot()
 		{
 			plotFrame.plt.Clear();
-			RefreshTitleAndAxisLabels(false);
+			RefreshTitleAndAxis(false);
 			foreach (PlotParameters curr in ((App)App.Current).GetSeries())
 			{
 
@@ -69,6 +70,9 @@ namespace Where1.WPlot
 					case PlotType.scatter:
 						double[] xs = ((double[][])curr.data)[0];
 						double[] ys = ((double[][])curr.data)[1];
+						if (logAxis) {
+							ys = ScottPlot.Tools.Log10(ys);
+						}
 						plotFrame.plt.PlotScatter(xs, ys, curr.drawSettings.colour, curr.drawSettings.drawLine ? 1 : 0, label: curr.drawSettings.label, markerShape: curr.drawSettings.markerShape);
 						break;
 					case PlotType.signal:
@@ -76,8 +80,14 @@ namespace Where1.WPlot
 						curr.metaData.TryGetValue("sampleRate", out sampleRate);
 						object xOffset = 0;
 						curr.metaData.TryGetValue("xOffset", out xOffset);
+						double[] data = (double[])curr.data;
+
+						if (logAxis)
+						{
+							data = ScottPlot.Tools.Log10(data);
+						}
 						//SignalConst is faster, and they can't change the data anyways
-						plotFrame.plt.PlotSignalConst((double[])curr.data, (double)sampleRate, (double)xOffset, color: curr.drawSettings.colour, lineWidth: curr.drawSettings.drawLine ? 1 : 0, label: curr.drawSettings.label, markerSize: 0);
+						plotFrame.plt.PlotSignalConst(data, (double)sampleRate, (double)xOffset, color: curr.drawSettings.colour, lineWidth: curr.drawSettings.drawLine ? 1 : 0, label: curr.drawSettings.label, markerSize: 0);
 						break;
 				}
 			}

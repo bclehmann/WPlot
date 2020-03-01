@@ -30,13 +30,11 @@ namespace Where1.WPlot
 
 			settingsDialog.ShowDialog();
 
-
-			
-
 			drawSettings.colour = settingsDialog.plotColour;
-			drawSettings.drawLine = settingsDialog.drawLine;
+			drawSettings.drawLine = settingsDialog.shouldDrawLine.IsChecked == true; //Because it is nullable
 			drawSettings.type = type;
 			drawSettings.label = settingsDialog.plotNameTextBox.Text;
+
 			string markerTypeName = settingsDialog.markerTypeComboBox.Text.ToUpperInvariant();
 			switch (markerTypeName) {
 				case "FILLED CIRCLE":
@@ -99,12 +97,14 @@ namespace Where1.WPlot
 			dlg.titleTextBox.Text = mainWindow.plotTitle;
 			dlg.xLabelTextBox.Text = mainWindow.xLabel;
 			dlg.yLabelTextBox.Text = mainWindow.yLabel;
+			dlg.logAxis.IsChecked = mainWindow.logAxis;
 			dlg.ShowDialog();
 
 			mainWindow.plotTitle = dlg.titleTextBox.Text;
 			mainWindow.xLabel = dlg.xLabelTextBox.Text;
 			mainWindow.yLabel = dlg.yLabelTextBox.Text;
-			mainWindow.RefreshTitleAndAxisLabels();
+			mainWindow.logAxis = dlg.logAxis.IsChecked==true; //It is nullable
+			mainWindow.RefreshTitleAndAxis();
 		}
 	}
 }
