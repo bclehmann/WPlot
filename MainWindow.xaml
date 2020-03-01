@@ -34,11 +34,23 @@
 						   >
 		</ScottPlot:WpfPlot>
 
-		<StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
-			<Image Source="logo_full_transparent.png" Width="199" HorizontalAlignment="Left" Margin="10,0,0,0"/>
-			<TextBlock FontSize="40" Margin="10,0,0,0">WPlot</TextBlock>
-		</StackPanel>
-		
-		<TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Bottom" Margin="10,0,0,0">Powered by https://github.com/swharden/ScottPlot</TextBlock>
+		<Button  HorizontalAlignment="Left"
+			Grid.Row="2" Grid.Column="0"
+				Click="WPlotLink_Click"
+					 Background="White"
+					 BorderThickness="0"
+					 ToolTip="https://github.com/Benny121221/WPlot"
+				>
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+				<Image Source="logo_full_transparent.png" Width="199" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+				<TextBlock FontSize="40" Margin="10,0,0,0">WPlot</TextBlock>
+			</StackPanel>
+		</Button>
+
+		<Button HorizontalAlignment="Left" Grid.Row="3" Grid.Column="0" Click="ScottPlotLink_Click" Background="White" BorderThickness="0"
+					 ToolTip="https://github.com/swharden/ScottPlot"
+				>
+			<TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Bottom" Margin="10,0,0,0">Powered by https://github.com/swharden/ScottPlot</TextBlock>
+		</Button>
 	</Grid>
 </Window>

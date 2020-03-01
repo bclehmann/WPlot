@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -72,6 +73,24 @@ namespace Where1.WPlot
 
 		public void SavePlot(string path) {
 			plotFrame.plt.SaveFig(path, false); //It's already been rendered
+		}
+
+		private void WPlotLink_Click(object sender, RoutedEventArgs e)
+		{
+			using (Process proc = new Process()) {
+				proc.StartInfo.FileName = "https://github.com/Benny121221/WPlot";
+				proc.StartInfo.UseShellExecute = true;
+				proc.Start();
+			}
+		}
+
+		private void ScottPlotLink_Click(object sender, RoutedEventArgs e) {
+			using (Process proc = new Process())
+			{
+				proc.StartInfo.FileName = "https://github.com/swharden/ScottPlot";
+				proc.StartInfo.UseShellExecute = true;
+				proc.Start();
+			}
 		}
 	}
 }

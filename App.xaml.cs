@@ -23,38 +23,40 @@ namespace Where1.WPlot
 		{
 			object data = new object();
 
-			StreamReader file = new StreamReader(path);
-			string[] raw = file.ReadToEnd().Split(new char[] { ',', '\n' });
-			List<double> serialData = raw.Where(m => double.TryParse(m, out _)).Select(m => double.Parse(m)).ToList();
-
-			if (drawSettings.type == PlotType.scatter)
+			using (StreamReader file = new StreamReader(path))
 			{
-				double[] xs = new double[serialData.Count / 2];
-				double[] ys = new double[serialData.Count / 2];
-				for (int i = 0; i < serialData.Count; i++)
+				string[] raw = file.ReadToEnd().Split(new char[] { ',', '\n' });
+				List<double> serialData = raw.Where(m => double.TryParse(m, out _)).Select(m => double.Parse(m)).ToList();
+
+				if (drawSettings.type == PlotType.scatter)
 				{
-					int row = i / 2;
-					int col = i % 2;
-
-					if (col == 0)
+					double[] xs = new double[serialData.Count / 2];
+					double[] ys = new double[serialData.Count / 2];
+					for (int i = 0; i < serialData.Count; i++)
 					{
-						xs[row] = serialData[i];
-					}
-					else
-					{
-						ys[row] = serialData[i];
-					}
+						int row = i / 2;
+						int col = i % 2;
 
-					data = new double[][] { xs, ys };
+						if (col == 0)
+						{
+							xs[row] = serialData[i];
+						}
+						else
+						{
+							ys[row] = serialData[i];
+						}
+
+						data = new double[][] { xs, ys };
+					}
 				}
-			}
-			else if (drawSettings.type == PlotType.signal)
-			{
-				data = serialData.ToArray();
-			}
-			series.Add(new PlotParameters { data = data, drawSettings=drawSettings, metaData = metadata });
+				else if (drawSettings.type == PlotType.signal)
+				{
+					data = serialData.ToArray();
+				}
+				series.Add(new PlotParameters { data = data, drawSettings = drawSettings, metaData = metadata });
 
-			((MainWindow)this.MainWindow).RenderPlot();
+				((MainWindow)this.MainWindow).RenderPlot();
+			}
 		}
 	}
 }
