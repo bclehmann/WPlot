@@ -70,12 +70,23 @@ namespace Where1.WPlot
 					case PlotType.scatter:
 						double[] xs = ((double[][])curr.data)[0];
 						double[] ys = ((double[][])curr.data)[1];
-						if (logAxis) {
+						if (logAxis)
+						{
 							ys = ScottPlot.Tools.Log10(ys);
 						}
-						plotFrame.plt.PlotScatter(xs, ys, curr.drawSettings.colour, curr.drawSettings.drawLine ? 1 : 0, label: curr.drawSettings.label, markerShape: curr.drawSettings.markerShape);
+						if (!curr.hasErrorData)
+						{
+							plotFrame.plt.PlotScatter(xs, ys, curr.drawSettings.colour, curr.drawSettings.drawLine ? 1 : 0, label: curr.drawSettings.label, markerShape: curr.drawSettings.markerShape);
+						}
+						else
+						{
+							double[] errorX = ((double[][])curr.errorData)[0];
+							double[] errorY = ((double[][])curr.errorData)[1];
+							plotFrame.plt.PlotScatter(xs, ys, curr.drawSettings.colour, curr.drawSettings.drawLine ? 1 : 0, label: curr.drawSettings.label, markerShape: curr.drawSettings.markerShape, errorX: errorX, errorY: errorY);
+						}
 
-						if (curr.drawSettings.drawLinearRegression) {
+						if (curr.drawSettings.drawLinearRegression)
+						{
 							var model = new ScottPlot.Statistics.LinearRegressionLine(xs, ys);
 							double x1 = xs[0];
 							double x2 = xs[xs.Length - 1];

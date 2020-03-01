@@ -67,7 +67,10 @@ namespace Where1.WPlot
 			OpenFileDialog openFileDialog = new OpenFileDialog();
 			if (openFileDialog.ShowDialog() == true)
 			{
-				(App.Current as App).AddSeriesFromFile(openFileDialog.FileName, drawSettings, metadata);
+				PlotParameters plotParams=(App.Current as App).AddSeriesFromCSVFile(openFileDialog.FileName, drawSettings, metadata);
+				if (settingsDialog.errorDataCSV != null) {
+					((App)App.Current).AddErrorFromCSVFile(plotParams, settingsDialog.errorDataCSV);
+				}
 				statusMessage.Text = $"{openFileDialog.FileName} loaded";
 			}
 		}

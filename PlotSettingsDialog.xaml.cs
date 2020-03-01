@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -18,6 +19,8 @@ namespace Where1.WPlot
 	public partial class SettingsDialog : Window
 	{
 		public System.Drawing.Color plotColour = ((MainWindow)App.Current.MainWindow).NextColour();
+		public string errorDataCSV;
+
 		public SettingsDialog(bool isSignal=false)
 		{
 			InitializeComponent();
@@ -53,6 +56,17 @@ namespace Where1.WPlot
 		private void OKButton_Click(object sender, RoutedEventArgs e)
 		{
 			this.Close();
+		}
+
+		private void AddErrorCSVButton_Click(object sender, RoutedEventArgs e)
+		{
+			OpenFileDialog openFileDialog = new OpenFileDialog();
+			if (openFileDialog.ShowDialog() == true)
+			{
+				errorDataCSV = openFileDialog.FileName;
+				CSVFileTextBlock.Text = errorDataCSV;
+			}
+
 		}
 	}
 }
