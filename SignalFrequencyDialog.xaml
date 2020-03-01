@@ -9,6 +9,7 @@
     ResizeMode="CanResizeWithGrip"
     ShowInTaskbar="False"
     WindowStartupLocation="CenterOwner" 
+	Topmost="True"
     FocusManager.FocusedElement="{Binding ElementName=leftMarginTextBox}">
 
 	<Grid>
