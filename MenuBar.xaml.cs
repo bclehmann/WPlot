@@ -17,12 +17,9 @@ namespace Where1.WPlot
 
 			if (plotType.ToUpperInvariant() == "SIGNAL") {
 				SignalFrequencyDialog dlg = new SignalFrequencyDialog();
-
-				// Configure the dialog box
 				dlg.Owner = App.Current.MainWindow;
-
-				// Open the dialog box modally 
 				dlg.ShowDialog();
+
 				double sampleRate = 100;
 				double.TryParse(dlg.frequency, out sampleRate);
 				metadata.Add("sampleRate", sampleRate);
@@ -34,10 +31,22 @@ namespace Where1.WPlot
 			}
 		}
 
-		private void ClearPlot(object sender, RoutedEventArgs e)
+		private void ClearPlot_Click(object sender, RoutedEventArgs e)
 		{
 			((MainWindow) App.Current.MainWindow).ClearPlot();
 			statusMessage.Text = "No file loaded";
+		}
+
+		private void PlotSave_Click(object sender, RoutedEventArgs e) {
+			Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+			dlg.FileName = "plot";
+			dlg.DefaultExt = ".png";
+
+			bool? result = dlg.ShowDialog();
+
+			if (result == true) {
+				((MainWindow)App.Current.MainWindow).SavePlot(dlg.FileName);
+			}
 		}
 	}
 }

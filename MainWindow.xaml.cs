@@ -54,5 +54,9 @@ namespace Where1.WPlot
 			}
 			plotFrame.Render();
 		}
+
+		public void SavePlot(string path) {
+			plotFrame.plt.SaveFig(path, false); //It's already been rendered
+		}
 	}
 }
