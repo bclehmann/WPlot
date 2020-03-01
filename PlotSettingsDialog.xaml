@@ -50,7 +50,7 @@
 			</TextBox>
 
 			<Label Grid.Row="4" Grid.Column="0" VerticalAlignment="Top" Visibility="{DynamicResource scatterSettingsVisibility}" >Draw Linear Regression:</Label>
-			<CheckBox x:Name="linreg" IsChecked="True" Grid.Row="4" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="{DynamicResource scatterSettingsVisibility}" Margin="0,5,0,0"></CheckBox>
+			<CheckBox x:Name="linreg" IsChecked="False" Grid.Row="4" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="{DynamicResource scatterSettingsVisibility}" Margin="0,5,0,0"></CheckBox>
 		</Grid>
 
 		<Button Click="OKButton_Click" VerticalAlignment="Bottom">OK</Button>
