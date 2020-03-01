@@ -19,16 +19,26 @@
 		<Grid.RowDefinitions>
 			<RowDefinition Height="auto"></RowDefinition>
 			<RowDefinition Height="*"></RowDefinition>
+			<RowDefinition Height="auto"></RowDefinition>
+			<RowDefinition Height="auto"></RowDefinition>
 		</Grid.RowDefinitions>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="*"></ColumnDefinition>
 		</Grid.ColumnDefinitions>
-		
+
 		<Frame Content="{StaticResource MenuBar}" Grid.Row="0" Grid.Column="0"/>
+
 		<ScottPlot:WpfPlot Name="plotFrame"
 						   Grid.Row="1"
 						   Grid.Column="0"
 						   >
 		</ScottPlot:WpfPlot>
+
+		<StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
+			<Image Source="logo_full_transparent.png" Width="199" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+			<TextBlock FontSize="40" Margin="10,0,0,0">WPlot</TextBlock>
+		</StackPanel>
+		
+		<TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Bottom" Margin="10,0,0,0">Powered by https://github.com/swharden/ScottPlot</TextBlock>
 	</Grid>
 </Window>
