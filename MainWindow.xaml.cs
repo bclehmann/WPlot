@@ -140,6 +140,45 @@ namespace Where1.WPlot
 			plotFrame.Render();
 		}
 
+		private void ThemeSettings_Click(object sender, RoutedEventArgs e)
+		{
+			switch (((string)((MenuItem)e.OriginalSource).Header).ToUpperInvariant())
+			{
+				case "DEFAULT":
+					plotFrame.plt.Style(ScottPlot.Style.Default);
+					break;
+				case "BLUE1":
+					plotFrame.plt.Style(ScottPlot.Style.Blue1);
+					break;
+				case "BLUE2":
+					plotFrame.plt.Style(ScottPlot.Style.Blue2);
+					break;
+				case "BLUE3":
+					plotFrame.plt.Style(ScottPlot.Style.Blue3);
+					break;
+				case "LIGHT1":
+					plotFrame.plt.Style(ScottPlot.Style.Light1);
+					break;
+				case "LIGHT2":
+					plotFrame.plt.Style(ScottPlot.Style.Light2);
+					break;
+				case "GRAY1":
+					plotFrame.plt.Style(ScottPlot.Style.Gray1);
+					break;
+				case "GRAY2":
+					plotFrame.plt.Style(ScottPlot.Style.Gray2);
+					break;
+				case "BLACK":
+					plotFrame.plt.Style(ScottPlot.Style.Black);
+					break;
+				case "CONTROL":
+					plotFrame.plt.Style(ScottPlot.Style.Control);
+					break;
+			}
+
+			plotFrame.Render();
+		}
+
 		private void WPlotLink_Click(object sender, RoutedEventArgs e)
 		{
 			using (Process proc = new Process())

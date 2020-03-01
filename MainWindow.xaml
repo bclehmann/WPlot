@@ -48,6 +48,24 @@
 						<MenuItem Header="Left" Tag="left"/>
 						<MenuItem Header="Bottom" Tag="bottom"/>
 					</MenuItem>
+					<MenuItem Header="Theme" Click="ThemeSettings_Click">
+						<MenuItem Header="Default"/>
+						<MenuItem Header="Blue">
+							<MenuItem Header="Blue1"/>
+							<MenuItem Header="Blue2"/>
+							<MenuItem Header="Blue3"/>
+						</MenuItem>
+						<MenuItem Header="Light">
+							<MenuItem Header="Light1"/>
+							<MenuItem Header="Light2"/>
+						</MenuItem>
+						<MenuItem Header="Gray">
+							<MenuItem Header="Gray1"/>
+							<MenuItem Header="Gray2"/>
+						</MenuItem>
+						<MenuItem Header="Black"/>
+						<MenuItem Header="Control"/>
+					</MenuItem>
 				</ContextMenu>
 			</ScottPlot:WpfPlot.ContextMenu>
 		</ScottPlot:WpfPlot>
