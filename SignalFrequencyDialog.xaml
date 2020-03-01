@@ -3,11 +3,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     x:Class="Where1.WPlot.SignalFrequencyDialog"
     xmlns:local="clr-namespace:Where1.WPlot"
-    Title="Margins"
-    Height="190"
+    Title="Sample Rate"
+    Height="100"
     Width="300"
-    MinHeight="10"
-    MinWidth="300"
     ResizeMode="CanResizeWithGrip"
     ShowInTaskbar="False"
     WindowStartupLocation="CenterOwner" 
@@ -25,8 +23,8 @@
 					<ColumnDefinition Width="*"></ColumnDefinition>
 				</Grid.ColumnDefinitions>
 				
-				<Label Grid.Row="0" Grid.Column="0">Frequency (Hz)</Label>
-				<TextBox x:Name="frequencyTextBox" Grid.Row="0" Grid.Column="1" Text="5000"></TextBox>
+				<Label Grid.Row="0" Grid.Column="0">Sample Rate(Hz)</Label>
+				<TextBox x:Name="frequencyTextBox" Grid.Row="0" Grid.Column="1" Text="5000" HorizontalAlignment="Stretch" VerticalAlignment="Center"></TextBox>
 			</Grid>
 			<Button Name="okButton" Click="okButton_Click">OK</Button>
 		</StackPanel>
