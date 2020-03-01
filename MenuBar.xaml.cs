@@ -81,12 +81,17 @@ namespace Where1.WPlot
 		private void PlotSettings_Click(object sender, RoutedEventArgs e)
 		{
 			FrameSettingsDialog dlg = new FrameSettingsDialog();
+			MainWindow mainWindow = (MainWindow)App.Current.MainWindow;
+
+			dlg.titleTextBox.Text = mainWindow.plotTitle;
+			dlg.xLabelTextBox.Text = mainWindow.xLabel;
+			dlg.yLabelTextBox.Text = mainWindow.yLabel;
 			dlg.ShowDialog();
 
-			MainWindow mainWindow = (MainWindow)App.Current.MainWindow;
 			mainWindow.plotTitle = dlg.titleTextBox.Text;
 			mainWindow.xLabel = dlg.xLabelTextBox.Text;
 			mainWindow.yLabel = dlg.yLabelTextBox.Text;
+			mainWindow.RefreshTitleAndAxisLabels();
 		}
 	}
 }

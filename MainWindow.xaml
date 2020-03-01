@@ -32,6 +32,24 @@
 						   Grid.Row="1"
 						   Grid.Column="0"
 						   >
+			<ScottPlot:WpfPlot.ContextMenu>
+				<ContextMenu>
+					<MenuItem Header="Toggle Gridlines" Click="GridLineToggle_Click"/>
+					<MenuItem Header="Frame Settings" Click="FrameSettings_Click">
+						<MenuItem Header="No Frame" Tag="none"/>
+						<MenuItem Header="Normal Frame" Tag="normal"/>
+						<MenuItem Header="Corner Frame" Tag="corner"/>
+						<MenuItem Header="Left Frame" Tag="left"/>
+						<MenuItem Header="Bottom Frame" Tag="bottom"/>
+					</MenuItem>
+					<MenuItem Header="Tick Settings" Click="TickSettings_Click">
+						<MenuItem Header="None" Tag="none"/>
+						<MenuItem Header="Normal" Tag="normal"/>
+						<MenuItem Header="Left" Tag="left"/>
+						<MenuItem Header="Bottom" Tag="bottom"/>
+					</MenuItem>
+				</ContextMenu>
+			</ScottPlot:WpfPlot.ContextMenu>
 		</ScottPlot:WpfPlot>
 
 		<Button  HorizontalAlignment="Left"
