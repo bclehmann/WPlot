@@ -38,9 +38,16 @@ namespace Where1.WPlot
 			return plotFrame.plt.GetSettings().GetNextColor();
 		}
 
+		public string plotTitle {get; set;}
+		public string xLabel {get; set;}
+		public string yLabel {get; set;}
+
 		public void RenderPlot()
 		{
 			plotFrame.plt.Clear();
+			plotFrame.plt.Title(plotTitle);
+			plotFrame.plt.XLabel(xLabel);
+			plotFrame.plt.YLabel(yLabel);
 			foreach (PlotParameters curr in ((App)App.Current).GetSeries())
 			{
 				

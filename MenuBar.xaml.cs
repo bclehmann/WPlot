@@ -77,5 +77,16 @@ namespace Where1.WPlot
 				((MainWindow)App.Current.MainWindow).SavePlot(dlg.FileName);
 			}
 		}
+
+		private void PlotSettings_Click(object sender, RoutedEventArgs e)
+		{
+			FrameSettingsDialog dlg = new FrameSettingsDialog();
+			dlg.ShowDialog();
+
+			MainWindow mainWindow = (MainWindow)App.Current.MainWindow;
+			mainWindow.plotTitle = dlg.titleTextBox.Text;
+			mainWindow.xLabel = dlg.xLabelTextBox.Text;
+			mainWindow.yLabel = dlg.yLabelTextBox.Text;
+		}
 	}
 }

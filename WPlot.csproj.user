@@ -7,18 +7,24 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="SettingsDialog.xaml.cs">
+    <Compile Update="FrameSettingsDialog.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="PlotSettingsDialog.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="FrameSettingsDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MenuBar.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="SettingsDialog.xaml">
+    <Page Update="PlotSettingsDialog.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="SignalDialog.xaml">
