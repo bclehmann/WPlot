@@ -49,6 +49,18 @@
 			<ComboBox Grid.Row="2" Grid.Column="1" x:Name="markerTypeComboBox" Visibility="{DynamicResource scatterSettingsVisibility}">
 				<ComboBoxItem IsSelected="True">Filled Circle</ComboBoxItem>
 				<ComboBoxItem>None</ComboBoxItem>
+				<ComboBoxItem>Filled Square</ComboBoxItem>
+				<ComboBoxItem>Open Circle</ComboBoxItem>
+				<ComboBoxItem>Open Square</ComboBoxItem>
+				<ComboBoxItem>Filled Diamond</ComboBoxItem>
+				<ComboBoxItem>Open Diamond</ComboBoxItem>
+				<ComboBoxItem>Asterisk</ComboBoxItem>
+				<ComboBoxItem>Hashtag</ComboBoxItem>
+				<ComboBoxItem>Cross</ComboBoxItem>
+				<ComboBoxItem>Eks</ComboBoxItem>
+				<ComboBoxItem>Vertical Bar</ComboBoxItem>
+				<ComboBoxItem>Tri Up</ComboBoxItem>
+				<ComboBoxItem>Tri Down</ComboBoxItem>
 			</ComboBox>
 
 			<Label Grid.Row="3" Grid.Column="0" VerticalAlignment="Top">Plot Name:</Label>

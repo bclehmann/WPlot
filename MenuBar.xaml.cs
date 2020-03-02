@@ -41,6 +41,42 @@ namespace Where1.WPlot
 				case "FILLED CIRCLE":
 					drawSettings.markerShape = ScottPlot.MarkerShape.filledCircle;
 					break;
+				case "FILLED SQUARE":
+					drawSettings.markerShape = ScottPlot.MarkerShape.filledSquare;
+					break;
+				case "OPEN CIRCLE":
+					drawSettings.markerShape = ScottPlot.MarkerShape.openCircle;
+					break;
+				case "OPEN SQUARE":
+					drawSettings.markerShape = ScottPlot.MarkerShape.openSquare;
+					break;
+				case "FILLED DIAMOND":
+					drawSettings.markerShape = ScottPlot.MarkerShape.filledDiamond;
+					break;
+				case "OPEN DIAMOND":
+					drawSettings.markerShape = ScottPlot.MarkerShape.openDiamond;
+					break;
+				case "ASTERISK":
+					drawSettings.markerShape = ScottPlot.MarkerShape.asterisk;
+					break;
+				case "HASHTAG":
+					drawSettings.markerShape = ScottPlot.MarkerShape.hashTag;
+					break;
+				case "CROSS":
+					drawSettings.markerShape = ScottPlot.MarkerShape.cross;
+					break;
+				case "EKS":
+					drawSettings.markerShape = ScottPlot.MarkerShape.eks;
+					break;
+				case "VERTICAL BAR":
+					drawSettings.markerShape = ScottPlot.MarkerShape.verticalBar;
+					break;
+				case "TRI UP":
+					drawSettings.markerShape = ScottPlot.MarkerShape.triUp;
+					break;
+				case "TRI DOWN":
+					drawSettings.markerShape = ScottPlot.MarkerShape.triDown;
+					break;
 				case "NONE":
 					drawSettings.markerShape = ScottPlot.MarkerShape.none;
 					break;
