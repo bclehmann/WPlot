@@ -14,6 +14,9 @@
 		<Visibility x:Key="scatterSettingsVisibility">
 			Visible
 		</Visibility>
+		<Visibility x:Key="errorSettingsVisibility">
+			Visible
+		</Visibility>
 	</Window.Resources>
 
 	<StackPanel>

@@ -21,13 +21,14 @@ namespace Where1.WPlot
 		public System.Drawing.Color plotColour = ((MainWindow)App.Current.MainWindow).NextColour();
 		public string errorDataCSV;
 
-		public SettingsDialog(bool isSignal=false)
+		public SettingsDialog(PlotType plotType = PlotType.scatter)
 		{
 			InitializeComponent();
 
 			Resources["colour"] = ConvertFromSystemDrawingColor(plotColour);
 			colourTextBox.Text = plotColour.ToArgb().ToString("X");
-			Resources["scatterSettingsVisibility"] = isSignal ? Visibility.Collapsed: Visibility.Visible;
+			Resources["scatterSettingsVisibility"] = plotType == PlotType.scatter ? Visibility.Visible : Visibility.Collapsed;
+			Resources["errorSettingsVisibility"] = plotType == PlotType.scatter ? Visibility.Visible : Visibility.Collapsed;
 		}
 
 		private void colourTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -38,7 +39,7 @@ namespace Where1.WPlot
 			}
 			int colour = 0;
 			int.TryParse(colourTextBox.Text, System.Globalization.NumberStyles.HexNumber, null, out colour);
-			plotColour= System.Drawing.Color.FromArgb(colour);
+			plotColour = System.Drawing.Color.FromArgb(colour);
 
 			Resources["colour"] = ConvertFromSystemDrawingColor(plotColour);
 		}

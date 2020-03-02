@@ -24,7 +24,7 @@ namespace Where1.WPlot
 				break;
 			}
 
-			SettingsDialog settingsDialog = new SettingsDialog(type==PlotType.signal);
+			SettingsDialog settingsDialog = new SettingsDialog(type);
 
 			DrawSettings drawSettings = new DrawSettings();
 
@@ -49,7 +49,7 @@ namespace Where1.WPlot
 
 			Dictionary<string, object> metadata = new Dictionary<string, object>();
 
-			if (plotType.ToUpperInvariant() == "SIGNAL") {
+			if (type == PlotType.signal) {
 				SignalFrequencyDialog dlg = new SignalFrequencyDialog();
 				dlg.Owner = App.Current.MainWindow;
 				dlg.ShowDialog();
