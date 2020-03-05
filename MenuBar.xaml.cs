@@ -29,7 +29,9 @@ namespace Where1.WPlot
 
 			DrawSettings drawSettings = new DrawSettings();
 
-			settingsDialog.ShowDialog();
+			if (settingsDialog.ShowDialog() != true) {//it is nullable
+				return;
+			}
 
 			drawSettings.colour = settingsDialog.plotColour;
 			drawSettings.drawLine = settingsDialog.shouldDrawLine.IsChecked == true; //Because it is nullable
@@ -89,7 +91,9 @@ namespace Where1.WPlot
 			if (type == PlotType.signal) {
 				SignalFrequencyDialog dlg = new SignalFrequencyDialog();
 				dlg.Owner = App.Current.MainWindow;
-				dlg.ShowDialog();
+				if (dlg.ShowDialog() != true) { //Nullable
+					return;
+				}
 
 				double sampleRate = 100;
 				double.TryParse(dlg.frequency, out sampleRate);
@@ -125,7 +129,7 @@ namespace Where1.WPlot
 
 			bool? result = dlg.ShowDialog();
 
-			if (result == true) {
+			if (result == true) { //Nullable
 				((MainWindow)App.Current.MainWindow).SavePlot(dlg.FileName);
 			}
 		}
@@ -140,7 +144,10 @@ namespace Where1.WPlot
 			dlg.xLabelTextBox.Text = mainWindow.xLabel;
 			dlg.yLabelTextBox.Text = mainWindow.yLabel;
 			dlg.logAxis.IsChecked = mainWindow.logAxis;
-			dlg.ShowDialog();
+
+			if (dlg.ShowDialog() != true) { //Nullable
+				return;
+			}
 
 			mainWindow.plotTitle = dlg.titleTextBox.Text;
 			mainWindow.xLabel = dlg.xLabelTextBox.Text;
@@ -152,7 +159,10 @@ namespace Where1.WPlot
 		private void WindowSettings_Click(object sender, RoutedEventArgs e) {
 			WindowSettingsDialog dlg = new WindowSettingsDialog();
 			dlg.Owner = App.Current.MainWindow;
-			dlg.ShowDialog();
+
+			if (dlg.ShowDialog() != true) { //Nullable
+				return;
+			}
 
 			MainWindow mainWindow = (MainWindow)App.Current.MainWindow;
 			double xMin, xMax, yMin, yMax;
