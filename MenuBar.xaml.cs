@@ -25,6 +25,7 @@ namespace Where1.WPlot
 			}
 
 			SettingsDialog settingsDialog = new SettingsDialog(type);
+			settingsDialog.Owner = App.Current.MainWindow;
 
 			DrawSettings drawSettings = new DrawSettings();
 
@@ -132,6 +133,7 @@ namespace Where1.WPlot
 		private void FrameSettings_Click(object sender, RoutedEventArgs e)
 		{
 			FrameSettingsDialog dlg = new FrameSettingsDialog();
+			dlg.Owner = App.Current.MainWindow;
 			MainWindow mainWindow = (MainWindow)App.Current.MainWindow;
 
 			dlg.titleTextBox.Text = mainWindow.plotTitle;
@@ -149,6 +151,7 @@ namespace Where1.WPlot
 
 		private void WindowSettings_Click(object sender, RoutedEventArgs e) {
 			WindowSettingsDialog dlg = new WindowSettingsDialog();
+			dlg.Owner = App.Current.MainWindow;
 			dlg.ShowDialog();
 
 			MainWindow mainWindow = (MainWindow)App.Current.MainWindow;

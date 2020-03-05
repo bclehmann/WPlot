@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Where1.WPlot"
         mc:Ignorable="d"
 		Topmost="True"
+		WindowStartupLocation="CenterOwner"
         Title="Plot Settings" Height="200" Width="200">
 	<Grid>
 		<Grid>

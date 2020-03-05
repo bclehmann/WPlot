@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Where1.WPlot"
         mc:Ignorable="d"
 		Topmost="True"
+		WindowStartupLocation="CenterOwner"
         Title="Window Settings" Height="150" Width="300">
 	<StackPanel>
 		<Grid>
