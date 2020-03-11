@@ -30,6 +30,7 @@ namespace Where1.WPlot
 
 		private void OKButton_Click(object sender, RoutedEventArgs e)
 		{
+			DialogResult = true;
 			this.Close();
 		}
 	}
