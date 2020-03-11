@@ -23,6 +23,7 @@ namespace Where1.WPlot
         }
 
         public void okButton_Click(object sender, RoutedEventArgs e) {
+            DialogResult = true;
             this.Close();
         }
 
