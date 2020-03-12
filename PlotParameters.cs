@@ -35,6 +35,5 @@ namespace Where1.WPlot
 	{
 		sine,
 		square
-
 	}
 }
