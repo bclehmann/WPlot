@@ -17,9 +17,11 @@ namespace Where1.WPlot
 {
     public partial class SignalFrequencyDialog : Window
     {
-        public SignalFrequencyDialog()
+        public SignalFrequencyDialog(bool isPrefab=false)
         {
             InitializeComponent();
+
+            Resources["sampleRateVisibility"] = isPrefab ? Visibility.Collapsed : Visibility.Visible;
         }
 
         public void okButton_Click(object sender, RoutedEventArgs e) {

@@ -106,8 +106,7 @@ namespace Where1.WPlot
 						{
 							data = ScottPlot.Tools.Log10(data);
 						}
-						//SignalConst is faster, and they can't change the data anyways
-						plotFrame.plt.PlotSignalConst(data, (double)sampleRate, (double)xOffset, color: curr.drawSettings.colour, lineWidth: curr.drawSettings.drawLine ? 1 : 0, label: curr.drawSettings.label, markerSize: 0);
+						plotFrame.plt.PlotSignal(data, (double)sampleRate, (double)xOffset, color: curr.drawSettings.colour, lineWidth: curr.drawSettings.drawLine ? 1 : 0, label: curr.drawSettings.label, markerSize: 0);
 						break;
 				}
 			}

@@ -14,10 +14,13 @@
 
 		<DockPanel Grid.Row="0" Grid.Column="0">
 			<Menu DockPanel.Dock="Top">
-				<MenuItem Header="Data">
+				<MenuItem Header="Plot">
 					<MenuItem Header="Open CSV" Click="LoadCSVSeries_Click">
 						<MenuItem Header="Scatter Plot"></MenuItem>
 						<MenuItem Header="Signal"></MenuItem>
+					</MenuItem>
+					<MenuItem Header="Prefab" Click="PrefabSeries_Click">
+						<MenuItem Header="Signal"/>
 					</MenuItem>
 				</MenuItem>
 				<TextBlock Name="statusMessage">No file loaded</TextBlock>

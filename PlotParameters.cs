@@ -30,4 +30,10 @@ namespace Where1.WPlot
 		scatter,
 		signal
 	}
+
+	public enum WaveType
+	{
+		sine,
+		square
+	}
 }

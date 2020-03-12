@@ -1,0 +1,43 @@
+﻿<Window x:Class="Where1.WPlot.PrefabSignalDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Where1.WPlot"
+        mc:Ignorable="d"
+		Topmost="True"
+		WindowStartupLocation="CenterOwner"
+        Title="Prefab Signal" Height="200" Width="300">
+	<StackPanel>
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="auto"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+
+
+			<Label Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">Wave Type:</Label>
+			
+			<ComboBox Grid.Row="0" Grid.Column="1" x:Name="waveTypeComboBox" VerticalAlignment="Center">
+				<ComboBoxItem IsSelected="True">Sine Wave</ComboBoxItem>
+				<ComboBoxItem>Square Wave</ComboBoxItem>
+			</ComboBox>
+
+			<Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">Frequency:</Label>
+
+			<TextBox Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Name="frequencyTextBox">1000</TextBox>
+			
+			<Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Center">Number of Cycles:</Label>
+
+			<TextBox Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Name="cycleCountTextBox">10</TextBox>
+
+		</Grid>
+
+		<Button Click="OkButton_Click" VerticalAlignment="Center" Margin="0,10,0,0">OK</Button>
+	</StackPanel>
+</Window>

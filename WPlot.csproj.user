@@ -7,18 +7,24 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="FrameSettingsDialog.xaml.cs">
+    <Compile Update="Dialogs\FrameSettingsDialog.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="PlotSettingsDialog.xaml.cs">
+    <Compile Update="Dialogs\PlotSettingsDialog.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="WindowSettingsDialog.xaml.cs">
+    <Compile Update="Dialogs\PrefabSignalDialog.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Dialogs\WindowSettingsDialog.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="FrameSettingsDialog.xaml">
+    <Page Update="Dialogs\FrameSettingsDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Dialogs\PrefabSignalDialog.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
@@ -27,13 +33,13 @@
     <Page Update="MenuBar.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="PlotSettingsDialog.xaml">
+    <Page Update="Dialogs\PlotSettingsDialog.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="SignalDialog.xaml">
+    <Page Update="Dialogs\SignalDialog.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="WindowSettingsDialog.xaml">
+    <Page Update="Dialogs\WindowSettingsDialog.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
