@@ -144,6 +144,14 @@ namespace Where1.WPlot
 
 						plotFrame.plt.PlotBar(histogram.bins, yData, color: curr.drawSettings.colour, label: curr.drawSettings.label);
 						break;
+					case PlotType.horizontalLine:
+						double hLineData = (double)curr.data;
+						plotFrame.plt.PlotHLine(hLineData, color: curr.drawSettings.colour, label: curr.drawSettings.label);
+						break;
+					case PlotType.verticalLine:
+						double vLineData = (double)curr.data;
+						plotFrame.plt.PlotVLine(vLineData, color: curr.drawSettings.colour, label: curr.drawSettings.label);
+						break;
 				}
 			}
 			plotFrame.plt.Legend();

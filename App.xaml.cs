@@ -19,6 +19,11 @@ namespace Where1.WPlot
 		public List<PlotParameters> GetSeries() => series;
 		public void ClearSeries() => series = new List<PlotParameters>();
 
+		public void AddSeries(PlotParameters plotParams) {
+			series.Add(plotParams);
+			((MainWindow)this.MainWindow).RenderPlot();
+		}
+
 		public PlotParameters AddSeriesFromString(string dataString, DrawSettings drawSettings, Dictionary<string, object> metadata = null)
 		{
 			object data = new object();

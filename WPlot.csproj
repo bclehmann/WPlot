@@ -20,4 +20,16 @@
     <Resource Include="logo_full_transparent.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Dialogs\LineSettingsDialog.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Dialogs\LineSettingsDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
 </Project>

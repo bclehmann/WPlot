@@ -27,6 +27,9 @@
     <Page Update="Dialogs\PrefabSignalDialog.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Dialogs\LineSettingsDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
