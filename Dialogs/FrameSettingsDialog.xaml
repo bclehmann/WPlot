@@ -29,7 +29,7 @@
 					<Label Grid.Row="1" Grid.Column="0">X Label:</Label>
 					<TextBox x:Name="xLabelTextBox" Grid.Row="1" Grid.Column="1" Text="" HorizontalAlignment="Stretch" VerticalAlignment="Center"></TextBox>
 
-					<Label Grid.Row="2" Grid.Column="0">YLabel:</Label>
+					<Label Grid.Row="2" Grid.Column="0">Y Label:</Label>
 					<TextBox x:Name="yLabelTextBox" Grid.Row="2" Grid.Column="1" Text="" HorizontalAlignment="Stretch" VerticalAlignment="Center"></TextBox>
 
 					<Label Grid.Row="3" Grid.Column="0" VerticalAlignment="Top" Grid.ColumnSpan="2" HorizontalAlignment="Left" Width="87">Log Axis:</Label>
