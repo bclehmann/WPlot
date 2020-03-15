@@ -19,7 +19,7 @@
 	</Window.Resources>
 
 	<Grid>
-		<StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4">
+		<StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" Margin="0,10,10,0">
 			<Grid>
 				<Grid.RowDefinitions>
 					<RowDefinition Height="*"></RowDefinition>
@@ -36,7 +36,7 @@
 				<Label Grid.Row="1" Grid.Column="0">X-Offset</Label>
 				<TextBox x:Name="xOffsetTextBox" Grid.Row="1" Grid.Column="1" Text="0" HorizontalAlignment="Stretch" VerticalAlignment="Center"></TextBox>
 			</Grid>
-			<Button Name="okButton" Click="okButton_Click" VerticalAlignment="Bottom">OK</Button>
+			<Button Name="okButton" Click="okButton_Click" VerticalAlignment="Bottom" Margin="5,10,0,0">OK</Button>
 		</StackPanel>
 	</Grid >
 </Window>
