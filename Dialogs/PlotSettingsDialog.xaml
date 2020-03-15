@@ -37,17 +37,17 @@
 			</Grid.ColumnDefinitions>
 
 			<Label Grid.Row="0" Grid.Column="0" VerticalAlignment="Top">Colour (aRGB):</Label>
-			<TextBox TextChanged="colourTextBox_TextChanged" Grid.Row="0" Grid.Column="1" Name="colourTextBox" VerticalAlignment="Top" Margin="0,5,0,0">
+			<TextBox TextChanged="colourTextBox_TextChanged" Grid.Row="0" Grid.Column="1" Name="colourTextBox" VerticalAlignment="Top" Margin="0,5,10,0">
 				<TextBox.Foreground>
 					<SolidColorBrush Color="{DynamicResource colour}"/>
 				</TextBox.Foreground>
 			</TextBox>
 
 			<Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" Grid.ColumnSpan="2" HorizontalAlignment="Left" Width="87">Draw line:</Label>
-			<CheckBox x:Name="shouldDrawLine" IsChecked="True" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,5,0,0"></CheckBox>
+			<CheckBox x:Name="shouldDrawLine" IsChecked="True" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,5,10,0"></CheckBox>
 
 			<Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Top" Visibility="{DynamicResource scatterSettingsVisibility}" >Marker Type:</Label>
-			<ComboBox Grid.Row="2" Grid.Column="1" x:Name="markerTypeComboBox" Visibility="{DynamicResource scatterSettingsVisibility}">
+			<ComboBox Grid.Row="2" Grid.Column="1" x:Name="markerTypeComboBox" Visibility="{DynamicResource scatterSettingsVisibility}" Margin="0,5,10,0">
 				<ComboBoxItem IsSelected="True">Filled Circle</ComboBoxItem>
 				<ComboBoxItem>None</ComboBoxItem>
 				<ComboBoxItem>Filled Square</ComboBoxItem>
@@ -65,20 +65,20 @@
 			</ComboBox>
 
 			<Label Grid.Row="3" Grid.Column="0" VerticalAlignment="Top">Plot Name:</Label>
-			<TextBox TextChanged="colourTextBox_TextChanged" Grid.Row="3" Grid.Column="1" Name="plotNameTextBox" VerticalAlignment="Top" Margin="0,5,0,0">
+			<TextBox TextChanged="colourTextBox_TextChanged" Grid.Row="3" Grid.Column="1" Name="plotNameTextBox" VerticalAlignment="Top" Margin="0,5,10,0">
 			</TextBox>
 
 			<Label Grid.Row="4" Grid.Column="0" VerticalAlignment="Top" Visibility="{DynamicResource scatterSettingsVisibility}" >Draw Linear Regression:</Label>
-			<CheckBox x:Name="linreg" IsChecked="False" Grid.Row="4" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="{DynamicResource scatterSettingsVisibility}" Margin="0,5,0,0"></CheckBox>
+			<CheckBox x:Name="linreg" IsChecked="False" Grid.Row="4" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="{DynamicResource scatterSettingsVisibility}" Margin="0,5,10,0"></CheckBox>
 
 			<Label Grid.Row="5" Grid.Column="0" VerticalAlignment="Top" Visibility="{DynamicResource scatterSettingsVisibility}" >Add Error Data:</Label>
 			<StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="{DynamicResource scatterSettingsVisibility}">
 				<Button Click="AddErrorCSVButton_Click" VerticalAlignment="Top" HorizontalAlignment="Left">Add CSV File</Button>
-				<TextBlock Name="CSVFileTextBlock" Text="No file selected" VerticalAlignment="Center" Margin="10,0,0,0" HorizontalAlignment="Left"/>
+				<TextBlock Name="CSVFileTextBlock" Text="No file selected" VerticalAlignment="Center" Margin="10,0,10,0" HorizontalAlignment="Left"/>
 			</StackPanel>
 		</Grid>
 
-		<Button Click="OKButton_Click" VerticalAlignment="Bottom">OK</Button>
+		<Button Click="OKButton_Click" VerticalAlignment="Bottom" Margin="5,10,10,0" >OK</Button>
 	</StackPanel>
 </Window>
 	

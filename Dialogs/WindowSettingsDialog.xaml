@@ -8,7 +8,7 @@
 		Topmost="True"
 		WindowStartupLocation="CenterOwner"
         Title="Window Settings" Height="150" Width="300">
-	<StackPanel>
+	<StackPanel Margin="0,10,10,0">
 		<Grid>
 			<Grid.RowDefinitions>
 				<RowDefinition Height="*"></RowDefinition>
@@ -32,6 +32,6 @@
 			<TextBox Grid.Row="1" Grid.Column="3" x:Name="yMax"></TextBox>
 		</Grid>
 
-		<Button Click="OKButton_Click">OK</Button>
+		<Button Click="OKButton_Click" Margin="5,10,0,0">OK</Button>
 	</StackPanel>
 </Window>

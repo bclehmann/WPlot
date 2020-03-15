@@ -10,7 +10,7 @@
         Title="Plot Settings" Height="200" Width="200">
 	<Grid>
 		<Grid>
-			<StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4">
+			<StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" Margin="0,10,10,0">
 				<Grid>
 					<Grid.RowDefinitions>
 						<RowDefinition Height="*"></RowDefinition>
@@ -35,7 +35,7 @@
 					<Label Grid.Row="3" Grid.Column="0" VerticalAlignment="Top" Grid.ColumnSpan="2" HorizontalAlignment="Left" Width="87">Log Axis:</Label>
 					<CheckBox x:Name="logAxis" IsChecked="False" Grid.Row="3" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,5,0,0"></CheckBox>
 				</Grid>
-				<Button Name="okButton" Click="OKButton_Click" VerticalAlignment="Bottom">OK</Button>
+				<Button Name="okButton" Click="OKButton_Click" VerticalAlignment="Center" Margin="5,0,0,0" >OK</Button>
 			</StackPanel>
 		</Grid >
 	</Grid>
