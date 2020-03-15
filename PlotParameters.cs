@@ -33,7 +33,9 @@ namespace Where1.WPlot
 		bar,
 		histogram,
 		verticalLine,
-		horizontalLine
+		horizontalLine,
+		verticalSpan,
+		horizontalSpan,
 	}
 
 	public enum WaveType

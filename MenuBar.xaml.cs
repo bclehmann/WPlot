@@ -286,6 +286,12 @@ namespace Where1.WPlot
 				case "HORIZONTAL LINE":
 					type = PlotType.horizontalLine;
 					break;
+				case "VERTICAL SPAN":
+					type = PlotType.verticalSpan;
+					break;
+				case "HORIZONTAL SPAN":
+					type = PlotType.horizontalSpan;
+					break;
 			}
 
 			SettingsDialog settingsDialog = new SettingsDialog(type);
@@ -301,23 +307,53 @@ namespace Where1.WPlot
 			{
 				return;
 			}
-
-			LineSettingsDialog lineDialog = new LineSettingsDialog();
-			lineDialog.Owner = App.Current.MainWindow;
-
-			if (lineDialog.ShowDialog() != true) {
-				return;
-			}
-
-			double value=0;
-
-			if (!double.TryParse(lineDialog.value.Text, out value)){
-				return;
-			}
-
+				
 			PlotParameters plotParams = new PlotParameters();
-			plotParams.data = value;
 			plotParams.drawSettings = drawSettings;
+
+			if (type == PlotType.horizontalLine || type == PlotType.verticalLine)
+			{
+				LineSettingsDialog lineDialog = new LineSettingsDialog();
+				lineDialog.Owner = App.Current.MainWindow;
+
+				if (lineDialog.ShowDialog() != true)
+				{
+					return;
+				}
+
+				double value = 0;
+
+				if (!double.TryParse(lineDialog.value.Text, out value))
+				{
+					return;
+				}
+
+				plotParams.data = value;
+			}
+			else {
+				SpanSettingsDialog spanDialog = new SpanSettingsDialog();
+				spanDialog.Owner = App.Current.MainWindow;
+
+				if (spanDialog.ShowDialog() != true)
+				{
+					return;
+				}
+
+				double minValue = 0;
+				double maxValue = 0;
+
+				if (!double.TryParse(spanDialog.minValue.Text, out minValue))
+				{
+					return;
+				}
+
+				if (!double.TryParse(spanDialog.maxValue.Text, out maxValue))
+				{
+					return;
+				}
+
+				plotParams.data = (minValue, maxValue);
+			}
 
 			((App)App.Current).AddSeries(plotParams);
 		}

@@ -64,7 +64,8 @@ namespace Where1.WPlot
 			RefreshTitleAndAxis(false);
 			foreach (PlotParameters curr in ((App)App.Current).GetSeries())
 			{
-				if (curr.drawSettings.label == "") {
+				if (curr.drawSettings.label == "")
+				{
 					curr.drawSettings.label = null;//Prevents it from showing up in the legend
 				}
 
@@ -112,11 +113,11 @@ namespace Where1.WPlot
 						plotFrame.plt.PlotSignalConst(data, (double)sampleRate, (double)xOffset, color: curr.drawSettings.colour, lineWidth: curr.drawSettings.drawLine ? 1 : 0, label: curr.drawSettings.label, markerSize: 0);
 						break;
 					case PlotType.bar:
-						double[] xsBar= ((double[][])curr.data)[0];
-						double[] ysBar= ((double[][])curr.data)[1];
+						double[] xsBar = ((double[][])curr.data)[0];
+						double[] ysBar = ((double[][])curr.data)[1];
 						if (logAxis)
 						{
-							ysBar= ScottPlot.Tools.Log10(ysBar);
+							ysBar = ScottPlot.Tools.Log10(ysBar);
 						}
 						if (!curr.hasErrorData)
 						{
@@ -132,7 +133,8 @@ namespace Where1.WPlot
 						ScottPlot.Statistics.Histogram histogram = new ScottPlot.Statistics.Histogram((double[])curr.data);
 						double[] yData = histogram.counts;
 
-						switch (curr.drawSettings.histogramType) {
+						switch (curr.drawSettings.histogramType)
+						{
 							case HistogramType.fraction | HistogramType.density:
 								yData = histogram.countsFrac;
 								break;
@@ -154,6 +156,14 @@ namespace Where1.WPlot
 					case PlotType.verticalLine:
 						double vLineData = (double)curr.data;
 						plotFrame.plt.PlotVLine(vLineData, color: curr.drawSettings.colour, label: curr.drawSettings.label);
+						break;
+					case PlotType.horizontalSpan:
+						(double hSpanMin, double hSpanMax) = (ValueTuple<double, double>)curr.data;
+						plotFrame.plt.PlotHSpan(hSpanMin, hSpanMax, color: curr.drawSettings.colour, label: curr.drawSettings.label);
+						break;
+					case PlotType.verticalSpan:
+						(double vSpanMin, double vSpanMax) = (ValueTuple<double, double>)curr.data;
+						plotFrame.plt.PlotVSpan(vSpanMin, vSpanMax, color: curr.drawSettings.colour, label: curr.drawSettings.label);
 						break;
 				}
 			}

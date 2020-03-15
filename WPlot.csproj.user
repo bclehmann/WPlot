@@ -24,6 +24,9 @@
     <Page Update="Dialogs\FrameSettingsDialog.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Dialogs\SpanSettingDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Dialogs\PrefabSignalDialog.xaml">
       <SubType>Designer</SubType>
     </Page>

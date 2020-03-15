@@ -27,6 +27,8 @@
 					<MenuItem Header="Lines or Spans" Click="LineSpan_Click">
 						<MenuItem Header="Vertical Line"></MenuItem>
 						<MenuItem Header="Horizontal Line"></MenuItem>
+						<MenuItem Header="Vertical Span"></MenuItem>
+						<MenuItem Header="Horizontal Span"></MenuItem>
 					</MenuItem>
 				</MenuItem>
 				<TextBlock Name="statusMessage">No file loaded</TextBlock>
