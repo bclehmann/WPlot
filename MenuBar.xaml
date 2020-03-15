@@ -19,6 +19,7 @@
 						<MenuItem Header="Scatter Plot"></MenuItem>
 						<MenuItem Header="Signal"></MenuItem>
 						<MenuItem Header="Bar Plot"></MenuItem>
+						<MenuItem Header="Histogram"></MenuItem>
 					</MenuItem>
 					<MenuItem Header="Prefab" Click="PrefabSeries_Click">
 						<MenuItem Header="Signal"/>

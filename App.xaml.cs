@@ -47,7 +47,7 @@ namespace Where1.WPlot
 					data = new double[][] { xs, ys };
 				}
 			}
-			else if (drawSettings.type == PlotType.signal)
+			else if (drawSettings.type == PlotType.signal || drawSettings.type == PlotType.histogram)
 			{
 				data = serialData.ToArray();
 			}
@@ -98,7 +98,8 @@ namespace Where1.WPlot
 						data = new double[][] { xs, ys };
 					}
 				}
-				else if (plotParams.drawSettings.type == PlotType.bar) {
+				else if (plotParams.drawSettings.type == PlotType.bar)
+				{
 					data = serialData.ToArray();
 				}
 

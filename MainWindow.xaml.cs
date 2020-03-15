@@ -125,6 +125,10 @@ namespace Where1.WPlot
 							plotFrame.plt.PlotBar(xsBar, ysBar, color: curr.drawSettings.colour, label: curr.drawSettings.label, errorY: errorY);
 						}
 						break;
+					case PlotType.histogram:
+						ScottPlot.Statistics.Histogram histogram = new ScottPlot.Statistics.Histogram((double[])curr.data);
+						plotFrame.plt.PlotBar(histogram.bins, histogram.counts, color: curr.drawSettings.colour, label: curr.drawSettings.label);
+						break;
 				}
 			}
 			plotFrame.plt.Legend();

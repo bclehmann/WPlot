@@ -203,6 +203,9 @@ namespace Where1.WPlot
 				case "BAR PLOT":
 					type = PlotType.bar;
 					break;
+				case "HISTOGRAM":
+					type = PlotType.histogram;
+					break;
 			}
 
 			SettingsDialog settingsDialog = new SettingsDialog(type);

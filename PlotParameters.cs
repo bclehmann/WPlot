@@ -29,12 +29,21 @@ namespace Where1.WPlot
 	{
 		scatter,
 		signal,
-		bar
+		bar,
+		histogram
 	}
 
 	public enum WaveType
 	{
 		sine,
 		square
+	}
+
+	[Flags]
+	public enum HistogramType { 
+		count,
+		fraction,
+		density,
+		cumulative,
 	}
 }
