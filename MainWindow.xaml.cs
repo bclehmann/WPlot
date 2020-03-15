@@ -127,7 +127,22 @@ namespace Where1.WPlot
 						break;
 					case PlotType.histogram:
 						ScottPlot.Statistics.Histogram histogram = new ScottPlot.Statistics.Histogram((double[])curr.data);
-						plotFrame.plt.PlotBar(histogram.bins, histogram.counts, color: curr.drawSettings.colour, label: curr.drawSettings.label);
+						double[] yData = histogram.counts;
+
+						switch (curr.drawSettings.histogramType) {
+							case HistogramType.fraction | HistogramType.density:
+								yData = histogram.countsFrac;
+								break;
+							case HistogramType.fraction | HistogramType.cumulative:
+								yData = histogram.cumulativeFrac;
+								break;
+							case HistogramType.count | HistogramType.cumulative:
+								yData = histogram.cumulativeCounts;
+								break;
+						}
+
+
+						plotFrame.plt.PlotBar(histogram.bins, yData, color: curr.drawSettings.colour, label: curr.drawSettings.label);
 						break;
 				}
 			}

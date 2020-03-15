@@ -24,6 +24,25 @@ namespace Where1.WPlot
 			drawSettings.type = type;
 			drawSettings.label = settingsDialog.plotNameTextBox.Text;
 
+			if (type == PlotType.histogram) {
+				if (settingsDialog.fractionHistogram.IsChecked == true)
+				{
+					drawSettings.histogramType = HistogramType.fraction;
+				}
+				else {
+					drawSettings.histogramType = HistogramType.count;
+				}
+
+				if (settingsDialog.cumulativeHistogram.IsChecked == true)
+				{
+					drawSettings.histogramType |= HistogramType.cumulative;
+				}
+				else
+				{
+					drawSettings.histogramType |= HistogramType.density;
+				}
+			}
+
 			string markerTypeName = settingsDialog.markerTypeComboBox.Text.ToUpperInvariant();
 			switch (markerTypeName)
 			{

@@ -18,11 +18,16 @@
 		<Visibility x:Key="errorSettingsVisibility">
 			Visible
 		</Visibility>
+		<Visibility x:Key="histogramSettingsVisibility">
+			Visible
+		</Visibility>
 	</Window.Resources>
 
 	<StackPanel>
 		<Grid>
 			<Grid.RowDefinitions>
+				<RowDefinition Height="*" />
+				<RowDefinition Height="*" />
 				<RowDefinition Height="*" />
 				<RowDefinition Height="*" />
 				<RowDefinition Height="*" />
@@ -76,6 +81,12 @@
 				<Button Click="AddErrorCSVButton_Click" VerticalAlignment="Top" HorizontalAlignment="Left">Add CSV File</Button>
 				<TextBlock Name="CSVFileTextBlock" Text="No file selected" VerticalAlignment="Center" Margin="10,0,10,0" HorizontalAlignment="Left"/>
 			</StackPanel>
+
+			<Label Grid.Row="6" Grid.Column="0" VerticalAlignment="Top" Visibility="{DynamicResource histogramSettingsVisibility}">Fraction (Frequency) Histogram:</Label>
+			<CheckBox x:Name="fractionHistogram" IsChecked="False" Grid.Row="6" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="{DynamicResource histogramSettingsVisibility}" Margin="0,5,10,0"></CheckBox>
+		
+			<Label Grid.Row="7" Grid.Column="0" VerticalAlignment="Top" Visibility="{DynamicResource histogramSettingsVisibility}">Cumulative Histogram:</Label>
+			<CheckBox x:Name="cumulativeHistogram" IsChecked="False" Grid.Row="7" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="{DynamicResource histogramSettingsVisibility}" Margin="0,5,10,0"></CheckBox>
 		</Grid>
 
 		<Button Click="OKButton_Click" VerticalAlignment="Bottom" Margin="5,10,10,0" >OK</Button>
