@@ -18,6 +18,7 @@ namespace Where1.WPlot
 	public struct DrawSettings
 	{
 		public PlotType type;
+		public HistogramType? histogramType;
 		public System.Drawing.Color colour;
 		public bool drawLine;
 		public ScottPlot.MarkerShape markerShape;
@@ -28,12 +29,26 @@ namespace Where1.WPlot
 	public enum PlotType
 	{
 		scatter,
-		signal
+		signal,
+		bar,
+		histogram,
+		verticalLine,
+		horizontalLine,
+		verticalSpan,
+		horizontalSpan,
 	}
 
 	public enum WaveType
 	{
 		sine,
 		square
+	}
+
+	[Flags]
+	public enum HistogramType { 
+		count = 0b0, //0
+		fraction =0b1,//1
+		density = 0b10,//2
+		cumulative = 0b100,//4
 	}
 }

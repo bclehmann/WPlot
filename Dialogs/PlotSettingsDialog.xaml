@@ -18,11 +18,16 @@
 		<Visibility x:Key="errorSettingsVisibility">
 			Visible
 		</Visibility>
+		<Visibility x:Key="histogramSettingsVisibility">
+			Visible
+		</Visibility>
 	</Window.Resources>
 
 	<StackPanel>
 		<Grid>
 			<Grid.RowDefinitions>
+				<RowDefinition Height="*" />
+				<RowDefinition Height="*" />
 				<RowDefinition Height="*" />
 				<RowDefinition Height="*" />
 				<RowDefinition Height="*" />
@@ -43,8 +48,8 @@
 				</TextBox.Foreground>
 			</TextBox>
 
-			<Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" Grid.ColumnSpan="2" HorizontalAlignment="Left" Width="87">Draw line:</Label>
-			<CheckBox x:Name="shouldDrawLine" IsChecked="True" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,5,10,0"></CheckBox>
+			<Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" Grid.ColumnSpan="2" HorizontalAlignment="Left" Width="87" Visibility="{DynamicResource scatterSettingsVisibility}">Draw line:</Label>
+			<CheckBox x:Name="shouldDrawLine" IsChecked="True" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,5,10,0" Visibility="{DynamicResource scatterSettingsVisibility}"></CheckBox>
 
 			<Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Top" Visibility="{DynamicResource scatterSettingsVisibility}" >Marker Type:</Label>
 			<ComboBox Grid.Row="2" Grid.Column="1" x:Name="markerTypeComboBox" Visibility="{DynamicResource scatterSettingsVisibility}" Margin="0,5,10,0">
@@ -71,11 +76,17 @@
 			<Label Grid.Row="4" Grid.Column="0" VerticalAlignment="Top" Visibility="{DynamicResource scatterSettingsVisibility}" >Draw Linear Regression:</Label>
 			<CheckBox x:Name="linreg" IsChecked="False" Grid.Row="4" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="{DynamicResource scatterSettingsVisibility}" Margin="0,5,10,0"></CheckBox>
 
-			<Label Grid.Row="5" Grid.Column="0" VerticalAlignment="Top" Visibility="{DynamicResource scatterSettingsVisibility}" >Add Error Data:</Label>
-			<StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="{DynamicResource scatterSettingsVisibility}">
+			<Label Grid.Row="5" Grid.Column="0" VerticalAlignment="Top" Visibility="{DynamicResource errorSettingsVisibility}" >Add Error Data:</Label>
+			<StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="{DynamicResource errorSettingsVisibility}">
 				<Button Click="AddErrorCSVButton_Click" VerticalAlignment="Top" HorizontalAlignment="Left">Add CSV File</Button>
 				<TextBlock Name="CSVFileTextBlock" Text="No file selected" VerticalAlignment="Center" Margin="10,0,10,0" HorizontalAlignment="Left"/>
 			</StackPanel>
+
+			<Label Grid.Row="6" Grid.Column="0" VerticalAlignment="Top" Visibility="{DynamicResource histogramSettingsVisibility}">Fraction (Frequency) Histogram:</Label>
+			<CheckBox x:Name="fractionHistogram" IsChecked="False" Grid.Row="6" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="{DynamicResource histogramSettingsVisibility}" Margin="0,5,10,0"></CheckBox>
+		
+			<Label Grid.Row="7" Grid.Column="0" VerticalAlignment="Top" Visibility="{DynamicResource histogramSettingsVisibility}">Cumulative Histogram:</Label>
+			<CheckBox x:Name="cumulativeHistogram" IsChecked="False" Grid.Row="7" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="{DynamicResource histogramSettingsVisibility}" Margin="0,5,10,0"></CheckBox>
 		</Grid>
 
 		<Button Click="OKButton_Click" VerticalAlignment="Bottom" Margin="5,10,10,0" >OK</Button>

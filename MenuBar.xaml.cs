@@ -24,6 +24,25 @@ namespace Where1.WPlot
 			drawSettings.type = type;
 			drawSettings.label = settingsDialog.plotNameTextBox.Text;
 
+			if (type == PlotType.histogram) {
+				if (settingsDialog.fractionHistogram.IsChecked == true)
+				{
+					drawSettings.histogramType = HistogramType.fraction;
+				}
+				else {
+					drawSettings.histogramType = HistogramType.count;
+				}
+
+				if (settingsDialog.cumulativeHistogram.IsChecked == true)
+				{
+					drawSettings.histogramType |= HistogramType.cumulative;
+				}
+				else
+				{
+					drawSettings.histogramType |= HistogramType.density;
+				}
+			}
+
 			string markerTypeName = settingsDialog.markerTypeComboBox.Text.ToUpperInvariant();
 			switch (markerTypeName)
 			{
@@ -200,6 +219,12 @@ namespace Where1.WPlot
 				case "SIGNAL":
 					type = PlotType.signal;
 					break;
+				case "BAR PLOT":
+					type = PlotType.bar;
+					break;
+				case "HISTOGRAM":
+					type = PlotType.histogram;
+					break;
 			}
 
 			SettingsDialog settingsDialog = new SettingsDialog(type);
@@ -248,6 +273,89 @@ namespace Where1.WPlot
 				}
 				statusMessage.Text = $"{openFileDialog.FileName} loaded";
 			}
+		}
+
+		private void LineSpan_Click(object sender, RoutedEventArgs e) { 
+			string plotType = ((MenuItem)e.OriginalSource).Header.ToString().ToUpperInvariant();
+			PlotType type = new PlotType();
+
+			switch (plotType) {
+				case "VERTICAL LINE":
+					type = PlotType.verticalLine;
+					break;
+				case "HORIZONTAL LINE":
+					type = PlotType.horizontalLine;
+					break;
+				case "VERTICAL SPAN":
+					type = PlotType.verticalSpan;
+					break;
+				case "HORIZONTAL SPAN":
+					type = PlotType.horizontalSpan;
+					break;
+			}
+
+			SettingsDialog settingsDialog = new SettingsDialog(type);
+			settingsDialog.Owner = App.Current.MainWindow;
+
+			DrawSettings drawSettings;
+
+			try
+			{
+				drawSettings = FetchSettingsFromDialog(settingsDialog, type);
+			}
+			catch
+			{
+				return;
+			}
+				
+			PlotParameters plotParams = new PlotParameters();
+			plotParams.drawSettings = drawSettings;
+
+			if (type == PlotType.horizontalLine || type == PlotType.verticalLine)
+			{
+				LineSettingsDialog lineDialog = new LineSettingsDialog();
+				lineDialog.Owner = App.Current.MainWindow;
+
+				if (lineDialog.ShowDialog() != true)
+				{
+					return;
+				}
+
+				double value = 0;
+
+				if (!double.TryParse(lineDialog.value.Text, out value))
+				{
+					return;
+				}
+
+				plotParams.data = value;
+			}
+			else {
+				SpanSettingsDialog spanDialog = new SpanSettingsDialog();
+				spanDialog.Owner = App.Current.MainWindow;
+
+				if (spanDialog.ShowDialog() != true)
+				{
+					return;
+				}
+
+				double minValue = 0;
+				double maxValue = 0;
+
+				if (!double.TryParse(spanDialog.minValue.Text, out minValue))
+				{
+					return;
+				}
+
+				if (!double.TryParse(spanDialog.maxValue.Text, out maxValue))
+				{
+					return;
+				}
+
+				plotParams.data = (minValue, maxValue);
+			}
+
+			((App)App.Current).AddSeries(plotParams);
 		}
 
 		private void ClearPlot_Click(object sender, RoutedEventArgs e)

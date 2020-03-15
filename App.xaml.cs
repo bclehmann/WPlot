@@ -19,6 +19,11 @@ namespace Where1.WPlot
 		public List<PlotParameters> GetSeries() => series;
 		public void ClearSeries() => series = new List<PlotParameters>();
 
+		public void AddSeries(PlotParameters plotParams) {
+			series.Add(plotParams);
+			((MainWindow)this.MainWindow).RenderPlot();
+		}
+
 		public PlotParameters AddSeriesFromString(string dataString, DrawSettings drawSettings, Dictionary<string, object> metadata = null)
 		{
 			object data = new object();
@@ -26,7 +31,7 @@ namespace Where1.WPlot
 			string[] raw = dataString.Split(new char[] { ',', '\n' });
 			List<double> serialData = raw.Where(m => double.TryParse(m, out _)).Select(m => double.Parse(m)).ToList();
 
-			if (drawSettings.type == PlotType.scatter)
+			if (drawSettings.type == PlotType.scatter || drawSettings.type == PlotType.bar)
 			{
 				double[] xs = new double[serialData.Count / 2];
 				double[] ys = new double[serialData.Count / 2];
@@ -47,7 +52,7 @@ namespace Where1.WPlot
 					data = new double[][] { xs, ys };
 				}
 			}
-			else if (drawSettings.type == PlotType.signal)
+			else if (drawSettings.type == PlotType.signal || drawSettings.type == PlotType.histogram)
 			{
 				data = serialData.ToArray();
 			}
@@ -97,6 +102,10 @@ namespace Where1.WPlot
 
 						data = new double[][] { xs, ys };
 					}
+				}
+				else if (plotParams.drawSettings.type == PlotType.bar)
+				{
+					data = serialData.ToArray();
 				}
 
 				plotParams.errorData = data;

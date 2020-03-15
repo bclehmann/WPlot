@@ -28,7 +28,8 @@ namespace Where1.WPlot
 			Resources["colour"] = ConvertFromSystemDrawingColor(plotColour);
 			colourTextBox.Text = plotColour.ToArgb().ToString("X");
 			Resources["scatterSettingsVisibility"] = plotType == PlotType.scatter ? Visibility.Visible : Visibility.Collapsed;
-			Resources["errorSettingsVisibility"] = plotType == PlotType.scatter ? Visibility.Visible : Visibility.Collapsed;
+			Resources["errorSettingsVisibility"] = plotType == PlotType.scatter || plotType == PlotType.bar ? Visibility.Visible : Visibility.Collapsed;
+			Resources["histogramSettingsVisibility"] = plotType == PlotType.histogram ? Visibility.Visible : Visibility.Collapsed;
 		}
 
 		private void colourTextBox_TextChanged(object sender, TextChangedEventArgs e)

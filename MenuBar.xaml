@@ -18,9 +18,17 @@
 					<MenuItem Header="Open CSV" Click="LoadCSVSeries_Click">
 						<MenuItem Header="Scatter Plot"></MenuItem>
 						<MenuItem Header="Signal"></MenuItem>
+						<MenuItem Header="Bar Plot"></MenuItem>
+						<MenuItem Header="Histogram"></MenuItem>
 					</MenuItem>
 					<MenuItem Header="Prefab" Click="PrefabSeries_Click">
 						<MenuItem Header="Signal"/>
+					</MenuItem>
+					<MenuItem Header="Lines or Spans" Click="LineSpan_Click">
+						<MenuItem Header="Vertical Line"></MenuItem>
+						<MenuItem Header="Horizontal Line"></MenuItem>
+						<MenuItem Header="Vertical Span"></MenuItem>
+						<MenuItem Header="Horizontal Span"></MenuItem>
 					</MenuItem>
 				</MenuItem>
 				<TextBlock Name="statusMessage">No file loaded</TextBlock>

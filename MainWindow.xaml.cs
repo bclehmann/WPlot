@@ -64,32 +64,36 @@ namespace Where1.WPlot
 			RefreshTitleAndAxis(false);
 			foreach (PlotParameters curr in ((App)App.Current).GetSeries())
 			{
+				if (curr.drawSettings.label == "")
+				{
+					curr.drawSettings.label = null;//Prevents it from showing up in the legend
+				}
 
 				switch (curr.drawSettings.type)
 				{
 					case PlotType.scatter:
-						double[] xs = ((double[][])curr.data)[0];
-						double[] ys = ((double[][])curr.data)[1];
+						double[] xsScatter = ((double[][])curr.data)[0];
+						double[] ysScatter = ((double[][])curr.data)[1];
 						if (logAxis)
 						{
-							ys = ScottPlot.Tools.Log10(ys);
+							ysScatter = ScottPlot.Tools.Log10(ysScatter);
 						}
 						if (!curr.hasErrorData)
 						{
-							plotFrame.plt.PlotScatter(xs, ys, curr.drawSettings.colour, curr.drawSettings.drawLine ? 1 : 0, label: curr.drawSettings.label, markerShape: curr.drawSettings.markerShape);
+							plotFrame.plt.PlotScatter(xsScatter, ysScatter, curr.drawSettings.colour, curr.drawSettings.drawLine ? 1 : 0, label: curr.drawSettings.label, markerShape: curr.drawSettings.markerShape);
 						}
 						else
 						{
 							double[] errorX = ((double[][])curr.errorData)[0];
 							double[] errorY = ((double[][])curr.errorData)[1];
-							plotFrame.plt.PlotScatter(xs, ys, curr.drawSettings.colour, curr.drawSettings.drawLine ? 1 : 0, label: curr.drawSettings.label, markerShape: curr.drawSettings.markerShape, errorX: errorX, errorY: errorY);
+							plotFrame.plt.PlotScatter(xsScatter, ysScatter, curr.drawSettings.colour, curr.drawSettings.drawLine ? 1 : 0, label: curr.drawSettings.label, markerShape: curr.drawSettings.markerShape, errorX: errorX, errorY: errorY);
 						}
 
 						if (curr.drawSettings.drawLinearRegression)
 						{
-							var model = new ScottPlot.Statistics.LinearRegressionLine(xs, ys);
-							double x1 = xs[0];
-							double x2 = xs[xs.Length - 1];
+							var model = new ScottPlot.Statistics.LinearRegressionLine(xsScatter, ysScatter);
+							double x1 = xsScatter[0];
+							double x2 = xsScatter[xsScatter.Length - 1];
 							double y1 = model.GetValueAt(x1);
 							double y2 = model.GetValueAt(x2);
 							plotFrame.plt.PlotLine(x1, y1, x2, y2, lineWidth: 3, label: $"ŷ = {model.offset:f9} + {model.slope:f9}x");
@@ -107,6 +111,59 @@ namespace Where1.WPlot
 							data = ScottPlot.Tools.Log10(data);
 						}
 						plotFrame.plt.PlotSignalConst(data, (double)sampleRate, (double)xOffset, color: curr.drawSettings.colour, lineWidth: curr.drawSettings.drawLine ? 1 : 0, label: curr.drawSettings.label, markerSize: 0);
+						break;
+					case PlotType.bar:
+						double[] xsBar = ((double[][])curr.data)[0];
+						double[] ysBar = ((double[][])curr.data)[1];
+						if (logAxis)
+						{
+							ysBar = ScottPlot.Tools.Log10(ysBar);
+						}
+						if (!curr.hasErrorData)
+						{
+							plotFrame.plt.PlotBar(xsBar, ysBar, color: curr.drawSettings.colour, label: curr.drawSettings.label);
+						}
+						else
+						{
+							double[] errorY = ((double[])curr.errorData);
+							plotFrame.plt.PlotBar(xsBar, ysBar, color: curr.drawSettings.colour, label: curr.drawSettings.label, errorY: errorY);
+						}
+						break;
+					case PlotType.histogram:
+						ScottPlot.Statistics.Histogram histogram = new ScottPlot.Statistics.Histogram((double[])curr.data);
+						double[] yData = histogram.counts;
+
+						switch (curr.drawSettings.histogramType)
+						{
+							case HistogramType.fraction | HistogramType.density:
+								yData = histogram.countsFrac;
+								break;
+							case HistogramType.fraction | HistogramType.cumulative:
+								yData = histogram.cumulativeFrac;
+								break;
+							case HistogramType.count | HistogramType.cumulative:
+								yData = histogram.cumulativeCounts;
+								break;
+						}
+
+
+						plotFrame.plt.PlotBar(histogram.bins, yData, color: curr.drawSettings.colour, label: curr.drawSettings.label);
+						break;
+					case PlotType.horizontalLine:
+						double hLineData = (double)curr.data;
+						plotFrame.plt.PlotHLine(hLineData, color: curr.drawSettings.colour, label: curr.drawSettings.label);
+						break;
+					case PlotType.verticalLine:
+						double vLineData = (double)curr.data;
+						plotFrame.plt.PlotVLine(vLineData, color: curr.drawSettings.colour, label: curr.drawSettings.label);
+						break;
+					case PlotType.horizontalSpan:
+						(double hSpanMin, double hSpanMax) = (ValueTuple<double, double>)curr.data;
+						plotFrame.plt.PlotHSpan(hSpanMin, hSpanMax, color: curr.drawSettings.colour, label: curr.drawSettings.label);
+						break;
+					case PlotType.verticalSpan:
+						(double vSpanMin, double vSpanMax) = (ValueTuple<double, double>)curr.data;
+						plotFrame.plt.PlotVSpan(vSpanMin, vSpanMax, color: curr.drawSettings.colour, label: curr.drawSettings.label);
 						break;
 				}
 			}
