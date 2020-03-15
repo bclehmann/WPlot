@@ -64,6 +64,9 @@ namespace Where1.WPlot
 			RefreshTitleAndAxis(false);
 			foreach (PlotParameters curr in ((App)App.Current).GetSeries())
 			{
+				if (curr.drawSettings.label == "") {
+					curr.drawSettings.label = null;//Prevents it from showing up in the legend
+				}
 
 				switch (curr.drawSettings.type)
 				{
