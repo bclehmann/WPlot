@@ -2,7 +2,14 @@
 A WPF app for plotting stuff. The backend is provided by [ScottPlot](https://github.com/swharden/ScottPlot)
 
 # Capabilities
-Currently this is quite basic, it supports scatter plots (with error bars and regression) and signal plots. It also has robust customization settings.
+- Scatter Plots
+- Signal Plots
+- Bar Plot
+- Histogram
+- Error Bars
+- Linear Regression
+- Customization
+- Draw Vertical/Horizontal Lines or Spans
 
 # Creating a Scatter Plot
 
