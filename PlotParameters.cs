@@ -28,7 +28,8 @@ namespace Where1.WPlot
 	public enum PlotType
 	{
 		scatter,
-		signal
+		signal,
+		bar
 	}
 
 	public enum WaveType

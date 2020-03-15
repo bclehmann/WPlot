@@ -26,7 +26,7 @@ namespace Where1.WPlot
 			string[] raw = dataString.Split(new char[] { ',', '\n' });
 			List<double> serialData = raw.Where(m => double.TryParse(m, out _)).Select(m => double.Parse(m)).ToList();
 
-			if (drawSettings.type == PlotType.scatter)
+			if (drawSettings.type == PlotType.scatter || drawSettings.type == PlotType.bar)
 			{
 				double[] xs = new double[serialData.Count / 2];
 				double[] ys = new double[serialData.Count / 2];
@@ -97,6 +97,9 @@ namespace Where1.WPlot
 
 						data = new double[][] { xs, ys };
 					}
+				}
+				else if (plotParams.drawSettings.type == PlotType.bar) {
+					data = serialData.ToArray();
 				}
 
 				plotParams.errorData = data;

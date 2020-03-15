@@ -200,6 +200,9 @@ namespace Where1.WPlot
 				case "SIGNAL":
 					type = PlotType.signal;
 					break;
+				case "BAR PLOT":
+					type = PlotType.bar;
+					break;
 			}
 
 			SettingsDialog settingsDialog = new SettingsDialog(type);
