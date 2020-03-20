@@ -44,6 +44,9 @@ namespace Where1.WPlot
 		public string xLabel { get; set; }
 		public string yLabel { get; set; }
 		public bool logAxis { get; set; }
+		public string dateAxisCSVPath { get; set; }
+		public List<DateTime> dateAxis { get; set; }
+
 		private bool gridLines = true;
 
 		public void RefreshTitleAndAxis(bool shouldRender = true)
@@ -51,6 +54,7 @@ namespace Where1.WPlot
 			plotFrame.plt.Title(plotTitle);
 			plotFrame.plt.XLabel(xLabel);
 			plotFrame.plt.YLabel(yLabel);
+
 			if (shouldRender)
 			{
 				RenderPlot();
@@ -69,6 +73,22 @@ namespace Where1.WPlot
 					curr.drawSettings.label = null;//Prevents it from showing up in the legend
 				}
 
+				if (curr.drawSettings.dateXAxis)
+				{
+					object timeUnit;
+					curr.metaData.TryGetValue("timeUnit", out timeUnit);
+					ScottPlot.Config.DateTimeUnit dateTimeUnit = (ScottPlot.Config.DateTimeUnit)timeUnit;
+					if (dateTimeUnit == ScottPlot.Config.DateTimeUnit.Year)//Grid spacing of one year is currently unsupported -_-
+					{
+						plotFrame.plt.Grid(xSpacing: 12, xSpacingDateTimeUnit: ScottPlot.Config.DateTimeUnit.Month);
+					}
+					else
+					{
+						plotFrame.plt.Grid(xSpacing: 1, xSpacingDateTimeUnit: dateTimeUnit);
+					}
+					plotFrame.plt.Ticks(dateTimeX: true);
+				}
+
 				switch (curr.drawSettings.type)
 				{
 					case PlotType.scatter:
@@ -78,6 +98,7 @@ namespace Where1.WPlot
 						{
 							ysScatter = ScottPlot.Tools.Log10(ysScatter);
 						}
+
 						if (!curr.hasErrorData)
 						{
 							plotFrame.plt.PlotScatter(xsScatter, ysScatter, curr.drawSettings.colour, curr.drawSettings.drawLine ? 1 : 0, label: curr.drawSettings.label, markerShape: curr.drawSettings.markerShape);
