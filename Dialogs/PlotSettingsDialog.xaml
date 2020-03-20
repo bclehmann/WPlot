@@ -21,6 +21,9 @@
 		<Visibility x:Key="histogramSettingsVisibility">
 			Visible
 		</Visibility>
+		<Visibility x:Key="scatterBarSettingsVisibility">
+			Visible
+		</Visibility>
 	</Window.Resources>
 
 	<StackPanel>
@@ -93,8 +96,8 @@
 			<Label Grid.Row="8" Grid.Column="0" VerticalAlignment="Top" Visibility="{DynamicResource scatterSettingsVisibility}" >Polar Coordinates:</Label>
 			<CheckBox x:Name="polarCoordinates" IsChecked="False" Grid.Row="8" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="{DynamicResource scatterSettingsVisibility}" Margin="0,5,10,0"></CheckBox>
 
-			<Label Grid.Row="9" Grid.Column="0" VerticalAlignment="Top" Visibility="{DynamicResource scatterSettingsVisibility}" >Date X-Axis:</Label>
-			<CheckBox x:Name="dateXAxis" IsChecked="False" Grid.Row="9" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="{DynamicResource scatterSettingsVisibility}" Margin="0,5,10,0"></CheckBox>
+			<Label Grid.Row="9" Grid.Column="0" VerticalAlignment="Top" Visibility="{DynamicResource scatterBarSettingsVisibility}" >Date X-Axis:</Label>
+			<CheckBox x:Name="dateXAxis" IsChecked="False" Grid.Row="9" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="{DynamicResource scatterBarSettingsVisibility}" Margin="0,5,10,0"></CheckBox>
 		</Grid>
 
 		<Button Click="OKButton_Click" VerticalAlignment="Bottom" Margin="5,10,10,0" >OK</Button>

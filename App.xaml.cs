@@ -68,7 +68,7 @@ namespace Where1.WPlot
 			}
 			else
 			{
-				if (drawSettings.type == PlotType.scatter)
+				if (drawSettings.type == PlotType.scatter || drawSettings.type == PlotType.bar)
 				{
 					List<DateTime> dataX = new List<DateTime>();
 					List<double> dataY = new List<double>();
