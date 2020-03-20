@@ -19,7 +19,8 @@ namespace Where1.WPlot
 		public List<PlotParameters> GetSeries() => series;
 		public void ClearSeries() => series = new List<PlotParameters>();
 
-		public void AddSeries(PlotParameters plotParams) {
+		public void AddSeries(PlotParameters plotParams)
+		{
 			series.Add(plotParams);
 			((MainWindow)this.MainWindow).RenderPlot();
 		}
@@ -56,6 +57,12 @@ namespace Where1.WPlot
 			{
 				data = serialData.ToArray();
 			}
+
+			if (drawSettings.type == PlotType.scatter && drawSettings.polarCoordinates)
+			{
+				(((double[][])data)[0], ((double[][])data)[1]) = ScottPlot.Tools.ConvertPolarCoordinates(((double[][])data)[0], ((double[][])data)[1]);
+			}
+
 			PlotParameters plotParams = new PlotParameters { data = data, drawSettings = drawSettings, metaData = metadata };
 			series.Add(plotParams);
 

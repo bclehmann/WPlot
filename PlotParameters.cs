@@ -24,6 +24,7 @@ namespace Where1.WPlot
 		public ScottPlot.MarkerShape markerShape;
 		public string label;
 		public bool drawLinearRegression;
+		public bool polarCoordinates;
 	}
 
 	public enum PlotType

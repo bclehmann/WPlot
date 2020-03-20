@@ -23,13 +23,16 @@ namespace Where1.WPlot
 			drawSettings.drawLinearRegression = settingsDialog.linreg.IsChecked == true; //Because it is nullable
 			drawSettings.type = type;
 			drawSettings.label = settingsDialog.plotNameTextBox.Text;
+			drawSettings.polarCoordinates = settingsDialog.polarCoordinates.IsChecked == true;//Nullable
 
-			if (type == PlotType.histogram) {
+			if (type == PlotType.histogram)
+			{
 				if (settingsDialog.fractionHistogram.IsChecked == true)
 				{
 					drawSettings.histogramType = HistogramType.fraction;
 				}
-				else {
+				else
+				{
 					drawSettings.histogramType = HistogramType.count;
 				}
 
@@ -184,7 +187,7 @@ namespace Where1.WPlot
 					bool high = false;
 					for (int i = 0; i < upperBound; i++)
 					{
-						if(i % (frequency / 2) == 0)
+						if (i % (frequency / 2) == 0)
 						{
 							high = !high;
 						}
@@ -275,11 +278,13 @@ namespace Where1.WPlot
 			}
 		}
 
-		private void LineSpan_Click(object sender, RoutedEventArgs e) { 
+		private void LineSpan_Click(object sender, RoutedEventArgs e)
+		{
 			string plotType = ((MenuItem)e.OriginalSource).Header.ToString().ToUpperInvariant();
 			PlotType type = new PlotType();
 
-			switch (plotType) {
+			switch (plotType)
+			{
 				case "VERTICAL LINE":
 					type = PlotType.verticalLine;
 					break;
@@ -307,7 +312,7 @@ namespace Where1.WPlot
 			{
 				return;
 			}
-				
+
 			PlotParameters plotParams = new PlotParameters();
 			plotParams.drawSettings = drawSettings;
 
@@ -330,7 +335,8 @@ namespace Where1.WPlot
 
 				plotParams.data = value;
 			}
-			else {
+			else
+			{
 				SpanSettingsDialog spanDialog = new SpanSettingsDialog();
 				spanDialog.Owner = App.Current.MainWindow;
 
