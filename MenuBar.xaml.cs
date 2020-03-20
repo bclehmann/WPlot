@@ -24,6 +24,7 @@ namespace Where1.WPlot
 			drawSettings.type = type;
 			drawSettings.label = settingsDialog.plotNameTextBox.Text;
 			drawSettings.polarCoordinates = settingsDialog.polarCoordinates.IsChecked == true;//Nullable
+			drawSettings.dateXAxis = settingsDialog.dateXAxis.IsChecked == true;//Nullable
 
 			if (type == PlotType.histogram)
 			{
