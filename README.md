@@ -12,7 +12,7 @@ A WPF app for plotting stuff. The backend is provided by [ScottPlot](https://git
 - Draw Vertical/Horizontal Lines or Spans
 
 # Downloads
-Compiled versions since `0.3.2` are available on my website: https://where1software.com/blobDownloads/WPlot
+Compiled versions since `0.3.2` are available here: https://gist.github.com/Benny121221/b3106083c4375b931c179fae23a78682
 
 # Creating a Scatter Plot
 
