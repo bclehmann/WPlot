@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ScottPlot;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -142,12 +143,12 @@ namespace Where1.WPlot
 						}
 						if (!curr.hasErrorData)
 						{
-							plotFrame.plt.PlotBar(xsBar, ysBar, color: curr.drawSettings.colour, label: curr.drawSettings.label);
+							plotFrame.plt.PlotBar(xsBar, ysBar, fillColor: curr.drawSettings.colour, outlineColor: curr.drawSettings.colour, errorColor: curr.drawSettings.colour, label: curr.drawSettings.label);
 						}
 						else
 						{
 							double[] errorY = ((double[])curr.errorData);
-							plotFrame.plt.PlotBar(xsBar, ysBar, color: curr.drawSettings.colour, label: curr.drawSettings.label, errorY: errorY);
+							plotFrame.plt.PlotBar(xsBar, ysBar, fillColor: curr.drawSettings.colour, outlineColor: curr.drawSettings.colour, errorColor: curr.drawSettings.colour, label: curr.drawSettings.label, errorY: errorY);
 						}
 						break;
 					case PlotType.histogram:
@@ -168,7 +169,7 @@ namespace Where1.WPlot
 						}
 
 
-						plotFrame.plt.PlotBar(histogram.bins, yData, color: curr.drawSettings.colour, label: curr.drawSettings.label);
+						plotFrame.plt.PlotBar(histogram.bins, yData, fillColor: curr.drawSettings.colour, outlineColor: curr.drawSettings.colour, errorColor: curr.drawSettings.colour, label: curr.drawSettings.label);
 						break;
 					case PlotType.horizontalLine:
 						double hLineData = (double)curr.data;
@@ -185,6 +186,11 @@ namespace Where1.WPlot
 					case PlotType.verticalSpan:
 						(double vSpanMin, double vSpanMax) = (ValueTuple<double, double>)curr.data;
 						plotFrame.plt.PlotVSpan(vSpanMin, vSpanMax, color: curr.drawSettings.colour, label: curr.drawSettings.label);
+						break;
+					case PlotType.boxWhisker:
+						var plotObj= plotFrame.plt.PlotPopulations((ScottPlot.Statistics.Population)curr.data, label: curr.drawSettings.label);
+						plotObj.boxStyle = PlottablePopulations.BoxStyle.BoxMedianQuartileOutlier;
+						plotObj.displayDistributionCurve = false;
 						break;
 				}
 			}
