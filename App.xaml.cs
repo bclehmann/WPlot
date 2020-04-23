@@ -60,6 +60,10 @@ namespace Where1.WPlot
 				{
 					data = serialData.ToArray();
 				}
+				else if (drawSettings.type == PlotType.boxWhisker) {
+					ScottPlot.Statistics.Population dataPopulation = new ScottPlot.Statistics.Population(serialData.ToArray());
+					data = dataPopulation;
+				}
 
 				if (drawSettings.type == PlotType.scatter && drawSettings.polarCoordinates)
 				{

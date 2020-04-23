@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ScottPlot;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -185,6 +186,11 @@ namespace Where1.WPlot
 					case PlotType.verticalSpan:
 						(double vSpanMin, double vSpanMax) = (ValueTuple<double, double>)curr.data;
 						plotFrame.plt.PlotVSpan(vSpanMin, vSpanMax, color: curr.drawSettings.colour, label: curr.drawSettings.label);
+						break;
+					case PlotType.boxWhisker:
+						var plotObj= plotFrame.plt.PlotPopulations((ScottPlot.Statistics.Population)curr.data, label: curr.drawSettings.label);
+						plotObj.boxStyle = PlottablePopulations.BoxStyle.BoxMedianQuartileOutlier;
+						plotObj.displayDistributionCurve = false;
 						break;
 				}
 			}

@@ -229,6 +229,9 @@ namespace Where1.WPlot
 				case "HISTOGRAM":
 					type = PlotType.histogram;
 					break;
+				case "BOX AND WHISKER":
+					type = PlotType.boxWhisker;
+					break;
 			}
 
 			SettingsDialog settingsDialog = new SettingsDialog(type);

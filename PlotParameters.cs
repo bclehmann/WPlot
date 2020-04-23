@@ -38,6 +38,7 @@ namespace Where1.WPlot
 		horizontalLine,
 		verticalSpan,
 		horizontalSpan,
+		boxWhisker,
 	}
 
 	public enum WaveType
