@@ -142,12 +142,12 @@ namespace Where1.WPlot
 						}
 						if (!curr.hasErrorData)
 						{
-							plotFrame.plt.PlotBar(xsBar, ysBar, color: curr.drawSettings.colour, label: curr.drawSettings.label);
+							plotFrame.plt.PlotBar(xsBar, ysBar, fillColor: curr.drawSettings.colour, outlineColor: curr.drawSettings.colour, errorColor: curr.drawSettings.colour, label: curr.drawSettings.label);
 						}
 						else
 						{
 							double[] errorY = ((double[])curr.errorData);
-							plotFrame.plt.PlotBar(xsBar, ysBar, color: curr.drawSettings.colour, label: curr.drawSettings.label, errorY: errorY);
+							plotFrame.plt.PlotBar(xsBar, ysBar, fillColor: curr.drawSettings.colour, outlineColor: curr.drawSettings.colour, errorColor: curr.drawSettings.colour, label: curr.drawSettings.label, errorY: errorY);
 						}
 						break;
 					case PlotType.histogram:
@@ -168,7 +168,7 @@ namespace Where1.WPlot
 						}
 
 
-						plotFrame.plt.PlotBar(histogram.bins, yData, color: curr.drawSettings.colour, label: curr.drawSettings.label);
+						plotFrame.plt.PlotBar(histogram.bins, yData, fillColor: curr.drawSettings.colour, outlineColor: curr.drawSettings.colour, errorColor: curr.drawSettings.colour, label: curr.drawSettings.label);
 						break;
 					case PlotType.horizontalLine:
 						double hLineData = (double)curr.data;
