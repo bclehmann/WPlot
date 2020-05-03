@@ -3,6 +3,7 @@ A WPF app for plotting stuff. The backend is provided by [ScottPlot](https://git
 
 # Capabilities
 - Scatter Plots
+- Plotting functions in form `y=<expression>`
 - Signal Plots
 - Bar Plot
 - Histogram
