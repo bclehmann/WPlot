@@ -1,7 +1,10 @@
-﻿using Microsoft.Win32;
+﻿using Microsoft.CodeAnalysis.CSharp.Scripting;
+using Microsoft.CodeAnalysis.Scripting;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -366,6 +369,54 @@ namespace Where1.WPlot
 			}
 
 			((App)App.Current).AddSeries(plotParams);
+		}
+
+		private async void FunctionPlot_Click(object sender, RoutedEventArgs e)
+		{
+			var dlg = new FunctionPlotDialog();
+			dlg.Owner = App.Current.MainWindow;
+
+			if (dlg.ShowDialog() == true)
+			{
+				string expression = dlg.expressionTextBox.Text;
+				Func<double, double> f_unsafe;
+				try
+				{
+					f_unsafe = await CSharpScript.EvaluateAsync<Func<double, double>>("x=>" + expression, ScriptOptions.Default.WithImports("System.Math"));
+				}
+				catch (CompilationErrorException error) {
+					return;
+				}
+
+
+				double? f_temp(double x){
+					try
+					{
+						double y = f_unsafe(x);
+						if (!double.IsFinite(y)) {// Make sure it ain't infinity, negative infinity, NaN, etc
+							return null;
+						}
+						return f_unsafe(x);
+					}
+					catch (Exception e) {
+						return null;
+					}
+				}
+
+				Func<double, double?> f = x => f_temp(x);
+
+				PlotParameters plotParams = new PlotParameters() {
+					data = f,
+					drawSettings = new DrawSettings()
+					{
+						type = PlotType.function,
+						label = "y = " + expression,
+					}
+				};
+
+				((App)App.Current).AddSeries(plotParams);
+
+			}
 		}
 
 		private void ClearPlot_Click(object sender, RoutedEventArgs e)

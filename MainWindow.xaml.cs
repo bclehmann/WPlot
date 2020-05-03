@@ -192,6 +192,10 @@ namespace Where1.WPlot
 						plotObj.boxStyle = PlottablePopulations.BoxStyle.BoxMedianQuartileOutlier;
 						plotObj.displayDistributionCurve = false;
 						break;
+					case PlotType.function:
+						var f = (Func<double, double?>)curr.data;
+						plotFrame.plt.PlotFunction(f, label: curr.drawSettings.label, markerShape: MarkerShape.none);
+						break;
 				}
 			}
 			plotFrame.plt.Legend();

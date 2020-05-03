@@ -25,6 +25,7 @@
 					<MenuItem Header="Prefab" Click="PrefabSeries_Click">
 						<MenuItem Header="Signal"/>
 					</MenuItem>
+					<MenuItem Header="Function Plot" Click="FunctionPlot_Click" />
 					<MenuItem Header="Lines or Spans" Click="LineSpan_Click">
 						<MenuItem Header="Vertical Line"></MenuItem>
 						<MenuItem Header="Horizontal Line"></MenuItem>
