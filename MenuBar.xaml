@@ -19,6 +19,7 @@
 						<MenuItem Header="Scatter Plot"></MenuItem>
 						<MenuItem Header="Signal"></MenuItem>
 						<MenuItem Header="Bar Plot"></MenuItem>
+						<MenuItem Header="Grouped Bar Plot"></MenuItem>
 						<MenuItem Header="Histogram"></MenuItem>
 						<MenuItem Header="Box and Whisker"></MenuItem>
 					</MenuItem>
