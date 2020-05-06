@@ -171,23 +171,23 @@ namespace Where1.WPlot
 
 						plotFrame.plt.PlotBar(histogram.bins, yData, fillColor: curr.drawSettings.colour, outlineColor: curr.drawSettings.colour, errorColor: curr.drawSettings.colour, label: curr.drawSettings.label);
 						break;
-					case PlotType.horizontalLine:
+					case PlotType.horizontal_line:
 						double hLineData = (double)curr.data;
 						plotFrame.plt.PlotHLine(hLineData, color: curr.drawSettings.colour, label: curr.drawSettings.label);
 						break;
-					case PlotType.verticalLine:
+					case PlotType.vertical_line:
 						double vLineData = (double)curr.data;
 						plotFrame.plt.PlotVLine(vLineData, color: curr.drawSettings.colour, label: curr.drawSettings.label);
 						break;
-					case PlotType.horizontalSpan:
+					case PlotType.horizontal_span:
 						(double hSpanMin, double hSpanMax) = (ValueTuple<double, double>)curr.data;
 						plotFrame.plt.PlotHSpan(hSpanMin, hSpanMax, color: curr.drawSettings.colour, label: curr.drawSettings.label);
 						break;
-					case PlotType.verticalSpan:
+					case PlotType.vertical_span:
 						(double vSpanMin, double vSpanMax) = (ValueTuple<double, double>)curr.data;
 						plotFrame.plt.PlotVSpan(vSpanMin, vSpanMax, color: curr.drawSettings.colour, label: curr.drawSettings.label);
 						break;
-					case PlotType.boxWhisker:
+					case PlotType.box_whisker:
 						var plotObj= plotFrame.plt.PlotPopulations((ScottPlot.Statistics.Population)curr.data, label: curr.drawSettings.label);
 						plotObj.boxStyle = PlottablePopulations.BoxStyle.BoxMedianQuartileOutlier;
 						plotObj.displayDistributionCurve = false;
@@ -195,6 +195,18 @@ namespace Where1.WPlot
 					case PlotType.function:
 						var f = (Func<double, double?>)curr.data;
 						plotFrame.plt.PlotFunction(f, label: curr.drawSettings.label, markerShape: MarkerShape.none);
+						break;
+					case PlotType.bar_grouped:
+						var plotData = ((double[][])curr.data);
+						string[] groupLabels = Enumerable.Range(1, plotData[0].Count()).Select(i => i+"").ToArray();
+						string[] seriesLabels = Enumerable.Range(1, plotData.Count()).Select(i => char.ConvertFromUtf32(64 + i)).ToArray();
+						if (!curr.hasErrorData)
+						{
+							plotFrame.plt.PlotBarGroups(groupLabels, seriesLabels, plotData);
+						}
+						else {
+							plotFrame.plt.PlotBarGroups(groupLabels, seriesLabels, plotData, (double[][])curr.errorData);
+						}
 						break;
 				}
 			}

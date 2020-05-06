@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,17 +21,21 @@ namespace Where1.WPlot
 	{
 		public System.Drawing.Color plotColour = ((MainWindow)App.Current.MainWindow).NextColour();
 		public string errorDataCSV;
+		PlotType type;
 
 		public SettingsDialog(PlotType plotType = PlotType.scatter)
 		{
 			InitializeComponent();
 
+			type = plotType;
+
 			Resources["colour"] = ConvertFromSystemDrawingColor(plotColour);
 			colourTextBox.Text = plotColour.ToArgb().ToString("X");
 			Resources["scatterSettingsVisibility"] = plotType == PlotType.scatter ? Visibility.Visible : Visibility.Collapsed;
-			Resources["errorSettingsVisibility"] = plotType == PlotType.scatter || plotType == PlotType.bar ? Visibility.Visible : Visibility.Collapsed;
+			Resources["errorSettingsVisibility"] = plotType == PlotType.scatter || plotType == PlotType.bar || plotType == PlotType.bar_grouped ? Visibility.Visible : Visibility.Collapsed;
 			Resources["scatterBarSettingsVisibility"] = plotType == PlotType.scatter || plotType == PlotType.bar ? Visibility.Visible : Visibility.Collapsed;
 			Resources["histogramSettingsVisibility"] = plotType == PlotType.histogram ? Visibility.Visible : Visibility.Collapsed;
+			Resources["labelSettingsVisibility"] = plotType != PlotType.bar_grouped ? Visibility.Visible : Visibility.Collapsed;
 		}
 
 		private void colourTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -65,9 +70,18 @@ namespace Where1.WPlot
 		private void AddErrorCSVButton_Click(object sender, RoutedEventArgs e)
 		{
 			OpenFileDialog openFileDialog = new OpenFileDialog();
+			openFileDialog.Multiselect = type == PlotType.bar_grouped;
 			if (openFileDialog.ShowDialog() == true)
 			{
-				errorDataCSV = openFileDialog.FileName;
+				if (type != PlotType.bar_grouped)
+				{
+					errorDataCSV = openFileDialog.FileName;
+				}
+				else
+				{
+					errorDataCSV = String.Join(",", openFileDialog.FileNames);
+				}
+
 				CSVFileTextBlock.Text = errorDataCSV;
 			}
 

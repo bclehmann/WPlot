@@ -1,6 +1,7 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
 using Microsoft.Win32;
+using ScottPlot;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -233,7 +234,10 @@ namespace Where1.WPlot
 					type = PlotType.histogram;
 					break;
 				case "BOX AND WHISKER":
-					type = PlotType.boxWhisker;
+					type = PlotType.box_whisker;
+					break;
+				case "GROUPED BAR PLOT":
+					type = PlotType.bar_grouped;
 					break;
 			}
 
@@ -274,9 +278,19 @@ namespace Where1.WPlot
 
 
 			OpenFileDialog openFileDialog = new OpenFileDialog();
+			openFileDialog.Multiselect = drawSettings.type == PlotType.bar_grouped;
+
 			if (openFileDialog.ShowDialog() == true)
 			{
-				PlotParameters plotParams = (App.Current as App).AddSeriesFromCSVFile(openFileDialog.FileName, drawSettings, metadata);
+				PlotParameters plotParams = new PlotParameters();
+				if (drawSettings.type != PlotType.bar_grouped)
+				{
+					plotParams = (App.Current as App).AddSeriesFromCSVFile(openFileDialog.FileName, drawSettings, metadata);
+				}
+				else
+				{
+					plotParams = (App.Current as App).AddSeriesFromCSVFile(openFileDialog.FileNames, drawSettings, metadata);
+				}
 				if (settingsDialog.errorDataCSV != null)
 				{
 					((App)App.Current).AddErrorFromCSVFile(plotParams, settingsDialog.errorDataCSV);
@@ -293,16 +307,16 @@ namespace Where1.WPlot
 			switch (plotType)
 			{
 				case "VERTICAL LINE":
-					type = PlotType.verticalLine;
+					type = PlotType.vertical_line;
 					break;
 				case "HORIZONTAL LINE":
-					type = PlotType.horizontalLine;
+					type = PlotType.horizontal_line;
 					break;
 				case "VERTICAL SPAN":
-					type = PlotType.verticalSpan;
+					type = PlotType.vertical_span;
 					break;
 				case "HORIZONTAL SPAN":
-					type = PlotType.horizontalSpan;
+					type = PlotType.horizontal_span;
 					break;
 			}
 
@@ -323,7 +337,7 @@ namespace Where1.WPlot
 			PlotParameters plotParams = new PlotParameters();
 			plotParams.drawSettings = drawSettings;
 
-			if (type == PlotType.horizontalLine || type == PlotType.verticalLine)
+			if (type == PlotType.horizontal_line || type == PlotType.vertical_line)
 			{
 				LineSettingsDialog lineDialog = new LineSettingsDialog();
 				lineDialog.Owner = App.Current.MainWindow;
@@ -384,28 +398,33 @@ namespace Where1.WPlot
 				{
 					f_unsafe = await CSharpScript.EvaluateAsync<Func<double, double>>("x=>" + expression, ScriptOptions.Default.WithImports("System.Math"));
 				}
-				catch (CompilationErrorException error) {
+				catch (CompilationErrorException error)
+				{
 					return;
 				}
 
 
-				double? f_temp(double x){
+				double? f_temp(double x)
+				{
 					try
 					{
 						double y = f_unsafe(x);
-						if (!double.IsFinite(y)) {// Make sure it ain't infinity, negative infinity, NaN, etc
+						if (!double.IsFinite(y))
+						{// Make sure it ain't infinity, negative infinity, NaN, etc
 							return null;
 						}
 						return f_unsafe(x);
 					}
-					catch (Exception e) {
+					catch (Exception e)
+					{
 						return null;
 					}
 				}
 
 				Func<double, double?> f = x => f_temp(x);
 
-				PlotParameters plotParams = new PlotParameters() {
+				PlotParameters plotParams = new PlotParameters()
+				{
 					data = f,
 					drawSettings = new DrawSettings()
 					{
