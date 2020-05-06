@@ -77,8 +77,8 @@
 				<ComboBoxItem>Tri Down</ComboBoxItem>
 			</ComboBox>
 
-			<Label Grid.Row="3" Grid.Column="0" VerticalAlignment="Top" Visibility="{DynamicResource labelSettingsVisibility}}">Plot Name:</Label>
-			<TextBox TextChanged="colourTextBox_TextChanged" Grid.Row="3" Grid.Column="1" Name="plotNameTextBox" VerticalAlignment="Top" Margin="0,5,10,0" Visibility="{DynamicResource labelSettingsVisibility}}">
+			<Label Grid.Row="3" Grid.Column="0" VerticalAlignment="Top" Visibility="{DynamicResource labelSettingsVisibility}">Plot Name:</Label>
+			<TextBox TextChanged="colourTextBox_TextChanged" Grid.Row="3" Grid.Column="1" Name="plotNameTextBox" VerticalAlignment="Top" Margin="0,5,10,0" Visibility="{DynamicResource labelSettingsVisibility}">
 			</TextBox>
 
 			<Label Grid.Row="4" Grid.Column="0" VerticalAlignment="Top" Visibility="{DynamicResource scatterSettingsVisibility}" >Draw Linear Regression:</Label>
