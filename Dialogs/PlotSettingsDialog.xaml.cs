@@ -36,6 +36,7 @@ namespace Where1.WPlot
 			Resources["scatterBarSettingsVisibility"] = plotType == PlotType.scatter || plotType == PlotType.bar ? Visibility.Visible : Visibility.Collapsed;
 			Resources["histogramSettingsVisibility"] = plotType == PlotType.histogram ? Visibility.Visible : Visibility.Collapsed;
 			Resources["labelSettingsVisibility"] = plotType != PlotType.bar_grouped ? Visibility.Visible : Visibility.Collapsed;
+			Resources["colourSettingsVisibility"] = plotType != PlotType.bar_grouped ? Visibility.Visible : Visibility.Collapsed;
 		}
 
 		private void colourTextBox_TextChanged(object sender, TextChangedEventArgs e)

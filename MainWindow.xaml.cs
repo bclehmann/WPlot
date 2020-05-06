@@ -188,7 +188,7 @@ namespace Where1.WPlot
 						plotFrame.plt.PlotVSpan(vSpanMin, vSpanMax, color: curr.drawSettings.colour, label: curr.drawSettings.label);
 						break;
 					case PlotType.box_whisker:
-						var plotObj= plotFrame.plt.PlotPopulations((ScottPlot.Statistics.Population)curr.data, label: curr.drawSettings.label);
+						var plotObj = plotFrame.plt.PlotPopulations((ScottPlot.Statistics.Population)curr.data, label: curr.drawSettings.label);
 						plotObj.boxStyle = PlottablePopulations.BoxStyle.BoxMedianQuartileOutlier;
 						plotObj.displayDistributionCurve = false;
 						break;
@@ -198,13 +198,14 @@ namespace Where1.WPlot
 						break;
 					case PlotType.bar_grouped:
 						var plotData = ((double[][])curr.data);
-						string[] groupLabels = Enumerable.Range(1, plotData[0].Count()).Select(i => i+"").ToArray();
-						string[] seriesLabels = Enumerable.Range(1, plotData.Count()).Select(i => char.ConvertFromUtf32(64 + i)).ToArray();
+						string[] groupLabels = (string[])curr.metaData.GetValueOrDefault("group_names");
+						string[] seriesLabels = (string[])curr.metaData.GetValueOrDefault("series_names");
 						if (!curr.hasErrorData)
 						{
 							plotFrame.plt.PlotBarGroups(groupLabels, seriesLabels, plotData);
 						}
-						else {
+						else
+						{
 							plotFrame.plt.PlotBarGroups(groupLabels, seriesLabels, plotData, (double[][])curr.errorData);
 						}
 						break;

@@ -187,6 +187,16 @@ namespace Where1.WPlot
 				throw new NotImplementedException();
 			}
 
+			if (!metadata.ContainsKey("group_names")) { 
+				metadata.Add("group_names", Enumerable.Range(1, ((double[][])data)[0].Count()).Select(i => i+"").ToArray());
+			}
+
+			if (!metadata.ContainsKey("series_names"))
+			{
+				metadata.Add("series_names", Enumerable.Range(1, ((double[][])data).Count()).Select(i => char.ConvertFromUtf32(64 + i)).ToArray());
+			}
+
+
 			PlotParameters plotParams = new PlotParameters { data = data, drawSettings = drawSettings, metaData = metadata };
 			series.Add(plotParams);
 

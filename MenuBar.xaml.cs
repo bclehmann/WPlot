@@ -275,6 +275,21 @@ namespace Where1.WPlot
 				metadata.Add("sampleRate", sampleRate);
 				metadata.Add("xOffset", xOffset);
 			}
+			else if (type == PlotType.bar_grouped) {
+				GroupedPlotDialog dlg = new GroupedPlotDialog();
+				dlg.Owner = App.Current.MainWindow;
+				if(dlg.ShowDialog() != true) { //Nullable
+					return;
+				}
+
+				if (dlg.groupNamesTextBox.Text != "") {
+					metadata.Add("group_names", dlg.groupNamesTextBox.Text.Split(','));
+				}
+
+				if (dlg.seriesNamesTextBox.Text != "") {
+					metadata.Add("series_names", dlg.seriesNamesTextBox.Text.Split(','));
+				}
+			}
 
 
 			OpenFileDialog openFileDialog = new OpenFileDialog();

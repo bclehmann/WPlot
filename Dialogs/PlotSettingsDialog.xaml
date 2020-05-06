@@ -27,6 +27,9 @@
 		<Visibility x:Key="labelSettingsVisibility">
 			Visible
 		</Visibility>
+		<Visibility x:Key="colourSettingsVisibility">
+			Visible
+		</Visibility>
 	</Window.Resources>
 
 	<StackPanel>
@@ -49,8 +52,8 @@
 				<ColumnDefinition Width="*"></ColumnDefinition>
 			</Grid.ColumnDefinitions>
 
-			<Label Grid.Row="0" Grid.Column="0" VerticalAlignment="Top">Colour (aRGB):</Label>
-			<TextBox TextChanged="colourTextBox_TextChanged" Grid.Row="0" Grid.Column="1" Name="colourTextBox" VerticalAlignment="Top" Margin="0,5,10,0">
+			<Label Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" Visibility="{DynamicResource colourSettingsVisibility}">Colour (aRGB):</Label>
+			<TextBox TextChanged="colourTextBox_TextChanged" Grid.Row="0" Grid.Column="1" Name="colourTextBox" VerticalAlignment="Top" Margin="0,5,10,0" Visibility="{DynamicResource colourSettingsVisibility}">
 				<TextBox.Foreground>
 					<SolidColorBrush Color="{DynamicResource colour}"/>
 				</TextBox.Foreground>
