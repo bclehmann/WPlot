@@ -5,7 +5,7 @@ A WPF app for plotting stuff. The backend is provided by [ScottPlot](https://git
 - Scatter Plots
 - Plotting functions in form `y=<expression>`
 - Signal Plots
-- Bar Plot
+- Bar Plots, including Grouped Bar Plots
 - Histogram
 - Error Bars
 - Linear Regression
