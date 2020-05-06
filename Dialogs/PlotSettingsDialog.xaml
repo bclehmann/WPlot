@@ -30,9 +30,15 @@
 		<Visibility x:Key="colourSettingsVisibility">
 			Visible
 		</Visibility>
+		<Visibility x:Key="multiselectVisibility">
+			Visible
+		</Visibility>
 	</Window.Resources>
 
 	<StackPanel>
+
+		<TextBlock Visibility="{DynamicResource multiselectVisibility}" Margin="5,10,0,20">You can select multiple files by holding Ctrl and clicking on them.</TextBlock>
+		
 		<Grid>
 			<Grid.RowDefinitions>
 				<RowDefinition Height="*" />
