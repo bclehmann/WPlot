@@ -1,0 +1,41 @@
+﻿<Window 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    x:Class="Where1.WPlot.GroupedPlotDialog"
+    xmlns:local="clr-namespace:Where1.WPlot"
+    Title="Grouped Plot Settings"
+    Height="250"
+    Width="300"
+    ResizeMode="CanResizeWithGrip"
+    ShowInTaskbar="False"
+    WindowStartupLocation="CenterOwner" 
+	Topmost="True"
+    FocusManager.FocusedElement="{Binding ElementName=leftMarginTextBox}">
+
+	<Window.Resources>
+
+	</Window.Resources>
+
+	<Grid>
+		<StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" Margin="0,10,10,0">
+			<TextBlock Margin="5,0,0,20">Leave these fields blank for default values.</TextBlock>
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*"></RowDefinition>
+					<RowDefinition Height="*"></RowDefinition>
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="auto"></ColumnDefinition>
+					<ColumnDefinition Width="*"></ColumnDefinition>
+				</Grid.ColumnDefinitions>
+
+				<Label Grid.Row="0" Grid.Column="0">Group Names, Comma Separated:</Label>
+				<TextBox x:Name="groupNamesTextBox" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"></TextBox>
+
+				<Label Grid.Row="1" Grid.Column="0">Series Names, Comma Separated</Label>
+				<TextBox x:Name="seriesNamesTextBox" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"></TextBox>
+			</Grid>
+			<Button Name="okButton" Click="okButton_Click" VerticalAlignment="Bottom" Margin="5,10,0,0">OK</Button>
+		</StackPanel>
+	</Grid >
+</Window>

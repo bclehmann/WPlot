@@ -1,9 +1,12 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -25,7 +28,7 @@ namespace Where1.WPlot
 			((MainWindow)this.MainWindow).RenderPlot();
 		}
 
-		public PlotParameters AddSeriesFromString(string dataString, DrawSettings drawSettings, Dictionary<string, object> metadata = null)
+		public PlotParameters AddSeriesFromString(string dataString, DrawSettings drawSettings, Dictionary<string, object> metadata)
 		{
 			object data = new object();
 
@@ -60,7 +63,8 @@ namespace Where1.WPlot
 				{
 					data = serialData.ToArray();
 				}
-				else if (drawSettings.type == PlotType.boxWhisker) {
+				else if (drawSettings.type == PlotType.box_whisker)
+				{
 					ScottPlot.Statistics.Population dataPopulation = new ScottPlot.Statistics.Population(serialData.ToArray());
 					data = dataPopulation;
 				}
@@ -154,12 +158,85 @@ namespace Where1.WPlot
 			return plotParams;
 		}
 
-		public PlotParameters AddSeriesFromCSVFile(string path, DrawSettings drawSettings, Dictionary<string, object> metadata = null)
+		public PlotParameters AddSeriesFromString(string[] raw, DrawSettings drawSettings, Dictionary<string, object> metadata)
 		{
-			using (StreamReader file = new StreamReader(path))
+			object data = new object();
+
+			if (drawSettings.type == PlotType.bar_grouped)
+			{
+				double[][] dataList = new double[raw.Length][];
+
+				for (int i = 0; i < raw.Length; i++)
+				{
+					string[] temp = raw[i].Split(',', '\n');
+					dataList[i] = new double[temp.Length];
+					for (int j = 0; j < temp.Length; j++)
+					{
+						double parseOut;
+						if (double.TryParse(temp[j], out parseOut))
+						{
+							dataList[i][j] = (parseOut);
+						}
+					}
+				}
+
+				data = dataList;
+			}
+			else
+			{
+				throw new NotImplementedException();
+			}
+
+			if (!metadata.ContainsKey("group_names")) { 
+				metadata.Add("group_names", Enumerable.Range(1, ((double[][])data)[0].Count()).Select(i => i+"").ToArray());
+			}
+
+			if (!metadata.ContainsKey("series_names"))
+			{
+				metadata.Add("series_names", Enumerable.Range(1, ((double[][])data).Count()).Select(i => char.ConvertFromUtf32(64 + i)).ToArray());
+			}
+
+
+			PlotParameters plotParams = new PlotParameters { data = data, drawSettings = drawSettings, metaData = metadata };
+			series.Add(plotParams);
+
+			((MainWindow)this.MainWindow).RenderPlot();
+
+			return plotParams;
+
+		}
+
+		public PlotParameters AddSeriesFromCSVFile(string filePathInfo, DrawSettings drawSettings, Dictionary<string, object> metadata = null)
+		{
+			using (StreamReader file = new StreamReader(filePathInfo))
 			{
 				string raw = file.ReadToEnd();
 				return AddSeriesFromString(raw, drawSettings, metadata);
+			}
+
+		}
+
+		public PlotParameters AddSeriesFromCSVFile(string[] filenames, DrawSettings drawSettings, Dictionary<string, object> metadata = null)
+		{
+
+			if (drawSettings.type == PlotType.bar_grouped)
+			{
+				string[] raw = new string[filenames.Length];
+
+				for (int i = 0; i < raw.Length; i++)
+				{
+					using (StreamReader file = new StreamReader(filenames[i]))
+					{
+						raw[i] = (file.ReadToEnd());
+					}
+				}
+
+
+				return AddSeriesFromString(raw, drawSettings, metadata);
+			}
+			else
+			{
+				throw new NotSupportedException();
 			}
 		}
 
@@ -167,40 +244,57 @@ namespace Where1.WPlot
 		{
 			object data = new object();
 
-			using (StreamReader file = new StreamReader(path))
+			if (plotParams.drawSettings.type != PlotType.bar_grouped)
 			{
-				string[] raw = file.ReadToEnd().Split(new char[] { ',', '\n' });
-				List<double> serialData = raw.Where(m => double.TryParse(m, out _)).Select(m => double.Parse(m)).ToList();
-
-				if (plotParams.drawSettings.type == PlotType.scatter)
+				using (StreamReader file = new StreamReader(path))
 				{
-					double[] xs = new double[serialData.Count / 2];
-					double[] ys = new double[serialData.Count / 2];
-					for (int i = 0; i < serialData.Count; i++)
+					string[] raw = file.ReadToEnd().Split(new char[] { ',', '\n' });
+					List<double> serialData = raw.Where(m => double.TryParse(m, out _)).Select(m => double.Parse(m)).ToList();
+
+					if (plotParams.drawSettings.type == PlotType.scatter)
 					{
-						int row = i / 2;
-						int col = i % 2;
-
-						if (col == 0)
+						double[] xs = new double[serialData.Count / 2];
+						double[] ys = new double[serialData.Count / 2];
+						for (int i = 0; i < serialData.Count; i++)
 						{
-							xs[row] = serialData[i];
-						}
-						else
-						{
-							ys[row] = serialData[i];
-						}
+							int row = i / 2;
+							int col = i % 2;
 
-						data = new double[][] { xs, ys };
+							if (col == 0)
+							{
+								xs[row] = serialData[i];
+							}
+							else
+							{
+								ys[row] = serialData[i];
+							}
+
+							data = new double[][] { xs, ys };
+						}
+					}
+					else if (plotParams.drawSettings.type == PlotType.bar)
+					{
+						data = serialData.ToArray();
 					}
 				}
-				else if (plotParams.drawSettings.type == PlotType.bar)
-				{
-					data = serialData.ToArray();
-				}
-
-				plotParams.errorData = data;
-				plotParams.hasErrorData = true;
 			}
+			else
+			{
+				string[] paths = path.Split(',');
+				data = new double[paths.Length][];
+
+				for (int i = 0; i < paths.Length; i++)
+				{
+					using (StreamReader file = new StreamReader(paths[i]))
+					{
+						string[] raw = file.ReadToEnd().Split(new char[] { ',', '\n' });
+						((double[][])data)[i] = raw.Where(m => double.TryParse(m, out _)).Select(m => double.Parse(m)).ToArray();
+					}
+
+				}
+			}
+			plotParams.errorData = data;
+			plotParams.hasErrorData = true;
 
 			((MainWindow)this.MainWindow).RenderPlot();
 		}

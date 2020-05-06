@@ -34,12 +34,13 @@ namespace Where1.WPlot
 		signal,
 		bar,
 		histogram,
-		verticalLine,
-		horizontalLine,
-		verticalSpan,
-		horizontalSpan,
-		boxWhisker,
+		vertical_line,
+		horizontal_line,
+		vertical_span,
+		horizontal_span,
+		box_whisker,
 		function,
+		bar_grouped,
 	}
 
 	public enum WaveType
