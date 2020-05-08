@@ -7,8 +7,13 @@
         mc:Ignorable="d"
 		Topmost="True"
 		WindowStartupLocation="CenterOwner"
-        Title="Function Plot" Height="200" Width="400">
+        Title="Function Plot" Height="300" Width="400">
 	<StackPanel Margin="0,10,10,0">
+		<TextBlock Margin="5,5,0,10">
+			<Bold>WARNING:</Bold> Do not copy-paste code from someone you do not trust.<LineBreak/>
+			This tool is capable of running full programs, including malware.
+		</TextBlock>
+		
 		<Grid>
 			<Grid.RowDefinitions>
 				<RowDefinition Height="*"></RowDefinition>

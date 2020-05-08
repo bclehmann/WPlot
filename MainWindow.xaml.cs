@@ -194,7 +194,7 @@ namespace Where1.WPlot
 						break;
 					case PlotType.function:
 						var f = (Func<double, double?>)curr.data;
-						plotFrame.plt.PlotFunction(f, label: curr.drawSettings.label, markerShape: MarkerShape.none);
+						plotFrame.plt.PlotFunction(f, label: curr.drawSettings.label, markerShape: MarkerShape.none, lineStyle: LineStyle.Dash);
 						break;
 					case PlotType.bar_grouped:
 						var plotData = ((double[][])curr.data);
