@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Automation.Peers;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -22,11 +23,20 @@ namespace Where1.WPlot
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		PlottableScatter highlightPoint;
+		PlottableAnnotation snappedCoordinates;
+		private List<Plottable> rawPlottables = new List<Plottable>();
+
 		public MainWindow()
 		{
 			InitializeComponent();
+			highlightPoint = plotFrame.plt.PlotScatter(new double[] { 0 }, new double[] { 0 }, markerSize : 10, color: System.Drawing.Color.Red);
+			snappedCoordinates = plotFrame.plt.PlotAnnotation("");
+			highlightPoint.visible = false;
+			snappedCoordinates.visible = false;
 
-			//plotFrame.plt.PlotSignal(ScottPlot.DataGen.Sin(50));
+			rawPlottables.Add(highlightPoint);
+			rawPlottables.Add(snappedCoordinates);
 		}
 
 		public void ClearPlot()
@@ -45,10 +55,12 @@ namespace Where1.WPlot
 		public string xLabel { get; set; }
 		public string yLabel { get; set; }
 		public bool logAxis { get; set; }
-		public string dateAxisCSVPath { get; set; }
-		public List<DateTime> dateAxis { get; set; }
 
+		private bool isDateAxis = false;
+		private double? dateUnitSpacing;
+		private ScottPlot.Config.DateTimeUnit? dateUnit;
 		private bool gridLines = true;
+		private DateTime beginningOfOADate = new DateTime(1899, 12, 30);
 
 		public void RefreshTitleAndAxis(bool shouldRender = true)
 		{
@@ -67,6 +79,7 @@ namespace Where1.WPlot
 		{
 			plotFrame.plt.Clear();
 			RefreshTitleAndAxis(false);
+			bool containsDateAxis = false;
 			foreach (PlotParameters curr in ((App)App.Current).GetSeries())
 			{
 				if (curr.drawSettings.label == "")
@@ -76,12 +89,16 @@ namespace Where1.WPlot
 
 				if (curr.drawSettings.dateXAxis)
 				{
+					containsDateAxis = true;
 					object timeUnit;
 					object numTimeUnitsObj;
 					curr.metaData.TryGetValue("timeUnit", out timeUnit);
 					curr.metaData.TryGetValue("numTimeUnits", out numTimeUnitsObj);
 					ScottPlot.Config.DateTimeUnit dateTimeUnit = (ScottPlot.Config.DateTimeUnit)timeUnit;
 					int numTimeUnits = (int)numTimeUnitsObj;
+
+					dateUnit = dateTimeUnit;
+					dateUnitSpacing = numTimeUnits;
 
 					if (dateTimeUnit == ScottPlot.Config.DateTimeUnit.Year)//Grid spacing of one year is currently unsupported -_-
 					{
@@ -215,13 +232,30 @@ namespace Where1.WPlot
 						break;
 				}
 			}
+
+			isDateAxis = containsDateAxis;
 			plotFrame.plt.Legend();
+
+			(double highlightX, double highlightY) = (plotFrame.plt.Axis()[0], plotFrame.plt.Axis()[3]);
+			highlightPoint.xs = new double[] { highlightX };
+			highlightPoint.ys = new double[] { highlightY };
+
+			foreach (var curr in rawPlottables) {
+				plotFrame.plt.Add(curr);//Got axed when we cleared everything
+			}
+
 			plotFrame.Render();
 		}
 
 		public void SavePlot(string path)
 		{
-			plotFrame.plt.SaveFig(path, false); //It's already been rendered
+			bool wasVisible = highlightPoint.visible;
+			highlightPoint.visible = false;
+			snappedCoordinates.visible = false;
+			plotFrame.Render();
+			plotFrame.plt.SaveFig(path, false);
+			highlightPoint.visible = wasVisible;
+			snappedCoordinates.visible = wasVisible;
 		}
 
 		private void GridLineToggle_Click(object sender, RoutedEventArgs e)
@@ -331,6 +365,47 @@ namespace Where1.WPlot
 				proc.StartInfo.FileName = "https://github.com/swharden/ScottPlot";
 				proc.StartInfo.UseShellExecute = true;
 				proc.Start();
+			}
+		}
+
+		private void plotFrame_MouseMove(object sender, MouseEventArgs e)
+		{
+			(double x, double y) = plotFrame.GetMouseCoordinates();
+			double? snappedX = null;
+			double? snappedY = null;
+			List<Plottable> list = plotFrame.plt.GetPlottables();
+			foreach (var currPlottable in list)
+			{
+				if (currPlottable is ScottPlot.PlottableScatter scatter && currPlottable != highlightPoint)
+				{
+					int index;
+					(snappedX, index) = scatter.xs.Select((p, i) => (p, i)).OrderBy(p => Math.Abs(p.p - x)).First();
+					snappedY = scatter.ys[index];
+				}
+			}
+			if (snappedX.HasValue)
+			{
+				string coordinateAnnotation = $"Closest Point: ({snappedX.Value:f3},{snappedY.Value:f3})";
+				if (isDateAxis)
+				{
+					DateTime xDate = DateTime.FromOADate(snappedX.Value);
+					coordinateAnnotation = $"Closest point: \n" +
+													$"x: {xDate}\n" +
+													$"y: {snappedY.Value:n3}";
+
+				}
+
+				highlightPoint.visible = true;
+				highlightPoint.xs = new double[] { snappedX.Value };
+				highlightPoint.ys = new double[] { snappedY.Value };
+				plotFrame.Render();
+
+				snappedCoordinates.label = coordinateAnnotation;
+				snappedCoordinates.visible = true;
+			}
+			else {
+				highlightPoint.visible = false;
+				snappedCoordinates.visible = false;
 			}
 		}
 	}
