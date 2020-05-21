@@ -31,6 +31,7 @@
 		<ScottPlot:WpfPlot Name="plotFrame"
 						   Grid.Row="1"
 						   Grid.Column="0"
+						   MouseMove="plotFrame_MouseMove"
 						   >
 			<ScottPlot:WpfPlot.ContextMenu>
 				<ContextMenu>
@@ -69,7 +70,7 @@
 				</ContextMenu>
 			</ScottPlot:WpfPlot.ContextMenu>
 		</ScottPlot:WpfPlot>
-
+		
 		<Button  HorizontalAlignment="Left"
 			Grid.Row="2" Grid.Column="0"
 				Click="WPlotLink_Click"
