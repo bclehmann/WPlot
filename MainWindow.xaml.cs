@@ -77,17 +77,21 @@ namespace Where1.WPlot
 				if (curr.drawSettings.dateXAxis)
 				{
 					object timeUnit;
+					object numTimeUnitsObj;
 					curr.metaData.TryGetValue("timeUnit", out timeUnit);
+					curr.metaData.TryGetValue("numTimeUnits", out numTimeUnitsObj);
 					ScottPlot.Config.DateTimeUnit dateTimeUnit = (ScottPlot.Config.DateTimeUnit)timeUnit;
+					int numTimeUnits = (int)numTimeUnitsObj;
+
 					if (dateTimeUnit == ScottPlot.Config.DateTimeUnit.Year)//Grid spacing of one year is currently unsupported -_-
 					{
 						plotFrame.plt.Grid(xSpacing: 12, xSpacingDateTimeUnit: ScottPlot.Config.DateTimeUnit.Month);
 					}
 					else
 					{
-						plotFrame.plt.Grid(xSpacing: 1, xSpacingDateTimeUnit: dateTimeUnit);
+						plotFrame.plt.Grid(xSpacing: numTimeUnits, xSpacingDateTimeUnit: dateTimeUnit);
 					}
-					plotFrame.plt.Ticks(dateTimeX: true);
+					plotFrame.plt.Ticks(dateTimeX: true, xTickRotation: 30, fontSize: 10); // Default fontSize is 12
 				}
 
 				switch (curr.drawSettings.type)

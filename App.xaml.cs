@@ -116,6 +116,8 @@ namespace Where1.WPlot
 					long averageTickDistance = totalDistanceTicks / (dataX.Count - dataX.Count % 2); //The fact that this is rounded doesn't matter, bc ticks are so obsenely small
 					long averageSecondsDistance = averageTickDistance / 10_000_000;
 
+					metadata["numTimeUnits"] = 1;
+
 					if (averageSecondsDistance > 0.75 * 86400 * 365)
 					{
 						metadata["timeUnit"] = ScottPlot.Config.DateTimeUnit.Year;
@@ -141,6 +143,8 @@ namespace Where1.WPlot
 						metadata["timeUnit"] = ScottPlot.Config.DateTimeUnit.Second;
 					}
 					metadata["startDate"] = dataX[0];
+
+					metadata["numTimeUnits"] = (dataX.Count / 30) + 1;
 
 					double[] dataXDouble = dataX.Select((dt, i) => dt.ToOADate()).ToArray();
 
@@ -186,8 +190,9 @@ namespace Where1.WPlot
 				throw new NotImplementedException();
 			}
 
-			if (!metadata.ContainsKey("group_names")) { 
-				metadata.Add("group_names", Enumerable.Range(1, ((double[][])data)[0].Count()).Select(i => i+"").ToArray());
+			if (!metadata.ContainsKey("group_names"))
+			{
+				metadata.Add("group_names", Enumerable.Range(1, ((double[][])data)[0].Count()).Select(i => i + "").ToArray());
 			}
 
 			if (!metadata.ContainsKey("series_names"))
