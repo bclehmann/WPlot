@@ -13,6 +13,11 @@ namespace Where1.WPlot
 {
 	partial class MenuBar
 	{
+		private void ShowGenericPlotError()
+		{
+			MessageBox.Show(App.Current.MainWindow, "Something went wrong. Your plot was not added. Make sure your data is of the right format for the settings you chose.", "Unknown Error", MessageBoxButton.OK, MessageBoxImage.Error);
+		}
+
 		private DrawSettings FetchSettingsFromDialog(SettingsDialog settingsDialog, PlotType type)
 		{
 			DrawSettings drawSettings = new DrawSettings();
@@ -211,7 +216,15 @@ namespace Where1.WPlot
 				}
 
 
-				((App)App.Current).AddSeriesFromString(dataStr.ToString(), drawSettings, metadata);
+				try
+				{
+					((App)App.Current).AddSeriesFromString(dataStr.ToString(), drawSettings, metadata);
+				}
+				catch
+				{
+					ShowGenericPlotError();
+					return;
+				}
 			}
 		}
 		private void LoadCSVSeries_Click(object sender, RoutedEventArgs e)
@@ -275,18 +288,22 @@ namespace Where1.WPlot
 				metadata.Add("sampleRate", sampleRate);
 				metadata.Add("xOffset", xOffset);
 			}
-			else if (type == PlotType.bar_grouped) {
+			else if (type == PlotType.bar_grouped)
+			{
 				GroupedPlotDialog dlg = new GroupedPlotDialog();
 				dlg.Owner = App.Current.MainWindow;
-				if(dlg.ShowDialog() != true) { //Nullable
+				if (dlg.ShowDialog() != true)
+				{ //Nullable
 					return;
 				}
 
-				if (dlg.groupNamesTextBox.Text != "") {
+				if (dlg.groupNamesTextBox.Text != "")
+				{
 					metadata.Add("group_names", dlg.groupNamesTextBox.Text.Split(','));
 				}
 
-				if (dlg.seriesNamesTextBox.Text != "") {
+				if (dlg.seriesNamesTextBox.Text != "")
+				{
 					metadata.Add("series_names", dlg.seriesNamesTextBox.Text.Split(','));
 				}
 			}
@@ -295,22 +312,30 @@ namespace Where1.WPlot
 			OpenFileDialog openFileDialog = new OpenFileDialog();
 			openFileDialog.Multiselect = drawSettings.type == PlotType.bar_grouped;
 
-			if (openFileDialog.ShowDialog() == true)
+			try
 			{
-				PlotParameters plotParams = new PlotParameters();
-				if (drawSettings.type != PlotType.bar_grouped)
+				if (openFileDialog.ShowDialog() == true)
 				{
-					plotParams = (App.Current as App).AddSeriesFromCSVFile(openFileDialog.FileName, drawSettings, metadata);
+					PlotParameters plotParams = new PlotParameters();
+					if (drawSettings.type != PlotType.bar_grouped)
+					{
+						plotParams = (App.Current as App).AddSeriesFromCSVFile(openFileDialog.FileName, drawSettings, metadata);
+					}
+					else
+					{
+						plotParams = (App.Current as App).AddSeriesFromCSVFile(openFileDialog.FileNames, drawSettings, metadata);
+					}
+					if (settingsDialog.errorDataCSV != null)
+					{
+						((App)App.Current).AddErrorFromCSVFile(plotParams, settingsDialog.errorDataCSV);
+					}
+					statusMessage.Text = $"{openFileDialog.FileName} loaded";
 				}
-				else
-				{
-					plotParams = (App.Current as App).AddSeriesFromCSVFile(openFileDialog.FileNames, drawSettings, metadata);
-				}
-				if (settingsDialog.errorDataCSV != null)
-				{
-					((App)App.Current).AddErrorFromCSVFile(plotParams, settingsDialog.errorDataCSV);
-				}
-				statusMessage.Text = $"{openFileDialog.FileName} loaded";
+			}
+			catch
+			{
+				ShowGenericPlotError();
+				return;
 			}
 		}
 
@@ -397,7 +422,14 @@ namespace Where1.WPlot
 				plotParams.data = (minValue, maxValue);
 			}
 
-			((App)App.Current).AddSeries(plotParams);
+			try
+			{
+				((App)App.Current).AddSeries(plotParams);
+			}
+			catch {
+				ShowGenericPlotError();
+				return;
+			}
 		}
 
 		private async void FunctionPlot_Click(object sender, RoutedEventArgs e)
@@ -448,7 +480,14 @@ namespace Where1.WPlot
 					}
 				};
 
-				((App)App.Current).AddSeries(plotParams);
+				try
+				{
+					((App)App.Current).AddSeries(plotParams);
+				}
+				catch {
+					ShowGenericPlotError();
+					return;
+				}
 
 			}
 		}
