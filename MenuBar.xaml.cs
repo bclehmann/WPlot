@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 namespace Where1.WPlot
 {
@@ -554,6 +555,11 @@ namespace Where1.WPlot
 
 			mainWindow.plotFrame.plt.Axis(xMin, xMax, yMin, yMax);
 			mainWindow.plotFrame.Render();
+		}
+
+		private void ClipboardCopy_Click(object sender, RoutedEventArgs e)
+		{
+			((MainWindow)App.Current.MainWindow).CopyToClipboard();
 		}
 	}
 }
