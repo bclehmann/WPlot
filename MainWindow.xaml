@@ -67,6 +67,7 @@
 						<MenuItem Header="Black"/>
 						<MenuItem Header="Control"/>
 					</MenuItem>
+					<MenuItem Header="Show Coordinates" Click="ToggleShowCoordinates_Click"/>
 				</ContextMenu>
 			</ScottPlot:WpfPlot.ContextMenu>
 		</ScottPlot:WpfPlot>

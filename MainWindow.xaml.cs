@@ -30,7 +30,7 @@ namespace Where1.WPlot
 		public MainWindow()
 		{
 			InitializeComponent();
-			highlightPoint = plotFrame.plt.PlotScatter(new double[] { 0 }, new double[] { 0 }, markerSize : 10, color: System.Drawing.Color.Red);
+			highlightPoint = plotFrame.plt.PlotScatter(new double[] { 0 }, new double[] { 0 }, markerSize: 10, color: System.Drawing.Color.Red);
 			snappedCoordinates = plotFrame.plt.PlotAnnotation("");
 			highlightPoint.visible = false;
 			snappedCoordinates.visible = false;
@@ -55,6 +55,7 @@ namespace Where1.WPlot
 		public string xLabel { get; set; }
 		public string yLabel { get; set; }
 		public bool logAxis { get; set; }
+		public bool showCoordinates { get; set; }
 
 		private bool isDateAxis = false;
 		private double? dateUnitSpacing;
@@ -240,8 +241,12 @@ namespace Where1.WPlot
 			highlightPoint.xs = new double[] { highlightX };
 			highlightPoint.ys = new double[] { highlightY };
 
-			foreach (var curr in rawPlottables) {
-				plotFrame.plt.Add(curr);//Got axed when we cleared everything
+			foreach (var curr in rawPlottables)
+			{
+				if (curr != snappedCoordinates || showCoordinates)
+				{
+					plotFrame.plt.Add(curr);//Got axed when we cleared everything
+				}
 			}
 
 			plotFrame.Render();
@@ -403,10 +408,17 @@ namespace Where1.WPlot
 				snappedCoordinates.label = coordinateAnnotation;
 				snappedCoordinates.visible = true;
 			}
-			else {
+			else
+			{
 				highlightPoint.visible = false;
 				snappedCoordinates.visible = false;
 			}
+		}
+
+		private void ToggleShowCoordinates_Click(object sender, RoutedEventArgs e)
+		{
+			this.showCoordinates = !this.showCoordinates;
+			RenderPlot();
 		}
 	}
 }
