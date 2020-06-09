@@ -23,27 +23,24 @@ namespace Where1.WPlot
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		PlottableScatter highlightPoint;
 		PlottableAnnotation snappedCoordinates;
 		private List<Plottable> rawPlottables = new List<Plottable>();
 
 		public MainWindow()
 		{
 			InitializeComponent();
-			highlightPoint = plotFrame.plt.PlotScatter(new double[] { 0 }, new double[] { 0 }, markerSize: 10, color: System.Drawing.Color.Red);
 			snappedCoordinates = plotFrame.plt.PlotAnnotation("");
-			highlightPoint.visible = false;
 			snappedCoordinates.visible = false;
 
-			rawPlottables.Add(highlightPoint);
 			rawPlottables.Add(snappedCoordinates);
 		}
 
 		public void ClearPlot()
 		{
+			(App.Current as App).ClearSeries();
+			plotFrame.plt.Ticks(dateTimeX: false);
 			plotFrame.plt.Clear();
 			plotFrame.Render();
-			(App.Current as App).ClearSeries();
 		}
 
 		public System.Drawing.Color NextColour()
@@ -124,13 +121,13 @@ namespace Where1.WPlot
 
 						if (!curr.hasErrorData)
 						{
-							plotFrame.plt.PlotScatter(xsScatter, ysScatter, curr.drawSettings.colour, curr.drawSettings.drawLine ? 1 : 0, label: curr.drawSettings.label, markerShape: curr.drawSettings.markerShape);
+							plotFrame.plt.PlotScatterHighlight(xsScatter, ysScatter, curr.drawSettings.colour, curr.drawSettings.drawLine ? 1 : 0, label: curr.drawSettings.label, markerShape: curr.drawSettings.markerShape, highlightedColor: curr.drawSettings.colour);
 						}
 						else
 						{
 							double[] errorX = ((double[][])curr.errorData)[0];
 							double[] errorY = ((double[][])curr.errorData)[1];
-							plotFrame.plt.PlotScatter(xsScatter, ysScatter, curr.drawSettings.colour, curr.drawSettings.drawLine ? 1 : 0, label: curr.drawSettings.label, markerShape: curr.drawSettings.markerShape, errorX: errorX, errorY: errorY);
+							plotFrame.plt.PlotScatterHighlight(xsScatter, ysScatter, curr.drawSettings.colour, curr.drawSettings.drawLine ? 1 : 0, label: curr.drawSettings.label, markerShape: curr.drawSettings.markerShape, errorX: errorX, errorY: errorY, highlightedColor: curr.drawSettings.colour);
 						}
 
 						if (curr.drawSettings.drawLinearRegression)
@@ -238,8 +235,6 @@ namespace Where1.WPlot
 			plotFrame.plt.Legend();
 
 			(double highlightX, double highlightY) = (plotFrame.plt.Axis()[0], plotFrame.plt.Axis()[3]);
-			highlightPoint.xs = new double[] { highlightX };
-			highlightPoint.ys = new double[] { highlightY };
 
 			foreach (var curr in rawPlottables)
 			{
@@ -254,12 +249,17 @@ namespace Where1.WPlot
 
 		public void SavePlot(string path)
 		{
-			bool wasVisible = highlightPoint.visible;
-			highlightPoint.visible = false;
+			foreach (var currPlottable in plotFrame.plt.GetPlottables())
+			{
+				if (currPlottable is ScottPlot.PlottableScatterHighlight scatter)
+				{
+					scatter.HighlightClear();
+				}
+			}
+			bool wasVisible = snappedCoordinates.visible;
 			snappedCoordinates.visible = false;
 			plotFrame.Render();
 			plotFrame.plt.SaveFig(path, false);
-			highlightPoint.visible = wasVisible;
 			snappedCoordinates.visible = wasVisible;
 		}
 
@@ -379,15 +379,29 @@ namespace Where1.WPlot
 			double? snappedX = null;
 			double? snappedY = null;
 			List<Plottable> list = plotFrame.plt.GetPlottables();
-			foreach (var currPlottable in list)
+			Settings settings = plotFrame.plt.GetSettings();
+
+			double minDistanceSquared = double.PositiveInfinity;
+			int minPlottableIndex = 0;
+			for (int i = 0; i< list.Count; i++)
 			{
-				if (currPlottable is ScottPlot.PlottableScatter scatter && currPlottable != highlightPoint)
+				if (list[i] is ScottPlot.PlottableScatterHighlight scatter)
 				{
-					int index;
-					(snappedX, index) = scatter.xs.Select((p, i) => (p, i)).OrderBy(p => Math.Abs(p.p - x)).First();
-					snappedY = scatter.ys[index];
+					scatter.HighlightClear();
+					int currIndex;
+					double currX, currY;
+					(currX, currY, currIndex) = scatter.GetPointNearest(x, y);
+					double distanceSquared = (currX - x) * (currX - x) + (currY - y) * (currY - y);
+					if (distanceSquared < minDistanceSquared) {
+						minDistanceSquared = distanceSquared;
+						minPlottableIndex = i;
+					}
 				}
 			}
+			if (minDistanceSquared != double.PositiveInfinity) {
+				(snappedX, snappedY, _) = ((PlottableScatterHighlight)list[minPlottableIndex]).HighlightPointNearest(x, y);
+			}
+
 			if (snappedX.HasValue)
 			{
 				string coordinateAnnotation = $"Closest Point: ({snappedX.Value:f3},{snappedY.Value:f3})";
@@ -400,25 +414,49 @@ namespace Where1.WPlot
 
 				}
 
-				highlightPoint.visible = true;
-				highlightPoint.xs = new double[] { snappedX.Value };
-				highlightPoint.ys = new double[] { snappedY.Value };
-				plotFrame.Render();
-
 				snappedCoordinates.label = coordinateAnnotation;
 				snappedCoordinates.visible = true;
 			}
 			else
 			{
-				highlightPoint.visible = false;
 				snappedCoordinates.visible = false;
 			}
+
+			plotFrame.Render();
 		}
 
 		private void ToggleShowCoordinates_Click(object sender, RoutedEventArgs e)
 		{
 			this.showCoordinates = !this.showCoordinates;
 			RenderPlot();
+		}
+
+		public void CopyToClipboard()
+		{
+			foreach (var currPlottable in plotFrame.plt.GetPlottables())
+			{
+				if (currPlottable is ScottPlot.PlottableScatterHighlight scatter)
+				{
+					scatter.HighlightClear();
+				}
+			}
+
+			plotFrame.Render();
+
+			using (System.IO.MemoryStream memory = new System.IO.MemoryStream())
+			{
+				memory.Position = 0;
+				System.Drawing.Bitmap bmp = plotFrame.plt.GetBitmap(false);
+				bmp.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);
+
+				BitmapImage bmpImage = new BitmapImage();
+				bmpImage.BeginInit();
+				bmpImage.StreamSource = memory;
+				bmpImage.EndInit();
+				bmpImage.Freeze();
+				Clipboard.SetImage(bmpImage);
+			}
+
 		}
 	}
 }

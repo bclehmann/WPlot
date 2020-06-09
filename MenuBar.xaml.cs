@@ -559,19 +559,7 @@ namespace Where1.WPlot
 
 		private void ClipboardCopy_Click(object sender, RoutedEventArgs e)
 		{
-			using (System.IO.MemoryStream memory = new System.IO.MemoryStream()) {
-				memory.Position = 0;
-				System.Drawing.Bitmap bmp = ((MainWindow)App.Current.MainWindow).plotFrame.plt.GetBitmap(false);
-				bmp.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);
-
-				BitmapImage bmpImage = new BitmapImage();
-				bmpImage.BeginInit();
-				bmpImage.StreamSource = memory;
-				bmpImage.EndInit();
-				bmpImage.Freeze();
-				Clipboard.SetImage(bmpImage);
-			}
-
+			((MainWindow)App.Current.MainWindow).CopyToClipboard();
 		}
 	}
 }
