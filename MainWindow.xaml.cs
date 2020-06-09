@@ -440,7 +440,8 @@ namespace Where1.WPlot
 					scatter.HighlightClear();
 				}
 			}
-
+			bool wasVisible = snappedCoordinates.visible;
+			snappedCoordinates.visible = false;
 			plotFrame.Render();
 
 			using (System.IO.MemoryStream memory = new System.IO.MemoryStream())
@@ -456,6 +457,8 @@ namespace Where1.WPlot
 				bmpImage.Freeze();
 				Clipboard.SetImage(bmpImage);
 			}
+			snappedCoordinates.visible = wasVisible;
+			plotFrame.Render();
 
 		}
 	}
