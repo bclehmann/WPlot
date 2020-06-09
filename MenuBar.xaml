@@ -43,6 +43,7 @@
 
 		<DockPanel Grid.Row="0" Grid.Column="1">
 			<Menu DockPanel.Dock="Top">
+				<MenuItem Header="Copy" Click="ClipboardCopy_Click"/>
 				<MenuItem Header="Save" Click="PlotSave_Click"/>
 			</Menu>
 		</DockPanel>
