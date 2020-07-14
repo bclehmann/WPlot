@@ -212,6 +212,10 @@ namespace Where1.WPlot
 
 		public PlotParameters AddSeriesFromCSVFile(string filePathInfo, DrawSettings drawSettings, Dictionary<string, object> metadata = null)
 		{
+			if (filePathInfo.Contains(','))
+			{
+				return AddSeriesFromCSVFile(filePathInfo.Split(','), drawSettings, metadata);
+			}
 			using (StreamReader file = new StreamReader(filePathInfo))
 			{
 				string raw = file.ReadToEnd();

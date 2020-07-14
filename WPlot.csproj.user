@@ -9,6 +9,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Dialogs\FilePickerDialog.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Dialogs\FrameSettingsDialog.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -29,6 +32,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Dialogs\FilePickerDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Dialogs\FrameSettingsDialog.xaml">
       <SubType>Designer</SubType>
     </Page>

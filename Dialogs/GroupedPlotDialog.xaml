@@ -32,7 +32,7 @@
 				<Label Grid.Row="0" Grid.Column="0">Group Names, Comma Separated:</Label>
 				<TextBox x:Name="groupNamesTextBox" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"></TextBox>
 
-				<Label Grid.Row="1" Grid.Column="0">Series Names, Comma Separated</Label>
+				<Label Grid.Row="1" Grid.Column="0">Series Names, Comma Separated:</Label>
 				<TextBox x:Name="seriesNamesTextBox" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"></TextBox>
 			</Grid>
 			<Button Name="okButton" Click="okButton_Click" VerticalAlignment="Bottom" Margin="5,10,0,0">OK</Button>

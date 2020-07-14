@@ -9,6 +9,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<None Remove="Dialogs\file_icon.png" />
 		<None Remove="logo_full_transparent.png" />
 	</ItemGroup>
 
@@ -18,6 +19,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Resource Include="Dialogs\file_icon.png" />
 		<Resource Include="logo_full_transparent.png" />
 	</ItemGroup>
 
