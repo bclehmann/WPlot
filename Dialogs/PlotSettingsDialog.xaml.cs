@@ -71,22 +71,14 @@ namespace Where1.WPlot
 
 		private void AddErrorCSVButton_Click(object sender, RoutedEventArgs e)
 		{
-			OpenFileDialog openFileDialog = new OpenFileDialog();
-			openFileDialog.Multiselect = type == PlotType.bar_grouped;
-			if (openFileDialog.ShowDialog() == true)
-			{
-				if (type != PlotType.bar_grouped)
-				{
-					errorDataCSV = openFileDialog.FileName;
-				}
-				else
-				{
-					errorDataCSV = String.Join(",", openFileDialog.FileNames);
-				}
+			FilePickerDialog filePickerDialog = new FilePickerDialog(type == PlotType.bar_grouped);
+			filePickerDialog.Owner = App.Current.MainWindow;
 
+			if (filePickerDialog.ShowDialog() == true)
+			{
+				errorDataCSV = filePickerDialog.filepath;
 				CSVFileTextBlock.Text = errorDataCSV;
 			}
-
 		}
 	}
 }

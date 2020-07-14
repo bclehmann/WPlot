@@ -311,27 +311,20 @@ namespace Where1.WPlot
 			}
 
 
-			OpenFileDialog openFileDialog = new OpenFileDialog();
-			openFileDialog.Multiselect = drawSettings.type == PlotType.bar_grouped;
+			FilePickerDialog filePickerDialog = new FilePickerDialog(drawSettings.type == PlotType.bar_grouped);
+			filePickerDialog.Owner = App.Current.MainWindow;
 
 			try
 			{
-				if (openFileDialog.ShowDialog() == true)
+				if (filePickerDialog.ShowDialog() == true)
 				{
 					PlotParameters plotParams = new PlotParameters();
-					if (drawSettings.type != PlotType.bar_grouped)
-					{
-						plotParams = (App.Current as App).AddSeriesFromCSVFile(openFileDialog.FileName, drawSettings, metadata);
-					}
-					else
-					{
-						plotParams = (App.Current as App).AddSeriesFromCSVFile(openFileDialog.FileNames, drawSettings, metadata);
-					}
+					plotParams = (App.Current as App).AddSeriesFromCSVFile(filePickerDialog.filepath, drawSettings, metadata);
 					if (settingsDialog.errorDataCSV != null)
 					{
 						((App)App.Current).AddErrorFromCSVFile(plotParams, settingsDialog.errorDataCSV);
 					}
-					statusMessage.Text = $"{openFileDialog.FileName} loaded";
+					statusMessage.Text = $"{filePickerDialog.filepath} loaded";
 				}
 			}
 			catch
