@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace Where1.WPlot
 {
@@ -390,12 +391,20 @@ namespace Where1.WPlot
 
 				double value = 0;
 
-				if (!double.TryParse(lineDialog.value.Text, out value))
+				DateTime date = new DateTime();
+				if (DateTime.TryParse(lineDialog.value.Text, out date))
+				{
+					plotParams.data = date.ToOADate();
+				}
+				else if (double.TryParse(lineDialog.value.Text, out value))
+				{
+					plotParams.data = value;
+				}
+				else
 				{
 					return;
 				}
 
-				plotParams.data = value;
 			}
 			else
 			{
@@ -410,12 +419,23 @@ namespace Where1.WPlot
 				double minValue = 0;
 				double maxValue = 0;
 
-				if (!double.TryParse(spanDialog.minValue.Text, out minValue))
+				DateTime dateMin = new DateTime();
+				DateTime dateMax = new DateTime();
+
+				if (DateTime.TryParse(spanDialog.minValue.Text, out dateMin))
+				{
+					minValue = dateMin.ToOADate();
+				}
+				else if (!double.TryParse(spanDialog.minValue.Text, out minValue))
 				{
 					return;
 				}
 
-				if (!double.TryParse(spanDialog.maxValue.Text, out maxValue))
+				if (DateTime.TryParse(spanDialog.maxValue.Text, out dateMax))
+				{
+					maxValue = dateMax.ToOADate();
+				}
+				else if (!double.TryParse(spanDialog.maxValue.Text, out maxValue))
 				{
 					return;
 				}
@@ -427,7 +447,8 @@ namespace Where1.WPlot
 			{
 				((App)App.Current).AddSeries(plotParams);
 			}
-			catch {
+			catch
+			{
 				ShowGenericPlotError();
 				return;
 			}
@@ -485,7 +506,8 @@ namespace Where1.WPlot
 				{
 					((App)App.Current).AddSeries(plotParams);
 				}
-				catch {
+				catch
+				{
 					ShowGenericPlotError();
 					return;
 				}
