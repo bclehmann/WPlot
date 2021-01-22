@@ -40,7 +40,7 @@ namespace Where1.WPlot
 
 		private void MoreInfoButton_Click(object sender, RoutedEventArgs e)
 		{
-			MessageBox.Show(App.Current.MainWindow, $"Details for nerds:\n{error}", errorType, MessageBoxButton.OK, MessageBoxImage.Error);
+			MessageBox.Show(App.Current.MainWindow, $"Details for nerds:\n\n{error}", errorType, MessageBoxButton.OK, MessageBoxImage.Information);
 		}
 	}
 }
