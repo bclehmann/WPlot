@@ -26,7 +26,12 @@ namespace Where1.WPlot
 
 		public static void ShowCouldNotParseNumberError(string parameterName, string value)
 		{
-			ShowSpecificPlotError("Parsing Error", null, false, $"{parameterName} had value {value} which could not be read as a number");
+			ShowSpecificPlotError("Parsing Error", null, false, $"\"{parameterName}\" had value \"{value}\" which could not be read as a number.");
+		}
+
+		public static void ShowCouldNotParseValueError(string parameterName, string value)
+		{
+			ShowSpecificPlotError("Parsing Error", null, false, $"\"{parameterName}\" had value \"{value}\" which was not valid.");
 		}
 
 	}

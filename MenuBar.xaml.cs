@@ -144,11 +144,13 @@ namespace Where1.WPlot
 
 				if (!double.TryParse(prefabSignalDialog.cycleCountTextBox.Text, out cycleCount))
 				{
+					DialogUtilities.ShowCouldNotParseNumberError("Cycle Count", prefabSignalDialog.cycleCountTextBox.Text);
 					return;
 				}
 
 				if (!double.TryParse(prefabSignalDialog.frequencyTextBox.Text, out frequency))
 				{
+					DialogUtilities.ShowCouldNotParseNumberError("Frequency", prefabSignalDialog.frequencyTextBox.Text);
 					return;
 				}
 
@@ -169,11 +171,19 @@ namespace Where1.WPlot
 					return;
 				}
 
-				double sampleRate = 100;
-				double.TryParse(dlg.frequency, out sampleRate);
+				double sampleRate;
+				if(!double.TryParse(dlg.frequency, out sampleRate))
+				{
+					DialogUtilities.ShowCouldNotParseNumberError("Sample Rate", dlg.frequency);
+					return;
+				}
 
-				double xOffset = 0;
-				double.TryParse(dlg.xOffsetTextBox.Text, out xOffset);
+				double xOffset;
+				if(!double.TryParse(dlg.xOffsetTextBox.Text, out xOffset))
+				{
+					DialogUtilities.ShowCouldNotParseNumberError("X-Offset", dlg.xOffsetTextBox.Text);
+					return;
+				}
 
 				metadata.Add("xOffset", xOffset);
 
@@ -273,11 +283,19 @@ namespace Where1.WPlot
 					return;
 				}
 
-				double sampleRate = 100;
-				double.TryParse(dlg.frequency, out sampleRate);
+				double sampleRate;
+				if(!double.TryParse(dlg.frequency, out sampleRate))
+				{
+					DialogUtilities.ShowCouldNotParseNumberError("Sample Rate", dlg.frequency);
+					return;
+				}
 
-				double xOffset = 0;
-				double.TryParse(dlg.xOffsetTextBox.Text, out xOffset);
+				double xOffset;
+				if(double.TryParse(dlg.xOffsetTextBox.Text, out xOffset))
+				{
+					DialogUtilities.ShowCouldNotParseNumberError("X-Offset", dlg.xOffsetTextBox.Text);
+					return;
+				}
 
 				metadata.Add("sampleRate", sampleRate);
 				metadata.Add("xOffset", xOffset);
@@ -384,6 +402,7 @@ namespace Where1.WPlot
 				}
 				else
 				{
+					DialogUtilities.ShowCouldNotParseValueError("Value", lineDialog.value.Text);
 					return;
 				}
 
@@ -410,6 +429,7 @@ namespace Where1.WPlot
 				}
 				else if (!double.TryParse(spanDialog.minValue.Text, out minValue))
 				{
+					DialogUtilities.ShowCouldNotParseValueError("Min Value", spanDialog.minValue.Text);
 					return;
 				}
 
@@ -419,6 +439,7 @@ namespace Where1.WPlot
 				}
 				else if (!double.TryParse(spanDialog.maxValue.Text, out maxValue))
 				{
+					DialogUtilities.ShowCouldNotParseValueError("Max Value", spanDialog.maxValue.Text);
 					return;
 				}
 
@@ -553,10 +574,26 @@ namespace Where1.WPlot
 
 			MainWindow mainWindow = (MainWindow)App.Current.MainWindow;
 			double xMin, xMax, yMin, yMax;
-			double.TryParse(dlg.xMin.Text, out xMin);
-			double.TryParse(dlg.xMax.Text, out xMax);
-			double.TryParse(dlg.yMin.Text, out yMin);
-			double.TryParse(dlg.yMax.Text, out yMax);
+			if(!double.TryParse(dlg.xMin.Text, out xMin))
+			{
+				DialogUtilities.ShowCouldNotParseNumberError("X Min", dlg.xMin.Text);
+				return;
+			}
+			if(!double.TryParse(dlg.xMax.Text, out xMax))
+			{
+				DialogUtilities.ShowCouldNotParseNumberError("X Max", dlg.xMax.Text);
+				return;
+			}
+			if(!double.TryParse(dlg.yMin.Text, out yMin))
+			{
+				DialogUtilities.ShowCouldNotParseNumberError("Y Min", dlg.yMin.Text);
+				return;
+			}
+			if(!double.TryParse(dlg.yMax.Text, out yMax))
+			{
+				DialogUtilities.ShowCouldNotParseNumberError("Y Max", dlg.yMax.Text);
+				return;
+			}
 
 			mainWindow.plotFrame.plt.Axis(xMin, xMax, yMin, yMax);
 			mainWindow.plotFrame.Render();
