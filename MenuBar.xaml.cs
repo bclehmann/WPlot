@@ -20,6 +20,13 @@ namespace Where1.WPlot
 			MessageBox.Show(App.Current.MainWindow, "Something went wrong. Your plot was not added. Make sure your data is of the right format for the settings you chose.", "Unknown Error", MessageBoxButton.OK, MessageBoxImage.Error);
 		}
 
+		private void ShowSpecificPloterror(string errorType, Exception error, string errorBlurb = "Something went wrong.")
+		{
+			var dlg = new SpecificErrorDialog(errorType, errorBlurb, error);
+			dlg.Owner = App.Current.MainWindow;
+			dlg.ShowDialog();
+		}
+
 		private DrawSettings FetchSettingsFromDialog(SettingsDialog settingsDialog, PlotType type)
 		{
 			DrawSettings drawSettings = new DrawSettings();
@@ -455,13 +462,14 @@ namespace Where1.WPlot
 			if (dlg.ShowDialog() == true)
 			{
 				string expression = dlg.expressionTextBox.Text;
-				Func<double, double> f_unsafe;
+				Func<double, double?> f_unsafe;
 				try
 				{
-					f_unsafe = await CSharpScript.EvaluateAsync<Func<double, double>>("x=>" + expression, ScriptOptions.Default.WithImports("System.Math"));
+					f_unsafe = await CSharpScript.EvaluateAsync<Func<double, double?>>("x=>" + expression, ScriptOptions.Default.WithImports("System.Math"));
 				}
 				catch (CompilationErrorException error)
 				{
+					ShowSpecificPloterror("Compilation Error", error, "Make sure your expression is valid C#. Note that ternary operators that may return null are not supported by C# in this context. Returning double.NaN will work fine.");
 					return;
 				}
 
@@ -470,8 +478,8 @@ namespace Where1.WPlot
 				{
 					try
 					{
-						double y = f_unsafe(x);
-						if (!double.IsFinite(y))
+						double? y = f_unsafe(x);
+						if (y.HasValue && !double.IsFinite(y.Value))
 						{// Make sure it ain't infinity, negative infinity, NaN, etc
 							return null;
 						}
