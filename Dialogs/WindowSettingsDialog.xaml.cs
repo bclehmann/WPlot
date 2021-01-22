@@ -12,26 +12,26 @@ using System.Windows.Shapes;
 
 namespace Where1.WPlot
 {
-	/// <summary>
-	/// Interaction logic for WindowSettingsDialog.xaml
-	/// </summary>
-	public partial class WindowSettingsDialog : Window
-	{
-		public WindowSettingsDialog()
-		{
-			InitializeComponent();
+    /// <summary>
+    /// Interaction logic for WindowSettingsDialog.xaml
+    /// </summary>
+    public partial class WindowSettingsDialog : Window
+    {
+        public WindowSettingsDialog()
+        {
+            InitializeComponent();
 
-			MainWindow mainWindow = (MainWindow)App.Current.MainWindow;
-			xMin.Text = $"{mainWindow.plotFrame.plt.GetSettings().axes.x.min:f9}";
-			xMax.Text = $"{mainWindow.plotFrame.plt.GetSettings().axes.x.max:f9}";
-			yMin.Text = $"{mainWindow.plotFrame.plt.GetSettings().axes.y.min:f9}";
-			yMax.Text = $"{mainWindow.plotFrame.plt.GetSettings().axes.y.max:f9}";
-		}
+            MainWindow mainWindow = (MainWindow)App.Current.MainWindow;
+            xMin.Text = $"{mainWindow.plotFrame.plt.GetSettings().axes.x.min:f9}";
+            xMax.Text = $"{mainWindow.plotFrame.plt.GetSettings().axes.x.max:f9}";
+            yMin.Text = $"{mainWindow.plotFrame.plt.GetSettings().axes.y.min:f9}";
+            yMax.Text = $"{mainWindow.plotFrame.plt.GetSettings().axes.y.max:f9}";
+        }
 
-		private void OKButton_Click(object sender, RoutedEventArgs e)
-		{
-			DialogResult = true;
-			this.Close();
-		}
-	}
+        private void OKButton_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
+            this.Close();
+        }
+    }
 }

@@ -14,71 +14,71 @@ using System.Windows.Shapes;
 
 namespace Where1.WPlot
 {
-	/// <summary>
-	/// Interaction logic for SettingsDialog.xaml
-	/// </summary>
-	public partial class SettingsDialog : Window
-	{
-		public System.Drawing.Color plotColour = ((MainWindow)App.Current.MainWindow).NextColour();
-		public string errorDataCSV;
-		PlotType type;
+    /// <summary>
+    /// Interaction logic for SettingsDialog.xaml
+    /// </summary>
+    public partial class SettingsDialog : Window
+    {
+        public System.Drawing.Color plotColour = ((MainWindow)App.Current.MainWindow).NextColour();
+        public string errorDataCSV;
+        PlotType type;
 
-		public SettingsDialog(PlotType plotType = PlotType.scatter)
-		{
-			InitializeComponent();
+        public SettingsDialog(PlotType plotType = PlotType.scatter)
+        {
+            InitializeComponent();
 
-			type = plotType;
+            type = plotType;
 
-			Resources["colour"] = ConvertFromSystemDrawingColor(plotColour);
-			colourTextBox.Text = plotColour.ToArgb().ToString("X");
-			Resources["scatterSettingsVisibility"] = plotType == PlotType.scatter ? Visibility.Visible : Visibility.Collapsed;
-			Resources["errorSettingsVisibility"] = plotType == PlotType.scatter || plotType == PlotType.bar || plotType == PlotType.bar_grouped ? Visibility.Visible : Visibility.Collapsed;
-			Resources["scatterBarSettingsVisibility"] = plotType == PlotType.scatter || plotType == PlotType.bar ? Visibility.Visible : Visibility.Collapsed;
-			Resources["histogramSettingsVisibility"] = plotType == PlotType.histogram ? Visibility.Visible : Visibility.Collapsed;
-			Resources["labelSettingsVisibility"] = plotType != PlotType.bar_grouped ? Visibility.Visible : Visibility.Collapsed;
-			Resources["colourSettingsVisibility"] = plotType != PlotType.bar_grouped ? Visibility.Visible : Visibility.Collapsed;
-			Resources["multiselectVisibility"] = plotType == PlotType.bar_grouped ? Visibility.Visible : Visibility.Collapsed;
-		}
+            Resources["colour"] = ConvertFromSystemDrawingColor(plotColour);
+            colourTextBox.Text = plotColour.ToArgb().ToString("X");
+            Resources["scatterSettingsVisibility"] = plotType == PlotType.scatter ? Visibility.Visible : Visibility.Collapsed;
+            Resources["errorSettingsVisibility"] = plotType == PlotType.scatter || plotType == PlotType.bar || plotType == PlotType.bar_grouped ? Visibility.Visible : Visibility.Collapsed;
+            Resources["scatterBarSettingsVisibility"] = plotType == PlotType.scatter || plotType == PlotType.bar ? Visibility.Visible : Visibility.Collapsed;
+            Resources["histogramSettingsVisibility"] = plotType == PlotType.histogram ? Visibility.Visible : Visibility.Collapsed;
+            Resources["labelSettingsVisibility"] = plotType != PlotType.bar_grouped ? Visibility.Visible : Visibility.Collapsed;
+            Resources["colourSettingsVisibility"] = plotType != PlotType.bar_grouped ? Visibility.Visible : Visibility.Collapsed;
+            Resources["multiselectVisibility"] = plotType == PlotType.bar_grouped ? Visibility.Visible : Visibility.Collapsed;
+        }
 
-		private void colourTextBox_TextChanged(object sender, TextChangedEventArgs e)
-		{
-			if (colourTextBox.Text.Length != 8)
-			{
-				return;
-			}
-			int colour = 0;
-			int.TryParse(colourTextBox.Text, System.Globalization.NumberStyles.HexNumber, null, out colour);
-			plotColour = System.Drawing.Color.FromArgb(colour);
+        private void colourTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (colourTextBox.Text.Length != 8)
+            {
+                return;
+            }
+            int colour = 0;
+            int.TryParse(colourTextBox.Text, System.Globalization.NumberStyles.HexNumber, null, out colour);
+            plotColour = System.Drawing.Color.FromArgb(colour);
 
-			Resources["colour"] = ConvertFromSystemDrawingColor(plotColour);
-		}
+            Resources["colour"] = ConvertFromSystemDrawingColor(plotColour);
+        }
 
-		private Color ConvertFromSystemDrawingColor(System.Drawing.Color drawingColour)
-		{
-			Color colour = new Color(); //ScottPlot uses System.Drawing.Color, which is different than what WPF uses :/
-			colour.R = drawingColour.R;
-			colour.G = drawingColour.G;
-			colour.B = drawingColour.B;
-			colour.A = drawingColour.A;
-			return colour;
-		}
+        private Color ConvertFromSystemDrawingColor(System.Drawing.Color drawingColour)
+        {
+            Color colour = new Color(); //ScottPlot uses System.Drawing.Color, which is different than what WPF uses :/
+            colour.R = drawingColour.R;
+            colour.G = drawingColour.G;
+            colour.B = drawingColour.B;
+            colour.A = drawingColour.A;
+            return colour;
+        }
 
-		private void OKButton_Click(object sender, RoutedEventArgs e)
-		{
-			DialogResult = true;
-			this.Close();
-		}
+        private void OKButton_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
+            this.Close();
+        }
 
-		private void AddErrorCSVButton_Click(object sender, RoutedEventArgs e)
-		{
-			FilePickerDialog filePickerDialog = new FilePickerDialog(type == PlotType.bar_grouped);
-			filePickerDialog.Owner = App.Current.MainWindow;
+        private void AddErrorCSVButton_Click(object sender, RoutedEventArgs e)
+        {
+            FilePickerDialog filePickerDialog = new FilePickerDialog(type == PlotType.bar_grouped);
+            filePickerDialog.Owner = App.Current.MainWindow;
 
-			if (filePickerDialog.ShowDialog() == true)
-			{
-				errorDataCSV = filePickerDialog.filepath;
-				CSVFileTextBlock.Text = errorDataCSV;
-			}
-		}
-	}
+            if (filePickerDialog.ShowDialog() == true)
+            {
+                errorDataCSV = filePickerDialog.filepath;
+                CSVFileTextBlock.Text = errorDataCSV;
+            }
+        }
+    }
 }

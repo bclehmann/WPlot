@@ -1,0 +1,22 @@
+﻿<Window x:Class="Where1.WPlot.SpecificErrorDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Where1.WPlot"
+        mc:Ignorable="d"
+		WindowStartupLocation="CenterOwner"
+        Title="Error" Height="250" Width="400"
+		SizeToContent="Height"
+		>
+	<Grid>
+		<StackPanel Margin="10,10,10,10">
+			<TextBlock FontSize="24" Name="ErrorTitle" />
+			<TextBlock Name="ErrorBlurb" TextWrapping="Wrap"/>
+			<DockPanel LastChildFill="False">
+				<Button Click="MoreInfoButton_Click" Margin="5,10,0,0" Name="MoreInfoButton">Tell Me More</Button>
+				<Button Click="OKButton_Click" Margin="5,10,0,0">OK</Button>
+			</DockPanel>
+		</StackPanel>
+	</Grid>
+</Window>
