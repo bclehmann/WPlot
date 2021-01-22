@@ -35,6 +35,17 @@ namespace Where1.WPlot
 			rawPlottables.Add(snappedCoordinates);
 		}
 
+		private void RenderFrame()
+		{
+			try
+			{
+				plotFrame.Render();
+			}catch(Exception e)
+			{
+				DialogUtilities.ShowSpecificPloterror("Rendering Error", e, true, "The plot could not be drawn. Make sure your plots are valid.");
+			}
+		}
+
 		public void ClearPlot()
 		{
 			(App.Current as App).ClearSeries();
@@ -244,7 +255,7 @@ namespace Where1.WPlot
 				}
 			}
 
-			plotFrame.Render();
+			RenderFrame();
 		}
 
 		public void SavePlot(string path)
@@ -258,7 +269,7 @@ namespace Where1.WPlot
 			}
 			bool wasVisible = snappedCoordinates.visible;
 			snappedCoordinates.visible = false;
-			plotFrame.Render();
+			RenderFrame();
 			plotFrame.plt.SaveFig(path, false);
 			snappedCoordinates.visible = wasVisible;
 		}
@@ -267,7 +278,7 @@ namespace Where1.WPlot
 		{
 			gridLines = !gridLines;
 			plotFrame.plt.Grid(gridLines);
-			plotFrame.Render();
+			RenderFrame();
 		}
 
 		private void FrameSettings_Click(object sender, RoutedEventArgs e)
@@ -290,7 +301,7 @@ namespace Where1.WPlot
 					plotFrame.plt.Frame(left: false, bottom: true, right: false, top: false);
 					break;
 			}
-			plotFrame.Render();
+			RenderFrame();
 		}
 
 		private void TickSettings_Click(object sender, RoutedEventArgs e)
@@ -310,8 +321,7 @@ namespace Where1.WPlot
 					plotFrame.plt.Ticks(true, false);
 					break;
 			}
-
-			plotFrame.Render();
+			RenderFrame();
 		}
 
 		private void ThemeSettings_Click(object sender, RoutedEventArgs e)
@@ -350,7 +360,7 @@ namespace Where1.WPlot
 					break;
 			}
 
-			plotFrame.Render();
+			RenderFrame();
 		}
 
 		private void WPlotLink_Click(object sender, RoutedEventArgs e)
@@ -422,7 +432,7 @@ namespace Where1.WPlot
 				snappedCoordinates.visible = false;
 			}
 
-			plotFrame.Render();
+			RenderFrame();
 		}
 
 		private void ToggleShowCoordinates_Click(object sender, RoutedEventArgs e)
@@ -442,7 +452,7 @@ namespace Where1.WPlot
 			}
 			bool wasVisible = snappedCoordinates.visible;
 			snappedCoordinates.visible = false;
-			plotFrame.Render();
+			RenderFrame();
 
 			using (System.IO.MemoryStream memory = new System.IO.MemoryStream())
 			{
@@ -458,8 +468,8 @@ namespace Where1.WPlot
 				Clipboard.SetImage(bmpImage);
 			}
 			snappedCoordinates.visible = wasVisible;
-			plotFrame.Render();
 
+			RenderFrame();
 		}
 	}
 }

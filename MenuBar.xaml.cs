@@ -15,18 +15,6 @@ namespace Where1.WPlot
 {
 	partial class MenuBar
 	{
-		private void ShowGenericPlotError()
-		{
-			MessageBox.Show(App.Current.MainWindow, "Something went wrong. Your plot was not added. Make sure your data is of the right format for the settings you chose.", "Unknown Error", MessageBoxButton.OK, MessageBoxImage.Error);
-		}
-
-		private void ShowSpecificPloterror(string errorType, Exception error, string errorBlurb = "Something went wrong.")
-		{
-			var dlg = new SpecificErrorDialog(errorType, errorBlurb, error);
-			dlg.Owner = App.Current.MainWindow;
-			dlg.ShowDialog();
-		}
-
 		private DrawSettings FetchSettingsFromDialog(SettingsDialog settingsDialog, PlotType type)
 		{
 			DrawSettings drawSettings = new DrawSettings();
@@ -231,7 +219,7 @@ namespace Where1.WPlot
 				}
 				catch
 				{
-					ShowGenericPlotError();
+					DialogUtilities.ShowGenericPlotError();
 					return;
 				}
 			}
@@ -336,7 +324,7 @@ namespace Where1.WPlot
 			}
 			catch
 			{
-				ShowGenericPlotError();
+				DialogUtilities.ShowGenericPlotError();
 				return;
 			}
 		}
@@ -449,7 +437,7 @@ namespace Where1.WPlot
 			}
 			catch
 			{
-				ShowGenericPlotError();
+				DialogUtilities.ShowGenericPlotError();
 				return;
 			}
 		}
@@ -469,7 +457,7 @@ namespace Where1.WPlot
 				}
 				catch (CompilationErrorException error)
 				{
-					ShowSpecificPloterror("Compilation Error", error, "Make sure your expression is valid C#. Note that ternary operators that may return null are not supported by C# in this context. Returning double.NaN will work fine.");
+					DialogUtilities.ShowSpecificPloterror("Compilation Error", error, false, "Make sure your expression is valid C#. Note that ternary operators that may return null are not supported by C# in this context. Returning double.NaN will work fine.");
 					return;
 				}
 
@@ -509,7 +497,7 @@ namespace Where1.WPlot
 				}
 				catch
 				{
-					ShowGenericPlotError();
+					DialogUtilities.ShowGenericPlotError();
 					return;
 				}
 
