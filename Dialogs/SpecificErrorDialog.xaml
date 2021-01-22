@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:Where1.WPlot"
         mc:Ignorable="d"
 		WindowStartupLocation="CenterOwner"
-        Title="Error" Height="250" Width="400">
+        Title="Error" Height="250" Width="400"
+		SizeToContent="Height"
+		>
 	<Grid>
 		<StackPanel Margin="10,10,10,10">
 			<TextBlock FontSize="24" Name="ErrorTitle" />
