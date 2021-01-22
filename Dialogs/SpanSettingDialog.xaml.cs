@@ -12,20 +12,20 @@ using System.Windows.Shapes;
 
 namespace Where1.WPlot
 {
-	/// <summary>
-	/// Interaction logic for SpanSettingsDialog.xaml
-	/// </summary>
-	public partial class SpanSettingsDialog : Window
-	{
-		public SpanSettingsDialog()
-		{
-			InitializeComponent();
-		}
+    /// <summary>
+    /// Interaction logic for SpanSettingsDialog.xaml
+    /// </summary>
+    public partial class SpanSettingsDialog : Window
+    {
+        public SpanSettingsDialog()
+        {
+            InitializeComponent();
+        }
 
-		private void OKButton_Click(object sender, RoutedEventArgs e)
-		{
-			DialogResult = true;
-			this.Close();
-		}
-	}
+        private void OKButton_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
+            this.Close();
+        }
+    }
 }

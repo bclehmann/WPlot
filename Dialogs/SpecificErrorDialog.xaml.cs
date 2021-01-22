@@ -12,40 +12,40 @@ using System.Windows.Shapes;
 
 namespace Where1.WPlot
 {
-	/// <summary>
-	/// Interaction logic for SpecificErrorDialog.xaml
-	/// </summary>
-	public partial class SpecificErrorDialog : Window
-	{
-		private string errorType;
-		private string errorBlurb;
-		private Exception error;
-		public SpecificErrorDialog(string errorType, string errorBlurb, Exception error)
-		{
-			InitializeComponent();
+    /// <summary>
+    /// Interaction logic for SpecificErrorDialog.xaml
+    /// </summary>
+    public partial class SpecificErrorDialog : Window
+    {
+        private string errorType;
+        private string errorBlurb;
+        private Exception error;
+        public SpecificErrorDialog(string errorType, string errorBlurb, Exception error)
+        {
+            InitializeComponent();
 
-			this.errorType = errorType;
-			this.errorBlurb = errorBlurb;
-			this.error = error;
+            this.errorType = errorType;
+            this.errorBlurb = errorBlurb;
+            this.error = error;
 
-			ErrorTitle.Text = errorType;
-			ErrorBlurb.Text = errorBlurb;
+            ErrorTitle.Text = errorType;
+            ErrorBlurb.Text = errorBlurb;
 
-			if(error == null)
-			{
-				MoreInfoButton.Visibility = Visibility.Collapsed;
-			}
-		}
+            if (error == null)
+            {
+                MoreInfoButton.Visibility = Visibility.Collapsed;
+            }
+        }
 
-		private void OKButton_Click(object sender, RoutedEventArgs e)
-		{
-			DialogResult = true;
-			this.Close();
-		}
+        private void OKButton_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
+            this.Close();
+        }
 
-		private void MoreInfoButton_Click(object sender, RoutedEventArgs e)
-		{
-			MessageBox.Show(App.Current.MainWindow, $"Details for nerds:\n\n{error}", errorType, MessageBoxButton.OK, MessageBoxImage.Information);
-		}
-	}
+        private void MoreInfoButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(App.Current.MainWindow, $"Details for nerds:\n\n{error}", errorType, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+    }
 }

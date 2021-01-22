@@ -12,19 +12,20 @@ using System.Windows.Shapes;
 
 namespace Where1.WPlot
 {
-	/// <summary>
-	/// Interaction logic for FrameSettingsDialog.xaml
-	/// </summary>
-	public partial class FrameSettingsDialog : Window
-	{
-		public FrameSettingsDialog()
-		{
-			InitializeComponent();
-		}
+    /// <summary>
+    /// Interaction logic for FrameSettingsDialog.xaml
+    /// </summary>
+    public partial class FrameSettingsDialog : Window
+    {
+        public FrameSettingsDialog()
+        {
+            InitializeComponent();
+        }
 
-		private void OKButton_Click(object sender, RoutedEventArgs e) {
-			DialogResult = true;
-			this.Close();
-		}
-	}
+        private void OKButton_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
+            this.Close();
+        }
+    }
 }

@@ -13,18 +13,19 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Where1.WPlot 
+namespace Where1.WPlot
 {
     public partial class SignalFrequencyDialog : Window
     {
-        public SignalFrequencyDialog(bool isPrefab=false)
+        public SignalFrequencyDialog(bool isPrefab = false)
         {
             InitializeComponent();
 
             Resources["sampleRateVisibility"] = isPrefab ? Visibility.Collapsed : Visibility.Visible;
         }
 
-        public void okButton_Click(object sender, RoutedEventArgs e) {
+        public void okButton_Click(object sender, RoutedEventArgs e)
+        {
             DialogResult = true;
             this.Close();
         }
