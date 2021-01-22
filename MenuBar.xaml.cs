@@ -21,8 +21,11 @@ namespace Where1.WPlot
 
 			if (settingsDialog.ShowDialog() != true)
 			{//it is nullable
-				throw new InvalidOperationException();
+				drawSettings.valid = false;
+				return drawSettings;
 			}
+
+			drawSettings.valid = true;
 
 			drawSettings.colour = settingsDialog.plotColour;
 			drawSettings.drawLine = settingsDialog.shouldDrawLine.IsChecked == true; //Because it is nullable
@@ -118,11 +121,8 @@ namespace Where1.WPlot
 
 			DrawSettings drawSettings;
 
-			try
-			{
-				drawSettings = FetchSettingsFromDialog(settingsDialog, type);
-			}
-			catch
+			drawSettings = FetchSettingsFromDialog(settingsDialog, type);
+			if (!drawSettings.valid)
 			{
 				return;
 			}
@@ -219,7 +219,7 @@ namespace Where1.WPlot
 				}
 				catch
 				{
-					DialogUtilities.ShowGenericPlotError();
+					DialogUtilities.ShowGenericPlotNotAddedError();
 					return;
 				}
 			}
@@ -256,11 +256,8 @@ namespace Where1.WPlot
 
 			DrawSettings drawSettings;
 
-			try
-			{
-				drawSettings = FetchSettingsFromDialog(settingsDialog, type);
-			}
-			catch
+			drawSettings = FetchSettingsFromDialog(settingsDialog, type);
+			if (!drawSettings.valid)
 			{
 				return;
 			}
@@ -324,7 +321,7 @@ namespace Where1.WPlot
 			}
 			catch
 			{
-				DialogUtilities.ShowGenericPlotError();
+				DialogUtilities.ShowGenericPlotNotAddedError();
 				return;
 			}
 		}
@@ -355,11 +352,8 @@ namespace Where1.WPlot
 
 			DrawSettings drawSettings;
 
-			try
-			{
-				drawSettings = FetchSettingsFromDialog(settingsDialog, type);
-			}
-			catch
+			drawSettings = FetchSettingsFromDialog(settingsDialog, type);
+			if (!drawSettings.valid)
 			{
 				return;
 			}
@@ -437,7 +431,7 @@ namespace Where1.WPlot
 			}
 			catch
 			{
-				DialogUtilities.ShowGenericPlotError();
+				DialogUtilities.ShowGenericPlotNotAddedError();
 				return;
 			}
 		}
@@ -457,7 +451,7 @@ namespace Where1.WPlot
 				}
 				catch (CompilationErrorException error)
 				{
-					DialogUtilities.ShowSpecificPloterror("Compilation Error", error, false, "Make sure your expression is valid C#. Note that ternary operators that may return null are not supported by C# in this context. Returning double.NaN will work fine.");
+					DialogUtilities.ShowSpecificPlotError("Compilation Error", error, false, "Make sure your expression is valid C#. Note that ternary operators that may return null are not supported by C# in this context. Returning double.NaN will work fine.");
 					return;
 				}
 
@@ -497,7 +491,7 @@ namespace Where1.WPlot
 				}
 				catch
 				{
-					DialogUtilities.ShowGenericPlotError();
+					DialogUtilities.ShowGenericPlotNotAddedError();
 					return;
 				}
 

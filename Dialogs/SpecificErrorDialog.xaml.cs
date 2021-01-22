@@ -30,6 +30,11 @@ namespace Where1.WPlot
 
 			ErrorTitle.Text = errorType;
 			ErrorBlurb.Text = errorBlurb;
+
+			if(error == null)
+			{
+				MoreInfoButton.Visibility = Visibility.Collapsed;
+			}
 		}
 
 		private void OKButton_Click(object sender, RoutedEventArgs e)

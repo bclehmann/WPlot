@@ -14,7 +14,7 @@
 			<TextBlock FontSize="24" Name="ErrorTitle" />
 			<TextBlock Name="ErrorBlurb" TextWrapping="Wrap"/>
 			<DockPanel LastChildFill="False">
-				<Button Click="MoreInfoButton_Click" Margin="5,10,0,0">Tell Me More</Button>
+				<Button Click="MoreInfoButton_Click" Margin="5,10,0,0" Name="MoreInfoButton">Tell Me More</Button>
 				<Button Click="OKButton_Click" Margin="5,10,0,0">OK</Button>
 			</DockPanel>
 		</StackPanel>

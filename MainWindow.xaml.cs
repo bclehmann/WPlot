@@ -42,7 +42,7 @@ namespace Where1.WPlot
 				plotFrame.Render();
 			}catch(Exception e)
 			{
-				DialogUtilities.ShowSpecificPloterror("Rendering Error", e, true, "The plot could not be drawn. Make sure your plots are valid.");
+				DialogUtilities.ShowSpecificPlotError("Rendering Error", e, true, "The plot could not be drawn. Make sure your plots are valid.");
 			}
 		}
 

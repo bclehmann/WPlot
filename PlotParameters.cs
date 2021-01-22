@@ -26,6 +26,7 @@ namespace Where1.WPlot
 		public bool drawLinearRegression;
 		public bool polarCoordinates;
 		public bool dateXAxis;
+		public bool valid;
 	}
 
 	public enum PlotType
