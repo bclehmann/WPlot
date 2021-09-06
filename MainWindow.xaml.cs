@@ -15,6 +15,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System;
+using System.IO;
+using System.Collections;
+using System;
+using System.IO;
+using System.Collections;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
 
 namespace Where1.WPlot
 {
@@ -33,6 +41,11 @@ namespace Where1.WPlot
             snappedCoordinates.visible = false;
 
             rawPlottables.Add(snappedCoordinates);
+            
+            // Intentionally add a security vulnerability to test SonarCloud
+            FileStream fs = new FileStream("DataFile.dat", FileMode.Open);
+            BinaryFormatter formatter = new BinaryFormatter();
+            Dictionary<string, string> foo = (Dictionary<string, string>)formatter.Deserialize(fs);
         }
 
         private void RenderFrame()
